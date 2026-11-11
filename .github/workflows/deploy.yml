@@ -24,7 +24,7 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm test
-      - run: npx playwright install chromium webkit
+      - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:e2e
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - run: npx playwright install chromium webkit
+      - run: npx playwright install --with-deps chromium webkit
       - name: Play the deployed build with browser checks
         id: playerqa
         continue-on-error: true
