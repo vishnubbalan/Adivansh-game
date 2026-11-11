@@ -64,12 +64,12 @@ jobs:
               try {
                 const response = await fetch(url, { cache: 'no-store', redirect: 'follow' });
                 const html = await response.text();
-                const title = html.match(/<title[^>]*>(.*?)<\\/title>/i);
+                const title = html.match(/<title[^>]*>(.*?)<\/title>/i);
                 lastStatus = String(response.status);
                 lastTitle = title ? title[1].trim() : 'missing title';
 
                 const hasApp = /id=["']app["']/.test(html);
-                const hasGameEntry = /src=["'][^"']*assets\\/[^"']+\\.js["']/.test(html);
+                const hasGameEntry = /src=["'][^"']*assets\/[^"']+\.js["']/.test(html);
                 if (response.ok && /The Search for the Queen/i.test(lastTitle) && hasApp && hasGameEntry) {
                   console.log(`Pages is ready after ${attempt} attempt(s): HTTP ${lastStatus}, title="${lastTitle}"`);
                   return;
