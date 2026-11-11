@@ -38,6 +38,20 @@ startButton.addEventListener('click', () => {
 game.events.on('player:health', (health: number) => {
   document.querySelector('#health')!.textContent = String(health);
 });
+game.events.on('story:milestone', (milestone: { objective: string; narration: string }) => {
+  document.querySelector('#objective')!.textContent = milestone.objective;
+  const toast = document.querySelector<HTMLElement>('#toast')!;
+  toast.textContent = milestone.narration;
+  toast.classList.add('visible');
+  window.setTimeout(() => toast.classList.remove('visible'), 4200);
+});
+game.events.on('story:complete', (finale: { objective: string; narration: string }) => {
+  document.querySelector('#objective')!.textContent = finale.objective;
+  const toast = document.querySelector<HTMLElement>('#toast')!;
+  toast.textContent = finale.narration;
+  toast.classList.add('visible');
+  window.setTimeout(() => toast.classList.remove('visible'), 5200);
+});
 game.events.on('clue:collected', () => {
   document.querySelector('#clue-count')!.textContent = '1 / 1 CLUES';
   document.querySelector('#objective')!.textContent = 'A clue has revealed a path deeper into the forest';
