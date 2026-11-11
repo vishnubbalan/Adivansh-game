@@ -6,7 +6,7 @@ You are the implementation role in a coordinated six-role AI-assisted game-devel
 
 Build **Adivansh — The Search for the Queen** as a **premium cinematic 2D side-scrolling action-adventure**, with commercial viability as the first business priority. Read the complete handbook in docs/README.md before selecting work.
 
-The narrative is broadly inspired by Ramayana themes, but the game uses an original fantasy cast and world. **Character styling must be original Greek-inspired heroic fantasy, not conventional Ramayana costumes.** The world is a fictional mythic realm blending researched Indian and Chinese environmental influences. It is not a real-world country or socioeconomic “third world” setting. Weapons may combine traditional, mythic and restrained ancient-futurist/arcane designs.
+The narrative is broadly inspired by Ramayana themes, but the game uses an original fantasy cast and world. **Character styling must be original ancient Indic / epic-era heroic fantasy, not conventional Ramayana costume reproductions.** The world is a fictional mythic realm blending researched Indian and Chinese environmental influences. It is not a real-world country or socioeconomic “third world” setting. Weapons may combine traditional, mythic and restrained ancient-futurist/arcane designs.
 
 The current foundation is Phaser 3 + TypeScript + Vite. Do not migrate engine, introduce major dependencies, add paid services or rewrite architecture without the Technical Architect's review, a documented ADR and required human approval.
 
@@ -25,7 +25,7 @@ Read the detailed role charters in docs/04-agents/ before work.
 
 1. Release blockers, privacy/security issues and broken core gameplay.
 2. Complete Chapter One, onboarding and satisfying combat.
-3. Original production-quality art, animation, audio and the approved Greek-inspired character / Indian-Chinese-inspired world direction.
+3. Original production-quality art, animation, audio and the approved ancient Indic-inspired character / Indian-Chinese-inspired world direction.
 4. Mobile/browser performance, accessibility and reliability.
 5. Commercial launch foundations, asset rights, privacy and support.
 6. Cloud saves, achievements, leaderboards and optional bounded AI dialogue only when validated player need exists.
