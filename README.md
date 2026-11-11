@@ -39,6 +39,28 @@ npm run build
 
 The workflow runs on every push to `main`, can be started manually, and is scheduled for 06:00 IST daily. The schedule rebuilds and republishes the latest committed code; it does not autonomously create new game features.
 
+
+## Autonomous AI development pipeline
+
+The repository includes an OpenAI Codex-powered development cycle scheduled every three hours (UTC) in `.github/workflows/agent-cycle.yml`.
+
+- The agent reads the project roadmap and agent role documents, selects one bounded improvement, implements it, and adds tests.
+- It opens or updates a pull request rather than pushing directly to `main`.
+- Pull requests run `npm test`, Playwright E2E tests, and `npm run build` through the `CI / quality-gates` workflow.
+- The agent workflow requests GitHub auto-merge. GitHub merges only after required branch-protection checks pass.
+- A merge to `main` triggers the Pages deployment workflow and its deployed-site browser smoke tests.
+
+### One-time GitHub setup
+
+1. Add repository secret `OPENAI_API_KEY` under **Settings → Secrets and variables → Actions**. Use an OpenAI API key with API billing enabled; a ChatGPT subscription is not an API key.
+2. Under **Settings → General → Pull Requests**, enable **Allow auto-merge**.
+3. Under **Settings → Branches** (or repository rulesets), protect `main` and require the status check **CI / quality-gates** before merging. Do not allow bypass of this requirement for the automation bot.
+4. Ensure Actions are enabled and the repository's Pages source remains **GitHub Actions**.
+5. The workflow's `GITHUB_TOKEN` needs repository Actions permissions to create pull requests and enable auto-merge. If repository policy restricts this, adjust **Settings → Actions → General → Workflow permissions** to allow read/write access.
+6. Run **Actions → Adivansh autonomous agent cycle → Run workflow** once to verify the configuration.
+
+The first successful agent cycle is not proof of production quality. Automated browser tests are smoke/regression checks; real device testing and human playtesting remain necessary. The agent must not claim that generated placeholders are finished game art.
+
 ## Current prototype limitations
 
 - Character and environment art are procedural placeholders, not final production artwork.
