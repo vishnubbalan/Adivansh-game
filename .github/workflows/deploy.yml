@@ -47,6 +47,45 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npx playwright install --with-deps chromium webkit
+      - name: Wait for GitHub Pages to serve the deployed game
+        env:
+          PAGES_URL: https://vishnubbalan.github.io/Adivansh-game/
+        run: |
+          node <<'NODE'
+          async function main() {
+            const url = process.env.PAGES_URL;
+            const deadline = Date.now() + 120_000;
+            let attempt = 0;
+            let lastStatus = 'no response';
+            let lastTitle = 'unknown';
+
+            while (Date.now() < deadline) {
+              attempt += 1;
+              try {
+                const response = await fetch(url, { cache: 'no-store', redirect: 'follow' });
+                const html = await response.text();
+                const title = html.match(/<title[^>]*>(.*?)<\\/title>/i);
+                lastStatus = String(response.status);
+                lastTitle = title ? title[1].trim() : 'missing title';
+
+                const hasApp = /id=["']app["']/.test(html);
+                const hasGameEntry = /src=["'][^"']*assets\\/[^"']+\\.js["']/.test(html);
+                if (response.ok && /The Search for the Queen/i.test(lastTitle) && hasApp && hasGameEntry) {
+                  console.log(`Pages is ready after ${attempt} attempt(s): HTTP ${lastStatus}, title="${lastTitle}"`);
+                  return;
+                }
+                console.log(`Attempt ${attempt}: HTTP ${lastStatus}, title="${lastTitle}", app=${hasApp}, gameEntry=${hasGameEntry}`);
+              } catch (error) {
+                lastStatus = error.message;
+                console.log(`Attempt ${attempt}: request failed: ${lastStatus}`);
+              }
+              await new Promise(resolve => setTimeout(resolve, 10_000));
+            }
+
+            throw new Error(`GitHub Pages did not serve the expected game within 120 seconds. Last HTTP status: ${lastStatus}; last title: ${lastTitle}; URL: ${url}`);
+          }
+          main().catch(error => { console.error(error); process.exit(1); });
+          NODE
       - name: Play the deployed build with browser checks
         id: playerqa
         continue-on-error: true
