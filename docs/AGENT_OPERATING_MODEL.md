@@ -1,79 +1,30 @@
 # Adivansh Agent Operating Model
 
-## Approved product direction
+The authoritative, structured role charters and handoffs now live in [docs/README.md](README.md), especially [Agent Team](04-agents/AGENT_TEAM.md), [Technical Architect](04-agents/TECHNICAL_ARCHITECT_AGENT.md) and [Agent Workflow](04-agents/AGENT_WORKFLOW.md).
 
-Adivansh targets **premium cinematic 2D**, with **commercial viability as the first priority**. The initial commercial milestone is a polished, complete and playtested Chapter One vertical slice. The detailed target stack and delivery strategy are in [Technology & Commercial Roadmap](TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md).
+## Six roles
+1. Gaming Innovation Director — evidence-backed game/player innovation.
+2. Product Analyst / BA — product vision, backlog, acceptance criteria and commercial prioritisation.
+3. Principal Game & AI Technical Architect — technical strategy, technology radar, architecture reviews, ADRs, performance budgets and innovation spikes.
+4. Game Developer — implementation, asset integration and tests.
+5. QA / Player Agent — independent gameplay, browser, visual, accessibility and performance verification.
+6. Orchestration Agent — cycle coordination, PRs, quality gates, deployment and reporting.
 
-## Team roles
-
-| Role | Primary responsibility | Output |
-|---|---|---|
-| Gaming Innovation Director | Evidence-backed innovation in game feel, story, visuals, accessibility and player experience | Proposals with player value, evidence, cost and risk |
-| Product Analyst / BA | Own vision, backlog, scope, prioritisation, commercial assumptions and acceptance criteria | Approved stories and release scope |
-| Developer | Implement approved stories, maintain architecture and optimise assets/runtime | Code, integrated assets, tests and implementation notes |
-| QA / Player Agent | Validate functionality, gameplay, browser/device behaviour, accessibility, visual output and performance | Reproducible findings with screenshots/traces and test results |
-| Orchestration Agent | Coordinate scheduled cycles, PRs, quality gates, deployments and reporting | Traceable workflow and release status |
-
-These are role prompts coordinated by the repository automation. They are not five independent always-on workers unless a separate execution platform is configured.
+These are role prompts coordinated by repository automation, not six independent always-on workers.
 
 ## Innovation-to-release loop
-
-1. **Discover:** Innovation Director reviews player feedback and credible game/technology references; proposals state sources, player value, effort and risk.
-2. **Decide:** BA prioritises by player impact, commercial relevance, cultural fit, scope and dependencies.
-3. **Specify:** BA writes a bounded story with acceptance criteria, non-goals, accessibility and test requirements.
-4. **Build:** Developer implements one approved story and adds tests.
-5. **Verify:** QA runs unit tests, build checks, Chromium/WebKit E2E, visual checks and relevant device/performance checks.
-6. **Review:** Human owner reviews significant art, scope, licensing, privacy, monetization and release decisions.
-7. **Deploy:** CI/CD deploys only after required checks and merge policy pass.
-8. **Play:** Post-deployment QA tests the exact deployed version against acceptance criteria; automated smoke tests are not represented as a human playthrough.
-9. **Triage:** QA records reproducible issues with commit/version and evidence; BA decides priority.
-10. **Improve:** Developer fixes accepted defects; QA retests and the release pipeline repeats.
-
-## Commercial prioritisation
-
-Use this order when selecting work:
-1. Release blockers, privacy/security concerns and broken core gameplay.
-2. Chapter One completion, onboarding and combat feel.
-3. Original 2D art, animation, sound and visual identity.
-4. Mobile/browser performance, accessibility and reliability.
-5. Launch foundations: licensing, privacy notice, support, versioning and privacy-conscious analytics.
-6. Cloud saves, achievements, leaderboards and optional AI dialogue only when validated player demand supports them.
-7. Additional chapters and nonessential features.
-
-Every task records player value, commercial rationale (or none), effort/risk, dependencies, acceptance criteria and test strategy. Do not treat more technology or more frequent builds as business outcomes.
+Discover opportunity → BA prioritises and specifies → Architect reviews solution and risks → Developer implements one bounded task → QA verifies → Orchestration opens/updates PR → required checks and human review → merge/deploy → post-deployment verification → triage and next cycle.
 
 ## Defect lifecycle
+Detected → Reported → BA triage → Accepted / Duplicate / Not planned → Developer fix → Automated QA → Deployment → Player QA retest → Closed.
 
-`Detected → Reported → BA triage → Accepted / Duplicate / Not planned → Developer fix → Automated QA → Deployment → Player QA retest → Closed`
-
-- P0: release-blocking; stop release or roll back where possible.
-- P1: critical gameplay path broken; block release.
-- P2: normal defect; schedule according to player impact.
-- P3: minor polish issue; backlog unless it harms accessibility or comprehension.
+- P0: release-blocking security/privacy, data-loss or unusable-game issue.
+- P1: critical gameplay/progression or major browser/device failure; blocks release.
+- P2: material issue with workaround; fix or explicitly accept.
+- P3: minor polish issue; backlog unless accessibility/comprehension suffers.
 
 ## Definition of Done
-
-A story is done only when:
-- Its acceptance criteria and relevant core gameplay path are met.
-- Implementation and regression tests are committed.
-- Unit tests, production build and relevant E2E tests pass.
-- Reviewed visual output and accessibility checks pass for changed areas.
-- Performance is measured on representative devices when runtime/rendering changed.
-- No known P0/P1 defect remains open.
-- Asset, font, music and dependency licences are reviewed for commercial use.
-- Privacy/security implications are assessed for new external services.
-- The deployed version is identified by commit SHA.
-- Player QA records what was tested and what remains untested.
-- Any residual issues have a BA decision and backlog reference.
+Acceptance criteria met; implementation and regression tests committed; unit/build/relevant E2E pass; reviewed visual output and accessibility checks complete; representative performance evidence recorded when relevant; no open P0/P1; asset rights and privacy/security assessed; deployed version identified; player QA records tested and untested areas; residual risks accepted by BA/human owner.
 
 ## Operating principles
-
-- BA owns prioritisation and scope; innovation and QA advise with evidence.
-- Developer does not self-approve player-facing quality.
-- Automated tests, real-device checks and human playtesting are complementary.
-- Never infer successful deployment from a successful build.
-- Never report a test, research activity, screenshot, performance measurement or gameplay session that did not occur.
-- Use GitHub Issues as the defect and story handoff record where permissions allow.
-- Protect player privacy; collect only necessary analytics with appropriate transparency and consent.
-- Commercial readiness requires more than CI: human playtesting, release review, licensing, privacy/security and a viable distribution/monetization plan.
-undefined
+BA owns product priority; Technical Architect owns technical recommendations; Developer does not self-approve quality; automated tests and human playtesting are complementary; never infer deployment from build success; never report tests/research/screenshots/performance/playthroughs that did not occur; protect player privacy; commercial readiness requires human playtesting, licensing, privacy/security, distribution and release review.
