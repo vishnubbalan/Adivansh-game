@@ -42,7 +42,7 @@ The workflow runs on every push to `main`, can be started manually, and is sched
 
 ## Autonomous AI development pipeline
 
-The repository includes an OpenAI Codex-powered development cycle scheduled every three hours (UTC) in `.github/workflows/agent-cycle.yml`.
+The repository includes an OpenAI Codex-powered development cycle scheduled every eight hours (UTC) in `.github/workflows/agent-cycle.yml`.
 
 - The agent reads the project roadmap and agent role documents, selects one bounded improvement, implements it, and adds tests.
 - It opens or updates a pull request rather than pushing directly to `main`.
