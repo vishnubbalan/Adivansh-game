@@ -76,3 +76,4 @@ A story is done only when:
 - Use GitHub Issues as the defect and story handoff record where permissions allow.
 - Protect player privacy; collect only necessary analytics with appropriate transparency and consent.
 - Commercial readiness requires more than CI: human playtesting, release review, licensing, privacy/security and a viable distribution/monetization plan.
+undefined
