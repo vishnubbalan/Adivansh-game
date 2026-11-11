@@ -8,7 +8,7 @@ Audit code, workflows, dependencies and defects. Confirm browsers/devices, perfo
 **Exit:** baseline report, approved architecture and measurable QA plan.
 
 ## Milestone 1 — Premium Chapter One
-Integrate original Greek-inspired hero/enemy designs and Indian-Chinese-inspired forest/temple art. Complete controls, combat, boss, clue, objective flow and ending. Add animation, VFX, audio, pause/settings, checkpoints and responsive HUD.
+Integrate original ancient Indic / epic-era heroic character designs and Indian-Chinese-inspired forest/temple art. Complete controls, combat, boss, clue, objective flow and ending. Add animation, VFX, audio, pause/settings, checkpoints and responsive HUD.
 **Exit:** playable start-to-finish chapter, reviewed assets and no P0/P1 defects.
 
 ## Milestone 2 — Closed player validation
