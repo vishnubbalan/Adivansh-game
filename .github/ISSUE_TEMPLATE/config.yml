@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Adivansh production handbook
+    url: https://github.com/vishnubbalan/Adivansh-game/blob/main/docs/README.md
+    about: Read the product, story, architecture, quality and commercial guidelines before creating work.
