@@ -47,7 +47,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - run: npm install
       - run: npx playwright install chromium
       - name: Play the deployed build with browser checks
