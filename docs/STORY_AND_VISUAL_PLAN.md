@@ -66,7 +66,7 @@ Run `npm test`, `npm run test:e2e`, and `npm run build`. Manually verify keyboar
 
 ## Approved character and world art direction
 
-Characters must use original Greek-inspired heroic fantasy styling rather than conventional Ramayana character costumes. The environment is an original fictional mythic realm blending Indian and Chinese architectural, landscape and material influences. The story retains broad Ramayana-inspired themes, but is not a literal visual retelling. Weapon families may include traditional, mythic and restrained ancient-futurist designs. Refer to [Art Direction](02-world/ART_DIRECTION.md), [Story Bible](01-product/STORY_BIBLE.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
+Characters must use original ancient Indic / epic-era heroic fantasy styling rather than conventional Ramayana character costumes. The environment is an original fictional mythic realm blending Indian and Chinese architectural, landscape and material influences. The story retains broad Ramayana-inspired themes, but is not a literal visual retelling. Weapon families may include traditional, mythic and restrained ancient-futurist designs. Refer to [Art Direction](02-world/ART_DIRECTION.md), [Story Bible](01-product/STORY_BIBLE.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
 
 ## Expanded agent team
 
