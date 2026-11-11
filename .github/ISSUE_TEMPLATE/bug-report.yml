@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible gameplay, browser, visual or technical defect
+title: "[BUG] "
+labels: ["type: bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Defect summary and expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options: ["S0 — Critical/blocker", "S1 — Major", "S2 — Moderate", "S3 — Minor"]
+    validations:
+      required: true
+  - type: dropdown
+    id: chapter
+    attributes:
+      label: Affected chapter / area
+      options: ["Chapter 1 — The Whispering Forest", "Chapter 2 — The Forgotten Temple", "Chapter 3 — The River of Ashes", "Chapter 4 — The Demon Citadel", "Chapter 5 — The Final Passage", "Menu / UI / Platform"]
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, OS, device and viewport
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshot, video, trace or logs
+    validations:
+      required: false

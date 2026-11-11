@@ -1,0 +1,36 @@
+name: Engineering task / spike
+description: Track technical, production, research or QA work
+title: "[TASK] "
+labels: ["type: task"]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Player or business rationale (or state no direct impact)
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and deliverables
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of done and evidence
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Work category
+      options: ["Engineering task", "Research spike", "QA / test", "Art / audio", "Production / release"]
+    validations:
+      required: true

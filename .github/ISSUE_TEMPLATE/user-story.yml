@@ -1,0 +1,50 @@
+name: User story
+description: Propose a player-facing capability
+title: "[STORY] "
+labels: ["type: story"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: User story
+      description: "As a player, I want [capability], so that [benefit]."
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Player value and context
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria (Given / When / Then)
+    validations:
+      required: true
+  - type: dropdown
+    id: chapter
+    attributes:
+      label: Chapter
+      options: ["Chapter 1 — The Whispering Forest", "Chapter 2 — The Forgotten Temple", "Chapter 3 — The River of Ashes", "Chapter 4 — The Demon Citadel", "Chapter 5 — The Final Passage", "Cross-chapter / Platform"]
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: ["P0 — Critical", "P1 — High", "P2 — Medium", "P3 — Low"]
+    validations:
+      required: true
+  - type: textarea
+    id: test
+    attributes:
+      label: Test and evidence plan
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and risks
+    validations:
+      required: false

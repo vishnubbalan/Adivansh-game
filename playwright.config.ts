@@ -12,7 +12,10 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure'
   },
-  projects: [\n    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },\n    { name: 'webkit', use: { ...devices['Desktop Safari'] } }\n  ],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } }
+  ],
   ...(deployedBaseURL ? {} : {
     webServer: {
       command: 'npm run dev -- --host 127.0.0.1 --port 4173',

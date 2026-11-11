@@ -1,17 +1,18 @@
 # Adivansh — Story & Visual Production Plan
 
-## Three-agent production loop
+## Approved product direction
 
-### Agent 1 — Product Analyst / Game Designer
-Owns narrative continuity, chapter objectives, character motivations, level beats, visual references, accessibility and acceptance criteria.
+Adivansh targets **premium cinematic 2D** with **commercial viability as the first priority**. Build one complete, polished and playtested Chapter One vertical slice before expanding the chapter count. See [Technology & Commercial Roadmap](TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md) for the target stack, product validation, release gates and phased delivery plan.
 
-### Agent 2 — Game Developer
-Owns Phaser 3 + TypeScript implementation, scene composition, animation state machines, camera, input, combat, progression and performance.
+## Production roles
 
-### Agent 3 — QA Engineer
-Owns unit tests for story data, Playwright browser tests, keyboard/touch parity, viewport coverage, collision and progression checks, regression reporting.
+- **Gaming Innovation Director:** propose evidence-backed game mechanics, visual/story innovations and player-experience improvements.
+- **Product Analyst / BA:** own narrative continuity, chapter objectives, player value, backlog, scope and testable acceptance criteria.
+- **Game Developer:** implement Phaser + TypeScript scenes, animation, camera, input, combat, progression, content loading and performance.
+- **QA / Player Agent:** verify unit, browser, gameplay, responsive, accessibility and visual regression criteria; report evidence-backed defects.
+- **Orchestration Agent:** coordinate scheduled cycles, pull requests, quality gates, deployment and status reporting.
 
-These are role-based passes coordinated in ChatGPT, not three independently running agents. A chapter is promoted only after design, implementation and QA review.
+These are role-based prompts coordinated by the repository automation; they are not five independent always-on workers.
 
 ## Narrative premise
 
@@ -25,14 +26,16 @@ The queen has been abducted by a force moving through the southern kingdoms. The
 4. **The Demon Citadel** — infiltrate the fortress, defeat elite guards, discover the queen's location.
 5. **The Final Passage** — confront the antagonist, rescue the queen and resolve the kingdom's fate.
 
-## Movie-like visual direction
+## Premium 2D visual direction
 
-- Compose each chapter in cinematic widescreen 16:9 with layered foreground, playable midground and distant matte-painting-style background.
-- Use deep teal shadows, forest greens, warm gold highlights and ember red for danger.
-- Use parallax layers, atmospheric fog, drifting leaves, fireflies, volumetric light shafts and restrained camera shake.
-- Characters need idle, run, jump, fall, attack, hit and defeat states. Single static vector figures are temporary placeholders.
-- Move towards authored sprite sheets and background plates as the art pipeline matures.
-- Maintain readable silhouettes and contrast on laptop and mobile displays.
+- Use authored, cohesive 16:9 background plates with layered foreground, playable midground and distant painted environments.
+- Establish an art bible for character silhouettes, proportions, palette, materials, lighting, UI and VFX before producing large asset batches.
+- Use deep teal shadows, forest greens, warm gold highlights and ember red for danger, while maintaining readable contrast.
+- Use parallax, atmospheric fog, drifting leaves, fireflies, light shafts, water effects and restrained camera shake where they support the scene.
+- Characters need idle, run, jump, fall, attack, hit, defeat and ability states with consistent animation timing.
+- Prefer reviewed original sprite sheets and authored background plates. AI-generated concept art is reference material until it is cleaned, approved, integrated and checked for commercial-use rights.
+- Optimise atlas size, image resolution, loading and memory for mobile devices. Do not sacrifice responsiveness for decorative effects.
+- Avoid representing Phaser primitive drawings as finished production art.
 
 ## Chapter One acceptance criteria
 
@@ -43,7 +46,28 @@ The queen has been abducted by a force moving through the southern kingdoms. The
 - Collecting the clue completes Chapter One and announces the Forgotten Temple.
 - Canvas remains visible within common desktop and mobile viewport sizes.
 - Keyboard and touch controls provide equivalent core actions.
+- Player receives clear feedback for damage, attack range, objective changes, checkpoint/restart and chapter completion.
+- The chapter can be completed from start to finish without developer tools or hidden commands.
+
+## Commercial vertical-slice gate
+
+Before describing Chapter One as launch-ready, require:
+- Human playtest evidence covering onboarding, controls, combat clarity, difficulty and completion.
+- Reviewed final art/audio assets with commercial-use rights documented.
+- Responsive checks on representative desktop and mobile devices, including real iOS Safari.
+- Performance and memory measurements on agreed target devices.
+- Accessibility checks for contrast, text, control size, pause and audio settings.
+- No open P0/P1 defects and a reproducible release build.
 
 ## QA gate
 
-Run `npm test`, `npm run test:e2e`, and `npm run build`. Manually verify keyboard and touch controls, screen resize, horizontal camera travel, combat direction/range, clue proximity, milestone ordering and chapter completion. Report unverified checks as pending, not passed.
+Run `npm test`, `npm run test:e2e`, and `npm run build`. Manually verify keyboard and touch controls, screen resize, horizontal camera travel, combat direction/range, clue proximity, milestone ordering and chapter completion. Capture reviewed visual baselines for changed scenes. Report unverified checks as pending, not passed. A passing screenshot comparison does not by itself approve artistic quality.
+
+
+## Approved character and world art direction
+
+Characters must use original ancient Indic / epic-era heroic fantasy styling rather than conventional Ramayana character costumes. The environment is an original fictional mythic realm blending Indian and Chinese architectural, landscape and material influences. The story retains broad Ramayana-inspired themes, but is not a literal visual retelling. Weapon families may include traditional, mythic and restrained ancient-futurist designs. Refer to [Art Direction](02-world/ART_DIRECTION.md), [Story Bible](01-product/STORY_BIBLE.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
+
+## Expanded agent team
+
+The production team now has six roles: Gaming Innovation Director, Product Analyst/BA, Principal Game & AI Technical Architect, Developer, QA/Player and Orchestration. The Technical Architect evaluates technology, reviews architecture, defines measurable budgets and records decisions. See [Agent Team](04-agents/AGENT_TEAM.md).
