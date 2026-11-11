@@ -14,15 +14,36 @@ test('game controls are visible, accessible and large enough for touch', async (
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.getByRole('button', { name: /begin the journey/i }).click();
+
   const controls = page.locator('#touch-controls button');
   await expect(controls).toHaveCount(5);
-  for (const control of await controls.all()) {
-    await expect(control).toBeVisible();
-    const box = await control.boundingBox();
-    expect(box).not.toBeNull();
-    expect(box!.width).toBeGreaterThanOrEqual(44);
-    expect(box!.height).toBeGreaterThanOrEqual(44);
-    await expect(control).toHaveAttribute('type', 'button');
+  await expect(page.locator('#touch-controls')).toBeVisible();
+
+  // Read all five controls in one browser round-trip. Repeated per-locator
+  // visibility and boundingBox calls were timing out intermittently in the
+  // Chromium CI runner while Phaser was rendering the scene.
+  const measurements = await controls.evaluateAll(buttons =>
+    buttons.map(button => {
+      const rect = button.getBoundingClientRect();
+      const style = window.getComputedStyle(button);
+      return {
+        label: button.getAttribute('aria-label'),
+        visible: rect.width > 0 && rect.height > 0 &&
+          style.display !== 'none' && style.visibility !== 'hidden' &&
+          button.getClientRects().length > 0,
+        width: rect.width,
+        height: rect.height,
+        type: button.getAttribute('type')
+      };
+    })
+  );
+
+  expect(measurements).toHaveLength(5);
+  for (const control of measurements) {
+    expect(control.visible, `${control.label} should be visible`).toBeTruthy();
+    expect(control.width, `${control.label} width`).toBeGreaterThanOrEqual(44);
+    expect(control.height, `${control.label} height`).toBeGreaterThanOrEqual(44);
+    expect(control.type, `${control.label} type`).toBe('button');
   }
 });
 
