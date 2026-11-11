@@ -12,7 +12,7 @@ AI output may be used for ideation. Before shipping, review quality and artefact
 Review licences for fonts, sound, music, plugins, libraries, textures and marketplace assets. Keep required notices/attribution. Unknown-rights assets must not ship.
 
 ## Cultural care
-Research Indian, Chinese and Greek-inspired references thoughtfully. Avoid sacred symbols or religious figures as generic enemy decoration. Maintain fictional coherence and seek informed review for sensitive references.
+Research ancient Indic, Indian and Chinese visual references thoughtfully. Avoid sacred symbols or religious figures as generic enemy decoration. Maintain fictional coherence and seek informed review for sensitive references.
 
 ## Release gate
 No asset with unknown provenance or incompatible licence may enter a commercial release build. Record approved, pending and rejected status.
