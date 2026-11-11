@@ -49,7 +49,7 @@ The deployment workflow runs on pushes to `main` and can be started manually. Th
 
 The repository includes an OpenAI Codex-powered development cycle in `.github/workflows/agent-cycle.yml`.
 
-- Five role prompts coordinate innovation, product analysis, implementation, QA and orchestration.
+- Six role prompts coordinate innovation, product analysis, technical architecture, implementation, QA and orchestration.
 - Each cycle selects one bounded, independently testable improvement aligned with the approved product roadmap.
 - Changes are proposed through a pull request, not pushed directly to `main`.
 - Pull requests run the configured unit, browser E2E and build checks.
@@ -78,3 +78,10 @@ Do not enable unattended merging until the first complete cycle, pull request, r
 ## Delivery principle
 
 Prioritise a complete, polished and playtested Chapter One vertical slice before expanding to five chapters, multiplayer or expensive online services. Review the technology roadmap for measurable performance, quality, licensing, privacy and commercial gates.
+
+
+## Full project documentation
+
+The structured handbook is in [docs/README.md](docs/README.md). It covers game vision, story, world/art direction, weapons, technical architecture, architecture decisions, all six AI agent roles, workflow, production roadmap, quality strategy, commercial strategy and asset licensing.
+
+**Approved art direction:** original Greek-inspired heroic fantasy character styling in a fictional mythic world blending Indian and Chinese environmental influences. The story remains Ramayana-inspired in broad themes, but character costumes should not be conventional Ramayana depictions.
