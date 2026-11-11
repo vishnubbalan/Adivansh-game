@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies and browser
         run: |
           npm install
-          npx playwright install chromium
+          npx playwright install chromium webkit
 
       - name: Run the Adivansh agent team
         id: codex
