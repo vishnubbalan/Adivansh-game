@@ -18,7 +18,7 @@ const game = new Phaser.Game({
   },
   physics: {
     default: 'arcade',
-    arcade: { gravity: { y: 1100 }, debug: false }
+    arcade: { gravity: { x: 0, y: 1100 }, debug: false }
   },
   scene: [ForestScene]
 });
