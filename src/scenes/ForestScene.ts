@@ -77,6 +77,7 @@ export class ForestScene extends Phaser.Scene {
     this.input.keyboard!.on('keydown-E', () => this.tryInteract());
     this.input.keyboard!.on('keydown-J', () => this.attack());
     this.addDecorations();
+    this.createShrine();
     this.addAmbientEffects();
   }
 
@@ -194,6 +195,61 @@ export class ForestScene extends Phaser.Scene {
     }
   }
 
+
+  private createShrine() {
+    // A bespoke landmark gives the clue a readable destination in the landscape.
+    const shrine = this.add.container(2350, 622).setDepth(5);
+    const stone = this.add.graphics();
+    stone.fillStyle(0x1b2928, 0.98);
+    stone.fillPoints([
+      new Phaser.Geom.Point(-74, 0), new Phaser.Geom.Point(-68, -94),
+      new Phaser.Geom.Point(-44, -112), new Phaser.Geom.Point(44, -112),
+      new Phaser.Geom.Point(68, -94), new Phaser.Geom.Point(74, 0)
+    ], true);
+    stone.lineStyle(3, 0x9a8054, 0.85);
+    stone.strokePoints([
+      new Phaser.Geom.Point(-74, 0), new Phaser.Geom.Point(-68, -94),
+      new Phaser.Geom.Point(-44, -112), new Phaser.Geom.Point(44, -112),
+      new Phaser.Geom.Point(68, -94), new Phaser.Geom.Point(74, 0)
+    ], true);
+    stone.fillStyle(0x101b20, 1);
+    stone.fillRoundedRect(-23, -75, 46, 75, 20);
+    stone.lineStyle(2, 0xd5b36e, 0.6);
+    stone.strokeCircle(0, -75, 16);
+    stone.lineBetween(0, -91, 0, -58);
+    stone.lineBetween(-15, -75, 15, -75);
+    shrine.add(stone);
+
+    const vines = this.add.graphics();
+    vines.lineStyle(4, 0x31553a, 0.95);
+    vines.beginPath(); vines.moveTo(-63, -106); vines.lineTo(-45, -70); vines.lineTo(-54, -30); vines.strokePath();
+    vines.beginPath(); vines.moveTo(62, -100); vines.lineTo(43, -67); vines.lineTo(52, -24); vines.strokePath();
+    vines.fillStyle(0x63804b, 0.95);
+    vines.fillEllipse(-48, -65, 20, 9); vines.fillEllipse(48, -61, 20, 9);
+    shrine.add(vines);
+
+    const glow = this.add.circle(0, -76, 38, 0xf1c76d, 0.11).setDepth(6);
+    this.tweens.add({ targets: glow, alpha: { from: 0.05, to: 0.28 }, scale: { from: 0.8, to: 1.25 }, duration: 1700, yoyo: true, repeat: -1 });
+    const rune = this.add.text(0, -76, '✧', {
+      fontFamily: 'Georgia, serif', fontSize: '36px', color: '#ffe4a1',
+      stroke: '#795a31', strokeThickness: 3
+    }).setOrigin(0.5).setDepth(7);
+    this.tweens.add({ targets: rune, y: -86, alpha: { from: 0.72, to: 1 }, duration: 1250, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+
+    // Broken pillars and carved stones frame the ancient place.
+    const ruins = this.add.graphics().setDepth(4);
+    ruins.fillStyle(0x283632, 1);
+    ruins.fillRect(-112 + 2350, 584, 18, 64);
+    ruins.fillRect(2440, 600, 16, 48);
+    ruins.fillStyle(0x9b8156, 0.8);
+    ruins.fillRect(2228, 578, 48, 8);
+    ruins.fillRect(2422, 594, 40, 7);
+    ruins.fillStyle(0x1a302b, 1);
+    ruins.fillEllipse(2350, 650, 240, 18);
+    ruins.lineStyle(2, 0xd6b878, 0.45);
+    ruins.strokeEllipse(2350, 650, 240, 18);
+  }
+
   private addAmbientEffects() {
     this.add.particles(0,0,'spark',{
       x:{min:0,max:3840},y:{min:150,max:650},lifespan:5200,
@@ -231,6 +287,7 @@ export class ForestScene extends Phaser.Scene {
     const inRange=Phaser.Math.Distance.Between(this.player.x,this.player.y,this.demon.x,this.demon.y)<135;
     if(inRange && Math.sign(this.demon.x-this.player.x)===facing) {
       this.demonHealth--;
+      this.cameras.main.shake(110, 0.003);
       this.demon.setTint(0xff8a62); this.demon.setVelocityX(facing*320);
       this.time.delayedCall(220,()=>{if(this.demon.active)this.demon.clearTint();});
       this.game.events.emit('game:toast',`Blade hit! Demon strength: ${this.demonHealth}/3`);
@@ -247,6 +304,7 @@ export class ForestScene extends Phaser.Scene {
   private damagePlayer(time:number) {
     this.lastDamage=time; this.health=Math.max(0,this.health-1);
     this.game.events.emit('player:health',this.health);
+    this.cameras.main.shake(180, 0.006);
     this.player.setTint(0xff7777); this.time.delayedCall(350,()=>this.player.clearTint());
     this.player.setVelocityX(this.player.x<this.demon.x?-220:220);
     if(this.health===0) {
