@@ -9,7 +9,7 @@ Append material decisions here; do not silently rewrite history.
 **Status:** Accepted. Prioritise a complete, polished and playtested Chapter One before expanding scope or investing in large online systems.
 
 ## ADR-003 — Original cross-cultural fantasy art direction
-**Status:** Accepted. Greek-inspired original heroic character styling; Indian-Chinese-inspired environments in a fictional mythic realm. Broad Ramayana thematic inspiration, not conventional Ramayana character depiction. Maintain an art bible and review originality, cultural coherence and commercial rights.
+**Status:** Accepted. ancient Indic / epic-era inspired original heroic character styling; Indian-Chinese-inspired environments in a fictional mythic realm. Broad Ramayana thematic inspiration, not conventional Ramayana character depiction. Maintain an art bible and review originality, cultural coherence and commercial rights.
 
 ## ADR-004 — Deterministic gameplay AI
 **Status:** Accepted. Use finite-state machines initially, then Behaviour Trees/Utility AI where justified. No LLM for real-time combat or authoritative quest progression.
