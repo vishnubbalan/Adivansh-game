@@ -62,3 +62,12 @@ Before describing Chapter One as launch-ready, require:
 ## QA gate
 
 Run `npm test`, `npm run test:e2e`, and `npm run build`. Manually verify keyboard and touch controls, screen resize, horizontal camera travel, combat direction/range, clue proximity, milestone ordering and chapter completion. Capture reviewed visual baselines for changed scenes. Report unverified checks as pending, not passed. A passing screenshot comparison does not by itself approve artistic quality.
+
+
+## Approved character and world art direction
+
+Characters must use original Greek-inspired heroic fantasy styling rather than conventional Ramayana character costumes. The environment is an original fictional mythic realm blending Indian and Chinese architectural, landscape and material influences. The story retains broad Ramayana-inspired themes, but is not a literal visual retelling. Weapon families may include traditional, mythic and restrained ancient-futurist designs. Refer to [Art Direction](02-world/ART_DIRECTION.md), [Story Bible](01-product/STORY_BIBLE.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
+
+## Expanded agent team
+
+The production team now has six roles: Gaming Innovation Director, Product Analyst/BA, Principal Game & AI Technical Architect, Developer, QA/Player and Orchestration. The Technical Architect evaluates technology, reviews architecture, defines measurable budgets and records decisions. See [Agent Team](04-agents/AGENT_TEAM.md).
