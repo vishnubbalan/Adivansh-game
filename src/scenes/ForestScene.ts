@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { CHAPTER_ONE_FINALE, getMilestone } from '../story/chapterOne';
 
 type TouchKey = 'left' | 'right' | 'jump' | 'attack' | 'interact';
 
@@ -236,7 +237,9 @@ export class ForestScene extends Phaser.Scene {
       if(this.demonHealth<=0) {
         this.demonDefeated=true; this.demon.setVelocity(0,0);
         this.demon.disableBody(true,true);
-        this.game.events.emit('game:toast','The demon is defeated. The path is clear!');
+        const milestone = getMilestone('guardian-defeated');
+        this.game.events.emit('story:milestone', milestone);
+        this.game.events.emit('game:toast', milestone.toast);
       }
     } else this.game.events.emit('game:toast','Move closer and face the demon to strike.');
   }
@@ -256,7 +259,11 @@ export class ForestScene extends Phaser.Scene {
   private collectClue() {
     if(this.hasClue)return;
     this.hasClue=true; this.clue.destroy(); this.game.events.emit('clue:collected');
-    this.game.events.emit('game:toast','Clue found: a golden thread caught on the southern thorn trees.');
+    const milestone = getMilestone('golden-thread-found');
+    this.game.events.emit('story:milestone', milestone);
+    this.game.events.emit('story:complete', CHAPTER_ONE_FINALE);
+    this.game.events.emit('game:toast', milestone.toast);
+    this.time.delayedCall(2600, () => this.game.events.emit('game:toast', CHAPTER_ONE_FINALE.toast));
     this.statusText.setText('THE FIRST SIGN HAS BEEN FOUND').setAlpha(1);
     this.time.delayedCall(2200,()=>this.statusText.setAlpha(0));
   }
