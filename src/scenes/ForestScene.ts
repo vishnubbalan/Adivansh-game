@@ -26,9 +26,14 @@ export class ForestScene extends Phaser.Scene {
     this.drawBackdrop();
     this.platforms = this.physics.add.staticGroup();
     this.addPlatform(640, 684, 1280, 72);
+    this.addPlatform(1920, 684, 1280, 72);
+    this.addPlatform(3200, 684, 1280, 72);
     this.addPlatform(430, 545, 220, 24);
     this.addPlatform(875, 465, 190, 24);
     this.addPlatform(1130, 575, 210, 24);
+    this.addPlatform(1570, 545, 230, 24);
+    this.addPlatform(2070, 500, 240, 24);
+    this.addPlatform(2670, 565, 240, 24);
 
     this.player = this.physics.add.sprite(130, 560, 'hero');
     this.player.setCollideWorldBounds(true).setBounce(0.02).setSize(34, 68).setOffset(23, 31);
@@ -40,14 +45,14 @@ export class ForestScene extends Phaser.Scene {
     this.demon.setDepth(9);
     this.physics.add.collider(this.demon, this.platforms);
 
-    this.clue = this.physics.add.image(1090, 520, 'clue').setDepth(8);
+    this.clue = this.physics.add.image(2350, 610, 'clue').setDepth(8);
     this.clue.setImmovable(true);
     this.physics.add.overlap(this.player, this.clue, () => this.collectClue());
 
     this.cursors = this.input.keyboard!.createCursorKeys();
     this.keys = this.input.keyboard!.addKeys('A,D,W,SPACE,J,E') as Record<string, Phaser.Input.Keyboard.Key>;
-    this.physics.world.setBounds(0, 0, 1280, 720);
-    this.cameras.main.setBounds(0, 0, 1280, 720);
+    this.physics.world.setBounds(0, 0, 3840, 720);
+    this.cameras.main.setBounds(0, 0, 3840, 720);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
     this.cameras.main.setDeadzone(260, 130);
 
@@ -98,13 +103,13 @@ export class ForestScene extends Phaser.Scene {
     const sky = ['#142438', '#20394a', '#365447', '#8a704b'];
     for (let i = 0; i < 4; i++) {
       g.fillStyle(Phaser.Display.Color.HexStringToColor(sky[i]).color, 1);
-      g.fillRect(0, i * 180, 1280, 180);
+      g.fillRect(0, i * 180, 3840, 180);
     }
     // Distant ridges and layered jungle canopy.
     g.fillStyle(0x172b38, 0.9);
-    g.fillPoints([new Phaser.Geom.Point(0,390),new Phaser.Geom.Point(150,190),new Phaser.Geom.Point(310,390),new Phaser.Geom.Point(510,145),new Phaser.Geom.Point(760,390),new Phaser.Geom.Point(970,190),new Phaser.Geom.Point(1190,390),new Phaser.Geom.Point(1280,320),new Phaser.Geom.Point(1280,720),new Phaser.Geom.Point(0,720)], true);
+    g.fillPoints([new Phaser.Geom.Point(0,390),new Phaser.Geom.Point(150,190),new Phaser.Geom.Point(310,390),new Phaser.Geom.Point(510,145),new Phaser.Geom.Point(760,390),new Phaser.Geom.Point(970,190),new Phaser.Geom.Point(1190,390),new Phaser.Geom.Point(3840,320),new Phaser.Geom.Point(3840,720),new Phaser.Geom.Point(0,720)], true);
     g.fillStyle(0x1d3b32, 0.95);
-    for (let x=-60;x<1380;x+=112) {
+    for (let x=-60;x<3940;x+=112) {
       const y=330+Math.sin(x*0.02)*18;
       g.fillCircle(x,y,75); g.fillCircle(x-36,y+18,53); g.fillCircle(x+42,y+22,58);
     }
@@ -118,10 +123,10 @@ export class ForestScene extends Phaser.Scene {
     g.fillStyle(0x7cb8b1,0.2); g.fillRoundedRect(1165,300,48,330,20);
     g.fillStyle(0xb9ded0,0.35); g.fillRoundedRect(1177,300,8,330,4);
     g.fillStyle(0x8bb8a5,0.22); g.fillEllipse(1188,641,180,22);
-    g.fillStyle(0x284534,1); g.fillRect(0,620,1280,100);
+    g.fillStyle(0x284534,1); g.fillRect(0,620,3840,100);
     // Soft god rays.
     g.fillStyle(0xf3c77b,0.075);
-    for(let x=80;x<1280;x+=300) {
+    for(let x=80;x<3840;x+=300) {
       g.fillPoints([new Phaser.Geom.Point(x,0),new Phaser.Geom.Point(x+55,0),new Phaser.Geom.Point(x+220,625),new Phaser.Geom.Point(x+110,625)],true);
     }
     g.setDepth(-5);
@@ -176,13 +181,13 @@ export class ForestScene extends Phaser.Scene {
   }
 
   private addDecorations() {
-    for(let i=0;i<28;i++) {
+    for(let i=0;i<78;i++) {
       const x=25+i*48;
       this.add.ellipse(x,665+Math.sin(i)*8,25,7,i%2?0x6d7645:0x9b7948,0.65).setDepth(4);
     }
     // Hanging vines and foreground leaves.
     const leaves=this.add.graphics().setDepth(6);
-    for(let x=35;x<1280;x+=185) {
+    for(let x=35;x<3840;x+=185) {
       leaves.lineStyle(3,0x18362b,0.9); leaves.lineBetween(x,0,x+Math.sin(x)*12,100);
       leaves.fillStyle(0x31583b,0.9); leaves.fillEllipse(x+12,76,25,10);
     }
@@ -190,7 +195,7 @@ export class ForestScene extends Phaser.Scene {
 
   private addAmbientEffects() {
     this.add.particles(0,0,'spark',{
-      x:{min:0,max:1280},y:{min:150,max:650},lifespan:5200,
+      x:{min:0,max:3840},y:{min:150,max:650},lifespan:5200,
       speedY:{min:-18,max:-38},speedX:{min:-10,max:10},
       scale:{start:0.75,end:0},alpha:{start:0.65,end:0},
       frequency:190,quantity:1,blendMode:'ADD'
@@ -256,8 +261,8 @@ export class ForestScene extends Phaser.Scene {
     this.time.delayedCall(2200,()=>this.statusText.setAlpha(0));
   }
   private tryInteract() {
-    if(Phaser.Math.Distance.Between(this.player.x,this.player.y,this.clue.x,this.clue.y)<90)this.collectClue();
-    else this.game.events.emit('game:toast',this.hasClue?'The clue is recorded in your journal.':'Search the forest for something that does not belong.');
+    if(Math.abs(this.player.x-this.clue.x)<155 && Math.abs(this.player.y-this.clue.y)<190)this.collectClue();
+    else this.game.events.emit('game:toast',this.hasClue?'The clue is recorded in your journal.':'Keep moving right. Look for the glowing clue near the forest shrine.');
   }
   private respawn() {
     this.player.setPosition(130,560).setVelocity(0,0);
