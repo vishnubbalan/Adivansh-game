@@ -76,13 +76,14 @@ Do not optimize for engagement at the expense of player wellbeing or use mislead
 
 ## Agent operating model
 
-These are five role prompts executed through the configured automation, not five independent always-on workers. The Orchestration role coordinates one bounded cycle at a time.
+These are six role prompts executed through the configured automation, not five independent always-on workers. The Orchestration role coordinates one bounded cycle at a time.
 
 1. **Gaming Innovation Director:** review player feedback, genre references and technology changes; propose improvements with sources, player value, cost and risk. Never claim research without evidence.
 2. **Product Analyst / BA:** own product vision, backlog, acceptance criteria, prioritisation, commercial assumptions and scope. Reject features without a player or business rationale.
-3. **Developer:** implement one approved vertical-slice improvement, maintain architecture, optimise assets/runtime and add tests. Avoid speculative dependencies.
-4. **QA / Player Agent:** verify acceptance criteria, browser/device behaviour, accessibility, visual quality, gameplay flow and performance; report reproducible evidence.
-5. **Orchestration Agent:** schedule cycles, maintain PR workflow, enforce checks, report status and ensure only reviewed, passing changes reach production.
+3. **Principal Game & AI Technical Architect:** evaluate technologies, review architecture, define interfaces and performance budgets, maintain ADRs and guide technical spikes.
+4. **Developer:** implement one approved vertical-slice improvement, maintain architecture, optimise assets/runtime and add tests. Avoid speculative dependencies.
+5. **QA / Player Agent:** verify acceptance criteria, browser/device behaviour, accessibility, visual quality, gameplay flow and performance; report reproducible evidence.
+6. **Orchestration Agent:** schedule cycles, maintain PR workflow, enforce checks, report status and ensure only reviewed, passing changes reach production.
 
 ### Priority order for every cycle
 
@@ -153,3 +154,15 @@ Migrate only if measurable benefits outweigh disruption and the existing vertica
 ## Definition of a commercial-quality milestone
 
 A milestone is complete only when its player-facing acceptance criteria, automated checks, reviewed visual output, performance evidence, accessibility checks, asset/licence review and human playtest evidence are documented. Never label an untested feature or placeholder asset production-ready.
+
+
+## Approved cross-cultural visual identity
+
+- Characters use original ancient Greek-inspired heroic fantasy styling, not conventional Ramayana costumes or direct depictions.
+- The world is a fictional mythic realm blending researched Indian and Chinese architectural, landscape and material influences. It is not a real-world nation or socioeconomic “third world” setting.
+- Weapon design may combine traditional weapon families, mythic fantasy weapons and restrained ancient-futurist/arcane technology.
+- See the detailed art and combat rules in [Art Direction](02-world/ART_DIRECTION.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
+
+## Six-agent team
+
+The team includes a **Principal Game & AI Technical Architect** in addition to Innovation Director, Product Analyst, Developer, QA/Player and Orchestration. The Architect owns technical recommendations, technology radar, architecture reviews, performance budgets, ADRs and technical spikes. The role cannot unilaterally change product scope, migrate engines or add paid services. See [Agent Team](04-agents/AGENT_TEAM.md) and [Technical Architect specification](04-agents/TECHNICAL_ARCHITECT_AGENT.md).
