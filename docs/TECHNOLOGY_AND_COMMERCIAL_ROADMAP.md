@@ -158,10 +158,10 @@ A milestone is complete only when its player-facing acceptance criteria, automat
 
 ## Approved cross-cultural visual identity
 
-- Characters use original ancient Greek-inspired heroic fantasy styling, not conventional Ramayana costumes or direct depictions.
+- Characters use original ancient Indic / epic-era heroic fantasy styling, not conventional Ramayana costumes or direct depictions.
 - The world is a fictional mythic realm blending researched Indian and Chinese architectural, landscape and material influences. It is not a real-world nation or socioeconomic “third world” setting.
 - Weapon design may combine traditional weapon families, mythic fantasy weapons and restrained ancient-futurist/arcane technology.
-- See the detailed art and combat rules in [Art Direction](02-world/ART_DIRECTION.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
+- See [Art Direction](02-world/ART_DIRECTION.md), [Character Bible](02-world/CHARACTER_BIBLE.md), [Environment and VFX Bible](02-world/ENVIRONMENT_AND_VFX_BIBLE.md) and [Weapons & Combat](02-world/WEAPONS_AND_COMBAT.md).
 
 ## Six-agent team
 
