@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#101b2b" />
+    <meta name="description" content="A cinematic Ramayana-inspired side-scrolling adventure." />
+    <title>The Search for the Queen</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">✦</span><span>THE SEARCH FOR THE QUEEN</span></div>
+        <div class="chapter">CHAPTER I <span>·</span> THE WHISPERING FOREST</div>
+      </header>
+      <main class="game-shell">
+        <div class="game-frame">
+          <div id="game" aria-label="The Search for the Queen game"></div>
+          <div class="intro-overlay" id="intro">
+            <div class="intro-card">
+              <div class="eyebrow">AN EPIC ADVENTURE BEGINS</div>
+              <h1>The Search<br/><em>for the Queen</em></h1>
+              <p>The Queen has been taken beyond the forest. Follow the signs, face the unknown, and uncover the first clue.</p>
+              <button id="start-button">BEGIN THE JOURNEY <span>➜</span></button>
+              <small>MOVE: A / D or ← / → &nbsp; · &nbsp; JUMP: SPACE / ↑ &nbsp; · &nbsp; INTERACT: E</small>
+            </div>
+          </div>
+          <div class="hud" id="hud" hidden>
+            <div class="hud-pill"><span class="hud-icon">♥</span><span id="health">3</span></div>
+            <div class="hud-objective"><span class="hud-dot"></span><span id="objective">Find the trail through the forest</span></div>
+            <div class="hud-pill clue-pill"><span>✧</span><span id="clue-count">0 / 1 CLUES</span></div>
+          </div>
+          <div class="touch-controls" id="touch-controls" hidden>
+            <div class="touch-left">
+              <button data-key="left" aria-label="Move left">◀</button>
+              <button data-key="right" aria-label="Move right">▶</button>
+            </div>
+            <div class="touch-right">
+              <button data-key="attack" aria-label="Attack">⚔</button>
+              <button data-key="jump" aria-label="Jump">↑</button>
+              <button data-key="interact" aria-label="Interact">E</button>
+            </div>
+          </div>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        </div>
+        <footer class="game-footer">
+          <span>WANDER WITH COURAGE · SEEK WITH WISDOM</span>
+          <span id="build-version">PROTOTYPE 0.1.0</span>
+        </footer>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
