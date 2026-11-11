@@ -82,6 +82,6 @@ Prioritise a complete, polished and playtested Chapter One vertical slice before
 
 ## Full project documentation
 
-The structured handbook is in [docs/README.md](docs/README.md). It covers game vision, story, world/art direction, weapons, technical architecture, architecture decisions, all six AI agent roles, workflow, production roadmap, quality strategy, commercial strategy and asset licensing.
+The structured handbook is in [docs/README.md](docs/README.md). It includes product and gameplay specifications, chapter level design, story and character bibles, environment/VFX direction, combat, runtime architecture, asset pipeline, agent contracts, test plans, operations runbooks, market validation and asset rights.
 
-**Approved art direction:** original Greek-inspired heroic fantasy character styling in a fictional mythic world blending Indian and Chinese environmental influences. The story remains Ramayana-inspired in broad themes, but character costumes should not be conventional Ramayana depictions.
+**Approved art direction:** original ancient Indic / epic-era heroic fantasy character styling in a fictional mythic world blending Indian and Chinese environmental influences. The story draws on broad Ramayana themes without reproducing conventional Ramayana character depictions.
