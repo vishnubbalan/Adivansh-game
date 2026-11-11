@@ -66,10 +66,26 @@ game.events.on('game:toast', (message: string) => {
 document.querySelectorAll<HTMLButtonElement>('[data-key]').forEach(button => {
   const key = button.dataset.key!;
   const set = (pressed: boolean) => game.events.emit('touch:key', key, pressed);
-  button.addEventListener('pointerdown', event => { event.preventDefault(); set(true); });
-  ['pointerup', 'pointerleave', 'pointercancel'].forEach(name =>
-    button.addEventListener(name, () => set(false))
-  );
+  button.type = 'button';
+  button.addEventListener('contextmenu', event => event.preventDefault());
+  button.addEventListener('dragstart', event => event.preventDefault());
+  button.addEventListener('pointerdown', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    button.setPointerCapture?.(event.pointerId);
+    set(true);
+  });
+  const release = (event: Event) => {
+    event.preventDefault();
+    set(false);
+  };
+  button.addEventListener('pointerup', release);
+  button.addEventListener('pointercancel', release);
+  button.addEventListener('lostpointercapture', () => set(false));
+  button.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+  });
 });
 
 window.addEventListener('beforeunload', () => game.destroy(true));
