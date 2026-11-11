@@ -26,3 +26,14 @@ Build Adivansh — The Search for the Queen — into a polished, modern, cinemat
 - Do not deploy or push directly to main. The workflow will package your changes into a pull request; production deployment occurs only after the PR passes required checks and is merged.
 - If there is no safe, worthwhile implementation task, make no code changes and explain why in your final message.
 - At completion, provide a concise summary: chosen task, files changed, tests actually run and results, remaining risks, and whether a PR should be opened. Be honest; do not claim manual playtesting or production readiness without evidence.
+
+
+## Mandatory browser, input and visual regression requirements
+- Treat desktop Chrome, mobile Chrome/Chromium, and Safari/WebKit as supported targets.
+- Run Playwright Chromium and WebKit projects for every change affecting UI, controls, input, layout, canvas or gameplay. Install both browsers in CI.
+- Verify all on-screen controls are visible, have accessible names, have practical touch targets (minimum 44x44 CSS pixels), and respond to pointer/touch input.
+- Safari/iOS compatibility is a priority. Prevent text selection, callout/context menus, drag behaviour and accidental browser gestures on game controls. Use semantic type="button", touch-action:none, -webkit-user-select:none, -webkit-touch-callout:none, and carefully handled pointer/touch events. Do not suppress normal page gestures outside the controls.
+- Add tests for pointer down/up, pointer cancellation, touch input, control visibility and target dimensions. Add WebKit E2E coverage; browser automation cannot prove Siri/system UI behaviour, so report that limitation and require a real iPhone/iPad Safari check for that specific symptom.
+- Capture screenshots at desktop and mobile viewports. Compare against reviewed baselines; do not update baselines automatically just to make failures pass. Attach screenshots/traces on failure.
+- A visual test must check actual rendered game screenshots, not merely the existence of a canvas. Do not call visual quality approved just because screenshot tests pass.
+- Do not claim all-browser coverage if WebKit tests did not run.
