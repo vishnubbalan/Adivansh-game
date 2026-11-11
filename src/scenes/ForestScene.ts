@@ -60,7 +60,10 @@ export class ForestScene extends Phaser.Scene {
       this.game.events.emit('game:toast', 'The trail begins. Keep moving, and watch for danger.');
     });
     this.game.events.on('touch:key', (key: TouchKey, pressed: boolean) => {
-      if (pressed) this.touch.add(key); else this.touch.delete(key);
+      if (pressed) {
+        this.touch.add(key);
+        if (key === 'interact' && this.started) this.tryInteract();
+      } else this.touch.delete(key);
     });
     this.input.keyboard!.on('keydown-E', () => this.tryInteract());
     this.input.keyboard!.on('keydown-J', () => this.attack());
@@ -187,7 +190,18 @@ export class ForestScene extends Phaser.Scene {
     if (time - this.lastAttack < 500) return;
     this.lastAttack = time;
     const facing = this.player.flipX ? -1 : 1;
-    if (Phaser.Math.Distance.Between(this.player.x, this.player.y, this.demon.x, this.demon.y) < 105 &&
+    // Draw a visible blade sweep so the attack has immediate visual feedback.
+    const slash = this.add.graphics().setDepth(20);
+    slash.lineStyle(7, 0xffe2a0, 0.95);
+    slash.beginPath();
+    const start = facing === 1 ? Phaser.Math.DegToRad(-115) : Phaser.Math.DegToRad(65);
+    const end = facing === 1 ? Phaser.Math.DegToRad(65) : Phaser.Math.DegToRad(245);
+    slash.arc(this.player.x + facing * 18, this.player.y - 34, 48, start, end, false);
+    slash.strokePath();
+    slash.lineStyle(2, 0xffffff, 0.9);
+    slash.strokeCircle(this.player.x + facing * 18, this.player.y - 34, 48);
+    this.tweens.add({ targets: slash, alpha: 0, duration: 180, onComplete: () => slash.destroy() });
+    if (Phaser.Math.Distance.Between(this.player.x, this.player.y, this.demon.x, this.demon.y) < 125 &&
         Math.sign(this.demon.x - this.player.x) === facing) {
       this.demon.setTint(0xff8a62);
       this.demon.setVelocityX(facing * 300);
