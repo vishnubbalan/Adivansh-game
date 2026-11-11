@@ -5,7 +5,7 @@ This folder is the source of truth for Adivansh product vision, narrative, world
 ## Document map
 - [Game vision](01-product/GAME_VISION.md) — objective, genre, audience and player promise.
 - [Story bible](01-product/STORY_BIBLE.md) — premise, themes, cast and chapter arc.
-- [World and art direction](02-world/ART_DIRECTION.md) — Greek-inspired character styling and Indian-Chinese fantasy environments.
+- [World and art direction](02-world/ART_DIRECTION.md) — ancient Indic heroic character styling and Indian-Chinese fantasy environments.
 - [Weapons and combat](02-world/WEAPONS_AND_COMBAT.md) — traditional, mythic and arcane-technology weapon families.
 - [Technical architecture](03-architecture/TECHNICAL_ARCHITECTURE.md) — modules, data flow and technology choices.
 - [Architecture decisions](03-architecture/DECISIONS.md) — accepted technical/product architecture decisions.
@@ -21,7 +21,7 @@ This folder is the source of truth for Adivansh product vision, narrative, world
 - Premium cinematic 2D side-scrolling action-adventure.
 - Commercial viability is the first business priority.
 - Ramayana-inspired emotional themes, with an original fantasy story and cast.
-- Characters use original ancient Greek-inspired heroic fantasy styling, not conventional Ramayana costumes.
+- Characters use original ancient Indic / epic-era heroic fantasy styling, not conventional Ramayana costume reproductions or racial stereotypes.
 - The world is a fictional mythic realm blending Indian and Chinese architectural, landscape and material influences. This is not a real-world country or a socioeconomic use of “third world”.
 - Combat may combine traditional weapon families, mythic weapons and restrained ancient-futurist/arcane technology.
 - Current implementation remains Phaser 3 + TypeScript + Vite. Phaser 4 is an option to benchmark, not an approved migration.
