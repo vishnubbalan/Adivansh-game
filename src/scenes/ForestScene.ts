@@ -107,7 +107,7 @@ export class ForestScene extends Phaser.Scene {
       g.fillStyle(Phaser.Display.Color.HexStringToColor(sky[i]).color, 1);
       g.fillRect(0, i * 180, 3840, 180);
     }
-    // Distant ridges and layered jungle canopy.
+    // Moon glow and distant atmospheric silhouettes.\n    g.fillStyle(0xe7d4a4, 0.10); g.fillCircle(3260, 138, 104);\n    g.fillStyle(0xe8d6ad, 0.75); g.fillCircle(3260, 138, 54);\n    g.fillStyle(0x172b38, 0.9); g.fillCircle(3280, 120, 51);\n    // Distant ridges and layered jungle canopy.
     g.fillStyle(0x172b38, 0.9);
     g.fillPoints([new Phaser.Geom.Point(0,390),new Phaser.Geom.Point(150,190),new Phaser.Geom.Point(310,390),new Phaser.Geom.Point(510,145),new Phaser.Geom.Point(760,390),new Phaser.Geom.Point(970,190),new Phaser.Geom.Point(1190,390),new Phaser.Geom.Point(3840,320),new Phaser.Geom.Point(3840,720),new Phaser.Geom.Point(0,720)], true);
     g.fillStyle(0x1d3b32, 0.95);
@@ -126,7 +126,7 @@ export class ForestScene extends Phaser.Scene {
     g.fillStyle(0xb9ded0,0.35); g.fillRoundedRect(1177,300,8,330,4);
     g.fillStyle(0x8bb8a5,0.22); g.fillEllipse(1188,641,180,22);
     g.fillStyle(0x284534,1); g.fillRect(0,620,3840,100);
-    // Soft god rays.
+    // Heavy foreground tree trunks create a layered cinematic frame.\n    g.fillStyle(0x101f20, 0.96);\n    for (let x=0; x<3840; x+=760) {\n      g.fillRoundedRect(x-26, 0, 54, 660, 18);\n      g.fillPoints([new Phaser.Geom.Point(x-24,150),new Phaser.Geom.Point(x-170,70),new Phaser.Geom.Point(x-55,180)],true);\n      g.fillPoints([new Phaser.Geom.Point(x+22,220),new Phaser.Geom.Point(x+165,120),new Phaser.Geom.Point(x+45,260)],true);\n    }\n    // Soft god rays.
     g.fillStyle(0xf3c77b,0.075);
     for(let x=80;x<3840;x+=300) {
       g.fillPoints([new Phaser.Geom.Point(x,0),new Phaser.Geom.Point(x+55,0),new Phaser.Geom.Point(x+220,625),new Phaser.Geom.Point(x+110,625)],true);
@@ -228,13 +228,13 @@ export class ForestScene extends Phaser.Scene {
     vines.fillEllipse(-48, -65, 20, 9); vines.fillEllipse(48, -61, 20, 9);
     shrine.add(vines);
 
-    const glow = this.add.circle(0, -76, 38, 0xf1c76d, 0.11).setDepth(6);
+    const glow = this.add.circle(2350, 546, 38, 0xf1c76d, 0.11).setDepth(6);
     this.tweens.add({ targets: glow, alpha: { from: 0.05, to: 0.28 }, scale: { from: 0.8, to: 1.25 }, duration: 1700, yoyo: true, repeat: -1 });
-    const rune = this.add.text(0, -76, '✧', {
+    const rune = this.add.text(2350, 546, '✧', {
       fontFamily: 'Georgia, serif', fontSize: '36px', color: '#ffe4a1',
       stroke: '#795a31', strokeThickness: 3
     }).setOrigin(0.5).setDepth(7);
-    this.tweens.add({ targets: rune, y: -86, alpha: { from: 0.72, to: 1 }, duration: 1250, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+    this.tweens.add({ targets: rune, y: 536, alpha: { from: 0.72, to: 1 }, duration: 1250, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
 
     // Broken pillars and carved stones frame the ancient place.
     const ruins = this.add.graphics().setDepth(4);
