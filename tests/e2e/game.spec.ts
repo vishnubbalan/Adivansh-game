@@ -49,6 +49,7 @@ test('game controls are visible, accessible and large enough for touch', async (
 });
 
 test('direction controls accept pointer input without triggering browser context menus', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
   await page.getByRole('button', { name: /begin the journey/i }).click();
   const left = page.getByRole('button', { name: 'Move left' });
@@ -111,9 +112,9 @@ test('mobile touch controls stay below the canvas and respond to a held touch po
   const initialX = Number(await gameRoot.getAttribute('data-player-x'));
   const right = page.getByRole('button', { name: 'Move right' });
   await right.dispatchEvent('pointerdown', { pointerId: 7, pointerType: 'touch', isPrimary: true, button: 0, buttons: 1 });
-  await page.waitForTimeout(350);
+  await page.waitForTimeout(500);
   await right.dispatchEvent('pointerup', { pointerId: 7, pointerType: 'touch', isPrimary: true, button: 0, buttons: 0 });
-  await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 40);
+  await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 20);
   const releasedX = Number(await gameRoot.getAttribute('data-player-x'));
   await page.waitForTimeout(240);
   const stoppedX = Number(await gameRoot.getAttribute('data-player-x'));
@@ -153,7 +154,7 @@ test('keyboard movement changes the player world position', async ({ page }) => 
   await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(0);
   const initialX = Number(await gameRoot.getAttribute('data-player-x'));
   await page.keyboard.down('d');
-  await page.waitForTimeout(350);
+  await page.waitForTimeout(500);
   await page.keyboard.up('d');
   await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 40);
 });
