@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('loads the adventure and starts the first chapter', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto('./');
   await expect(page).toHaveTitle(/The Search for the Queen/);
   await expect(page.getByRole('heading', { name: /The Search for the Queen/ })).toBeVisible();
