@@ -29,3 +29,8 @@ This folder is the source of truth for Adivansh product vision, narrative, world
 
 ## Documentation rules
 Product intent belongs in 01-product; visual and combat direction in 02-world; architecture in 03-architecture; roles and handoffs in 04-agents; delivery/testing in 05-production; business and rights in 06-commercial. Record consequential changes in the decision log. Mark capabilities accurately as implemented, tested, reviewed, planned or proposed. Documentation of a target is not proof of implementation.
+
+## Architecture additions
+
+- [Module Map and Agent Ownership](03-architecture/MODULE_MAP.md)
+- [VFX System](03-architecture/VFX_SYSTEM.md)

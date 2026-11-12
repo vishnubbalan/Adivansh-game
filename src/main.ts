@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { ForestScene } from './scenes/ForestScene';
 import { CharacterArtProofScene } from './scenes/CharacterArtProofScene';
+import { EVENTS } from './core/events';
 import './style.css';
 
 const game = new Phaser.Game({
@@ -26,6 +27,11 @@ const game = new Phaser.Game({
     : [ForestScene]
 });
 
+// Test seam for browser QA: `?debug` exposes the game instance. Not enabled in normal play.
+if (new URLSearchParams(window.location.search).has('debug')) {
+  (window as unknown as { __ADIVANSH__: Phaser.Game }).__ADIVANSH__ = game;
+}
+
 const intro = document.querySelector<HTMLElement>('#intro')!;
 const hud = document.querySelector<HTMLElement>('#hud')!;
 const touchControls = document.querySelector<HTMLElement>('#touch-controls')!;
@@ -35,31 +41,31 @@ startButton.addEventListener('click', () => {
   intro.classList.add('is-hidden');
   hud.hidden = false;
   touchControls.hidden = false;
-  game.events.emit('journey:start');
+  game.events.emit(EVENTS.journeyStart);
 });
 
-game.events.on('player:health', (health: number) => {
+game.events.on(EVENTS.playerHealth, (health: number) => {
   document.querySelector('#health')!.textContent = String(health);
 });
-game.events.on('story:milestone', (milestone: { objective: string; narration: string }) => {
+game.events.on(EVENTS.storyMilestone, (milestone: { objective: string; narration: string }) => {
   document.querySelector('#objective')!.textContent = milestone.objective;
   const toast = document.querySelector<HTMLElement>('#toast')!;
   toast.textContent = milestone.narration;
   toast.classList.add('visible');
   window.setTimeout(() => toast.classList.remove('visible'), 4200);
 });
-game.events.on('story:complete', (finale: { objective: string; narration: string }) => {
+game.events.on(EVENTS.storyComplete, (finale: { objective: string; narration: string }) => {
   document.querySelector('#objective')!.textContent = finale.objective;
   const toast = document.querySelector<HTMLElement>('#toast')!;
   toast.textContent = finale.narration;
   toast.classList.add('visible');
   window.setTimeout(() => toast.classList.remove('visible'), 5200);
 });
-game.events.on('clue:collected', () => {
+game.events.on(EVENTS.clueCollected, () => {
   document.querySelector('#clue-count')!.textContent = '1 / 1 CLUES';
   document.querySelector('#objective')!.textContent = 'A clue has revealed a path deeper into the forest';
 });
-game.events.on('game:toast', (message: string) => {
+game.events.on(EVENTS.toast, (message: string) => {
   const toast = document.querySelector<HTMLElement>('#toast')!;
   toast.textContent = message;
   toast.classList.add('visible');
@@ -68,7 +74,7 @@ game.events.on('game:toast', (message: string) => {
 
 document.querySelectorAll<HTMLButtonElement>('[data-key]').forEach(button => {
   const key = button.dataset.key!;
-  const set = (pressed: boolean) => game.events.emit('touch:key', key, pressed);
+  const set = (pressed: boolean) => game.events.emit(EVENTS.touchKey, key, pressed);
   button.type = 'button';
   button.addEventListener('contextmenu', event => event.preventDefault());
   button.addEventListener('dragstart', event => event.preventDefault());

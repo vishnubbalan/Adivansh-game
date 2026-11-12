@@ -25,6 +25,10 @@ npm run dev
 - Interact: `E`
 - Mobile: on-screen touch controls
 
+## Visual quality and debug options
+
+VFX quality is chosen automatically for the device. Override it with `?quality=low`, `?quality=medium` or `?quality=high` in the URL. Reduced-motion system settings disable shake, hit-stop and flashes. Add `?debug` to expose `window.__ADIVANSH__` for browser tests. See [VFX System](docs/03-architecture/VFX_SYSTEM.md).
+
 ## Quality checks
 
 ```bash
