@@ -22,9 +22,20 @@ export class ForestScene extends Phaser.Scene {
 
   constructor() { super('ForestScene'); }
 
+  preload() {
+    const root = './assets/art-proof/';
+    this.load.image('forest-bg', `${root}whispering-forest.svg`);
+    this.load.image('hero-idle', `${root}seeker-idle.svg`);
+    this.load.image('hero-run', `${root}seeker-run.svg`);
+    this.load.image('hero-attack', `${root}seeker-attack.svg`);
+    this.load.image('guardian-idle', `${root}guardian-idle.svg`);
+    this.load.image('guardian-telegraph', `${root}guardian-telegraph.svg`);
+    this.load.image('guardian-attack', `${root}guardian-attack.svg`);
+  }
+
   create() {
     this.createTextures();
-    this.drawBackdrop();
+    this.add.image(1920, 360, 'forest-bg').setDisplaySize(3840, 720).setDepth(-20);
     this.platforms = this.physics.add.staticGroup();
     this.addPlatform(640, 684, 1280, 72);
     this.addPlatform(1920, 684, 1280, 72);
@@ -36,13 +47,15 @@ export class ForestScene extends Phaser.Scene {
     this.addPlatform(2070, 500, 240, 24);
     this.addPlatform(2670, 565, 240, 24);
 
-    this.player = this.physics.add.sprite(130, 560, 'hero');
-    this.player.setCollideWorldBounds(true).setBounce(0.02).setSize(34, 68).setOffset(23, 31);
+    this.player = this.physics.add.sprite(130, 560, 'hero-idle');
+    this.player.setDisplaySize(92, 104);
+    this.player.setCollideWorldBounds(true).setBounce(0.02).setSize(104, 196).setOffset(88, 58);
     this.player.setDepth(10);
     this.physics.add.collider(this.player, this.platforms);
 
-    this.demon = this.physics.add.sprite(760, 600, 'demon');
-    this.demon.setCollideWorldBounds(true).setBounce(0.1).setSize(48, 64).setOffset(12, 25);
+    this.demon = this.physics.add.sprite(760, 600, 'guardian-idle');
+    this.demon.setDisplaySize(142, 150);
+    this.demon.setCollideWorldBounds(true).setBounce(0.1).setSize(116, 154).setOffset(112, 88);
     this.demon.setDepth(9);
     this.physics.add.collider(this.demon, this.platforms);
 
@@ -92,6 +105,8 @@ export class ForestScene extends Phaser.Scene {
     if (left) { this.player.setVelocityX(-260); this.player.setFlipX(true); }
     else if (right) { this.player.setVelocityX(260); this.player.setFlipX(false); }
     else { this.player.setVelocityX(0); }
+    if (body.blocked.down && Math.abs(body.velocity.x) > 10 && this.player.texture.key !== 'hero-attack') this.player.setTexture('hero-run');
+    else if (body.blocked.down && this.player.texture.key !== 'hero-attack') this.player.setTexture('hero-idle');
     if (jump && body.blocked.down) this.player.setVelocityY(-540);
     if (Phaser.Input.Keyboard.JustDown(this.keys.J) || this.touch.has('attack')) this.attack(time);
     this.updateDemon(time);
@@ -135,38 +150,6 @@ export class ForestScene extends Phaser.Scene {
   }
 
   private createTextures() {
-    const hero=this.add.graphics();
-    // Cloak and legs.
-    hero.fillStyle(0x542d2b); hero.fillPoints([new Phaser.Geom.Point(27,43),new Phaser.Geom.Point(55,43),new Phaser.Geom.Point(63,91),new Phaser.Geom.Point(20,91)],true);
-    hero.fillStyle(0x34242a); hero.fillRoundedRect(27,82,13,27,5); hero.fillRoundedRect(45,82,13,27,5);
-    hero.fillStyle(0x9b7048); hero.fillRoundedRect(24,103,18,7,3); hero.fillRoundedRect(43,103,18,7,3);
-    // Gold chest armour and shoulder guards.
-    hero.fillStyle(0xd6a64e); hero.fillRoundedRect(23,38,35,43,8);
-    hero.fillStyle(0xf4d78b); hero.fillRoundedRect(29,43,23,31,5);
-    hero.fillStyle(0x8d3e31); hero.fillPoints([new Phaser.Geom.Point(22,48),new Phaser.Geom.Point(58,48),new Phaser.Geom.Point(65,83),new Phaser.Geom.Point(16,83)],true);
-    hero.fillStyle(0xe8bd64); hero.fillRoundedRect(20,38,9,18,4); hero.fillRoundedRect(52,38,9,18,4);
-    // Head, hair and forehead ornament.
-    hero.fillStyle(0xb9794d); hero.fillCircle(40,24,16);
-    hero.fillStyle(0x261e20); hero.fillEllipse(40,12,34,15);
-    hero.fillStyle(0xe9c56f); hero.fillTriangle(40,2,34,14,46,14); hero.fillCircle(40,13,3);
-    // Arm and visible sword.
-    hero.fillStyle(0xb9794d); hero.fillRoundedRect(55,48,9,27,4);
-    hero.lineStyle(5,0x8c6337); hero.lineBetween(63,62,73,36);
-    hero.lineStyle(4,0xe6e1cf); hero.lineBetween(72,39,83,9);
-    hero.lineStyle(2,0xffedb5); hero.lineBetween(74,34,82,12);
-    hero.lineStyle(5,0xd7a64f); hero.lineBetween(61,64,75,69);
-    hero.generateTexture('hero',96,116); hero.destroy();
-
-    const demon=this.add.graphics();
-    demon.fillStyle(0x302238); demon.fillRoundedRect(12,39,54,51,14);
-    demon.fillStyle(0x5b3548); demon.fillRoundedRect(20,85,15,25,5); demon.fillRoundedRect(47,85,15,25,5);
-    demon.fillStyle(0x9c5547); demon.fillCircle(39,29,23);
-    demon.fillStyle(0x241b2d); demon.fillTriangle(22,15,7,0,29,9); demon.fillTriangle(56,15,72,0,49,9);
-    demon.fillStyle(0xf6c56d); demon.fillCircle(31,27,4); demon.fillCircle(47,27,4);
-    demon.fillStyle(0x241521); demon.fillRoundedRect(31,40,17,6,2);
-    demon.fillStyle(0x8d6b51); demon.fillTriangle(39,4,34,17,44,17);
-    demon.generateTexture('demon',80,116); demon.destroy();
-
     const clue=this.add.graphics();
     clue.fillStyle(0xf2cb75,0.18); clue.fillCircle(20,20,20);
     clue.fillStyle(0xf8d98d); clue.fillPoints([new Phaser.Geom.Point(20,0),new Phaser.Geom.Point(25,14),new Phaser.Geom.Point(40,20),new Phaser.Geom.Point(25,25),new Phaser.Geom.Point(20,40),new Phaser.Geom.Point(15,25),new Phaser.Geom.Point(0,20),new Phaser.Geom.Point(15,14)],true);
@@ -268,14 +251,21 @@ export class ForestScene extends Phaser.Scene {
     if(Math.abs(this.demon.x-this.player.x)<270) {
       const direction=this.player.x<this.demon.x?-1:1;
       this.demon.setVelocityX(direction*90); this.demon.setFlipX(direction<0);
+      if (this.demon.texture.key !== 'guardian-attack') this.demon.setTexture('guardian-telegraph');
       if(Math.abs(this.demon.x-this.player.x)<62 && time-this.lastDamage>1300) this.damagePlayer(time);
-    } else this.demon.setVelocityX(0);
+    } else { this.demon.setVelocityX(0); this.demon.setTexture('guardian-idle'); }
   }
 
   private attack(time=this.time.now) {
     if(time-this.lastAttack<500 || this.demonDefeated) return;
     this.lastAttack=time;
     const facing=this.player.flipX?-1:1;
+    this.player.setTexture('hero-attack');
+    this.time.delayedCall(260, () => {
+      if (!this.player?.active || this.player.texture.key !== 'hero-attack') return;
+      const moving = Math.abs((this.player.body as Phaser.Physics.Arcade.Body).velocity.x) > 10;
+      this.player.setTexture(moving ? 'hero-run' : 'hero-idle');
+    });
     // A bright blade trail follows the sword arm and sweeps forward.
     const slash=this.add.graphics().setDepth(20);
     slash.lineStyle(9,0xffd778,0.95);
@@ -288,8 +278,9 @@ export class ForestScene extends Phaser.Scene {
     if(inRange && Math.sign(this.demon.x-this.player.x)===facing) {
       this.demonHealth--;
       this.cameras.main.shake(110, 0.003);
+      this.demon.setTexture('guardian-attack');
       this.demon.setTint(0xff8a62); this.demon.setVelocityX(facing*320);
-      this.time.delayedCall(220,()=>{if(this.demon.active)this.demon.clearTint();});
+      this.time.delayedCall(220,()=>{if(this.demon.active){this.demon.clearTint();this.demon.setTexture('guardian-idle');}});
       this.game.events.emit('game:toast',`Blade hit! Demon strength: ${this.demonHealth}/3`);
       if(this.demonHealth<=0) {
         this.demonDefeated=true; this.demon.setVelocity(0,0);
