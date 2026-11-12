@@ -14,7 +14,17 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } }
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    {
+      name: 'mobile-chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 2,
+        isMobile: true,
+        hasTouch: true
+      }
+    }
   ],
   ...(deployedBaseURL ? {} : {
     webServer: {

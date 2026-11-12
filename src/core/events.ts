@@ -6,6 +6,7 @@ export const EVENTS = {
   journeyStart: 'journey:start',
   touchKey: 'touch:key',
   playerHealth: 'player:health',
+  playerPosition: 'player:position',
   storyMilestone: 'story:milestone',
   storyComplete: 'story:complete',
   clueCollected: 'clue:collected',

@@ -27,6 +27,7 @@ export class ForestScene extends Phaser.Scene {
   private combat!: CombatSystem;
   private vfx!: VfxManager;
   private atmosphere!: Atmosphere;
+  private lastPositionReport = 0;
 
   constructor() { super('ForestScene'); }
 
@@ -79,6 +80,13 @@ export class ForestScene extends Phaser.Scene {
     this.guardian.update(this.player.x);
     this.combat.update(time);
     if (this.player.y > TUNING.player.fallLimitY) this.respawn();
+    if (time - this.lastPositionReport >= 80) {
+      this.lastPositionReport = time;
+      this.game.events.emit(EVENTS.playerPosition, {
+        x: Math.round(this.player.x),
+        y: Math.round(this.player.y)
+      });
+    }
   }
 
   private onJourneyStart = () => {
