@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { ForestScene } from './scenes/ForestScene';
+import { CharacterArtProofScene } from './scenes/CharacterArtProofScene';
 import './style.css';
 
 const game = new Phaser.Game({
@@ -20,7 +21,9 @@ const game = new Phaser.Game({
     default: 'arcade',
     arcade: { gravity: { x: 0, y: 1100 }, debug: false }
   },
-  scene: [ForestScene]
+  scene: new URLSearchParams(window.location.search).has('artProof')
+    ? [CharacterArtProofScene]
+    : [ForestScene]
 });
 
 const intro = document.querySelector<HTMLElement>('#intro')!;
