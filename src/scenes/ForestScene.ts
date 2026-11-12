@@ -19,6 +19,7 @@ export class ForestScene extends Phaser.Scene {
   private lastDamage = 0;
   private statusText!: Phaser.GameObjects.Text;
   private demonDefeated = false;
+  private lastPositionReport = 0;
 
   constructor() { super('ForestScene'); }
 
@@ -112,6 +113,13 @@ export class ForestScene extends Phaser.Scene {
     this.updateDemon(time);
     this.checkDamage(time);
     if (this.player.y > 780) this.respawn();
+    if (time - this.lastPositionReport >= 80) {
+      this.lastPositionReport = time;
+      this.game.events.emit('player:position', {
+        x: Math.round(this.player.x),
+        y: Math.round(this.player.y)
+      });
+    }
   }
 
   private drawBackdrop() {
