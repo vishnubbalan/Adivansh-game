@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { CHAPTER_ONE_FINALE, getMilestone } from '../story/chapterOne';
+import { FOREST_BACKGROUND_SEGMENTS } from './forestBackground';
 
 type TouchKey = 'left' | 'right' | 'jump' | 'attack' | 'interact';
 
@@ -35,7 +36,12 @@ export class ForestScene extends Phaser.Scene {
 
   create() {
     this.createTextures();
-    this.add.image(1920, 360, 'forest-bg').setDisplaySize(3840, 720).setDepth(-20);
+    for (const segment of FOREST_BACKGROUND_SEGMENTS) {
+      this.add.image(segment.x, segment.y, 'forest-bg')
+        .setDisplaySize(segment.width, segment.height)
+        .setFlipX(segment.flipX)
+        .setDepth(-20);
+    }
     this.platforms = this.physics.add.staticGroup();
     this.addPlatform(640, 684, 1280, 72);
     this.addPlatform(1920, 684, 1280, 72);
