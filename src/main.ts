@@ -38,6 +38,11 @@ startButton.addEventListener('click', () => {
   game.events.emit('journey:start');
 });
 
+game.events.on('player:position', (position: { x: number; y: number }) => {
+  const gameRoot = document.querySelector<HTMLElement>('#game')!;
+  gameRoot.dataset.playerX = String(position.x);
+  gameRoot.dataset.playerY = String(position.y);
+});
 game.events.on('player:health', (health: number) => {
   document.querySelector('#health')!.textContent = String(health);
 });
