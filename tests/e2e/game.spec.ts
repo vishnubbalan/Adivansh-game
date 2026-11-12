@@ -72,3 +72,40 @@ test('shows touch controls on a mobile viewport', async ({ page }) => {
   await expect(page.locator('[data-key="left"]')).toBeVisible();
   await expect(page.locator('[data-key="jump"]')).toBeVisible();
 });
+
+
+test('mobile touch controls stay outside the game canvas and move the player', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+  await page.getByRole('button', { name: /begin the journey/i }).click();
+
+  const canvas = page.locator('#game canvas');
+  const controls = page.locator('#touch-controls');
+  await expect(controls).toBeVisible();
+  const canvasBox = await canvas.boundingBox();
+  const controlsBox = await controls.boundingBox();
+  expect(canvasBox).not.toBeNull();
+  expect(controlsBox).not.toBeNull();
+  expect(controlsBox!.y).toBeGreaterThanOrEqual(canvasBox!.y + canvasBox!.height);
+
+  await expect.poll(async () => Number(await page.locator('#game').getAttribute('data-player-x'))).toBeGreaterThan(0);
+  const initialX = Number(await page.locator('#game').getAttribute('data-player-x'));
+  const right = page.getByRole('button', { name: 'Move right' });
+  await right.hover();
+  await page.mouse.down();
+  await page.waitForTimeout(350);
+  await page.mouse.up();
+  await expect.poll(async () => Number(await page.locator('#game').getAttribute('data-player-x'))).toBeGreaterThan(initialX + 40);
+});
+
+test('keyboard movement changes the player world position', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: /begin the journey/i }).click();
+  const gameRoot = page.locator('#game');
+  await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(0);
+  const initialX = Number(await gameRoot.getAttribute('data-player-x'));
+  await page.keyboard.down('d');
+  await page.waitForTimeout(350);
+  await page.keyboard.up('d');
+  await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 40);
+});
