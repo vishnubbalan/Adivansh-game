@@ -80,8 +80,14 @@ document.querySelectorAll<HTMLButtonElement>('[data-key]').forEach(button => {
   button.addEventListener('pointerdown', event => {
     event.preventDefault();
     event.stopPropagation();
-    button.setPointerCapture?.(event.pointerId);
+    // Register the held input before attempting capture. Synthetic pointer
+    // events used by browser tests cannot always be captured and may throw.
     set(true);
+    try {
+      if (event.isTrusted && button.setPointerCapture) button.setPointerCapture(event.pointerId);
+    } catch {
+      // Pointer capture is an enhancement; the held state must still work.
+    }
   });
   const release = (event: Event) => {
     event.preventDefault();
