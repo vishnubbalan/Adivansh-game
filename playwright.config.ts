@@ -4,7 +4,9 @@ const deployedBaseURL = process.env.PLAYWRIGHT_BASE_URL;
 
 export default defineConfig({
   testDir: './tests/e2e',
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
+  timeout: 90000,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: deployedBaseURL || 'http://127.0.0.1:4173',

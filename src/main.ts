@@ -4,8 +4,13 @@ import { CharacterArtProofScene } from './scenes/CharacterArtProofScene';
 import { EVENTS } from './core/events';
 import './style.css';
 
+const params = new URLSearchParams(window.location.search);
+// In headless CI the WebGL SwiftShader renderer is very slow. Force 2D canvas
+// when quality=low so tests complete in reasonable time.
+const rendererType = params.get('quality') === 'low' ? Phaser.CANVAS : Phaser.AUTO;
+
 const game = new Phaser.Game({
-  type: Phaser.AUTO,
+  type: rendererType,
   parent: 'game',
   width: 1280,
   height: 720,
@@ -22,13 +27,13 @@ const game = new Phaser.Game({
     default: 'arcade',
     arcade: { gravity: { x: 0, y: 1100 }, debug: false }
   },
-  scene: new URLSearchParams(window.location.search).has('artProof')
+  scene: params.has('artProof')
     ? [CharacterArtProofScene]
     : [ForestScene]
 });
 
 // Test seam for browser QA: `?debug` exposes the game instance. Not enabled in normal play.
-if (new URLSearchParams(window.location.search).has('debug')) {
+if (params.has('debug')) {
   (window as unknown as { __ADIVANSH__: Phaser.Game }).__ADIVANSH__ = game;
 }
 
@@ -108,4 +113,4 @@ document.querySelectorAll<HTMLButtonElement>('[data-key]').forEach(button => {
   });
 });
 
-window.addEventListener('beforeunload', () => game.destroy(true));
+// Browser cleans up WebGL resources naturally on close; no manual destroy needed.
