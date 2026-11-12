@@ -17,7 +17,7 @@ export class CharacterArtProofScene extends Phaser.Scene {
   constructor() { super('CharacterArtProofScene'); }
 
   preload() {
-    const root = `${import.meta.env.BASE_URL}assets/art-proof/`;
+    const root = './assets/art-proof/';
     this.load.image('proof-forest', `${root}whispering-forest.svg`);
     for (const pose of ['idle', 'run', 'attack']) this.load.image(`seeker-${pose}`, `${root}seeker-${pose}.svg`);
     for (const pose of ['idle', 'telegraph', 'attack']) this.load.image(`guardian-${pose}`, `${root}guardian-${pose}.svg`);
