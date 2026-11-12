@@ -24,7 +24,7 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm test
-      - run: npx playwright install --with-deps chromium webkit
+      - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - run: npx playwright install --with-deps chromium webkit
+      - run: npx playwright install --with-deps chromium
       - name: Wait for GitHub Pages to serve the deployed game
         env:
           PAGES_URL: https://vishnubbalan.github.io/Adivansh-game/
