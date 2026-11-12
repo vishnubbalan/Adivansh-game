@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('loads the adventure and starts the first chapter', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await expect(page).toHaveTitle(/The Search for the Queen/);
   await expect(page.getByRole('heading', { name: /The Search for the Queen/ })).toBeVisible();
   await page.getByRole('button', { name: /begin the journey/i }).click();
@@ -12,7 +12,7 @@ test('loads the adventure and starts the first chapter', async ({ page }) => {
 
 test('game controls are visible, accessible and large enough for touch', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('./');
   await page.getByRole('button', { name: /begin the journey/i }).click();
 
   const controls = page.locator('#touch-controls button');
@@ -48,7 +48,7 @@ test('game controls are visible, accessible and large enough for touch', async (
 });
 
 test('direction controls accept pointer input without triggering browser context menus', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.getByRole('button', { name: /begin the journey/i }).click();
   const left = page.getByRole('button', { name: 'Move left' });
   await left.dispatchEvent('pointerdown', { pointerId: 1, pointerType: 'touch', isPrimary: true, button: 0 });
@@ -67,7 +67,7 @@ test('direction controls accept pointer input without triggering browser context
 
 test('shows touch controls on a mobile viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('./');
   await page.getByRole('button', { name: /begin the journey/i }).click();
   await expect(page.locator('[data-key="left"]')).toBeVisible();
   await expect(page.locator('[data-key="jump"]')).toBeVisible();
