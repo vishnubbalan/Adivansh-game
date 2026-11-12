@@ -32,12 +32,26 @@ The deployment blocker is resolved. Stop spending cycles on the old Pages naviga
 
 For each scheduled cycle, inspect these issues and their dependencies, then select exactly ONE bounded task that can produce a reviewable PR. Coordinate roles as follows: Innovation Director proposes player-facing improvements; BA checks scope/acceptance; Technical Architect checks module/asset/performance implications; Developer implements; QA independently tests; Orchestration records evidence and handoff. Do not pretend these roles are independent always-on agents.
 
-### Active work order
-1. Audit the current procedural placeholders and produce an asset inventory + integration plan aligned with the art bible. Do not call concept images production assets.
-2. Establish the hero/guardian animation and controller/combat contracts before replacing runtime visuals, so artwork matches actual gameplay states and hitboxes.
-3. Improve player movement, hit registration, enemy telegraphs/recovery and guardian behaviour with deterministic tests.
-4. Build exploration pockets, one fair environmental puzzle, optional reward and robust clue/quest/chapter progression.
-5. Expand end-to-end coverage to the complete Chapter One path and arrange physical iOS Safari + Android Chrome checks and human playtests. Automation must report real-device work as NOT RUN until evidence is supplied.
+### Active work order — autonomous execution after illustrated-art integration
+PR #18 integrated the approved SVG art into the playable ForestScene and is merged. The deployment workflow for that merge completed successfully, including unit tests, build, Playwright E2E and deployed browser QA. This is not human art approval or physical-device testing.
+
+Do not repeat the art-proof or integration work unless a regression is found. Inspect the current main branch and issue state at the start of every cycle; issue numbers below are entry points, not permission to ignore newly discovered blockers.
+
+1. **Stabilise the integrated playable scene (first priority).** Verify the actual runtime asset loading, player/guardian physics body alignment, sprite scale, facing, movement pose switching, attack pose timing, background/platform composition and touch controls. Add deterministic tests and browser assertions. Fix concrete regressions found. Capture desktop and narrow-mobile screenshots as CI artifacts where possible. Do not claim visual approval from automated screenshots.
+2. **Finish movement and combat (#12).** Implement responsive acceleration/deceleration, jump consistency, coyote time/jump buffering only if playtests or code evidence justify them, attack windows/hitboxes, hit-stun/invulnerability, knockback, enemy telegraph/active/recovery states and readable defeat feedback. Add deterministic unit/E2E coverage.
+3. **Finish exploration and progression (#13).** Build a coherent route through the forest, a fair environmental puzzle with readable clues, optional reward, checkpoints/respawn and idempotent quest/chapter progression. Ensure the chapter can be completed from a fresh save/session.
+4. **Animation and production art quality.** Replace discrete pose swaps with coherent frame-based animations or reviewed atlases for idle/run/jump/fall/attack/hurt/death and guardian idle/telegraph/attack/recovery/hurt/death. Validate frame bounds, transparency, pivots, hitboxes and asset provenance. If generated assets are not good enough, prepare a precise asset brief and report the blocker instead of pretending concept SVGs are finished production art.
+5. **Complete player QA (#14).** Cover the full Chapter One start-to-finish path in Chromium and WebKit, keyboard and touch input, resize/orientation, pointer cancellation, HUD readability, accessibility and performance instrumentation. Create a concise real-device test checklist for iPhone Safari and Android Chrome. Mark physical-device and human playtests NOT RUN until a human supplies evidence.
+
+### Autonomy and intervention policy
+- Operate without asking the user to choose the next task. Derive the next smallest valuable task from open milestone issues, defects, dependencies, CI failures and the active work order.
+- Work in bounded, reviewable increments. Prefer one cohesive PR per cycle; do not bundle unrelated systems.
+- The workflow may auto-merge low-risk PRs only after all required CI checks pass. The PR must include tests, evidence, limitations and rollback notes. If required checks are missing, failing, skipped unexpectedly or inconclusive, do not merge.
+- Do not auto-merge changes to workflows, permissions, secrets, branch protection, deployment/security configuration, dependencies with material licence/cost implications, engine/architecture migrations, monetisation, privacy-sensitive data collection, or major product/art direction. Open a PR and clearly request human approval for those.
+- Do not close milestone issues merely because code was generated. Close only when acceptance criteria and evidence are met; keep physical-device/human playtest gates open until completed.
+- When blocked, create or update a specific issue with reproduction steps, impact, evidence and a proposed next action; then continue with another safe task if possible.
+- Do not wait for a human reply for routine implementation decisions already covered by the product handbook and guardrails. Record assumptions in the PR.
+- At each cycle, report the current milestone, chosen task, PR link/status, exact tests run, deployment/browser-QA result, outstanding human-only checks, and the next queued task. If no safe task exists, explain the blocker and stop cleanly.
 
 ### Art and quality constraints
 - Follow `docs/02-world/ART_DIRECTION.md`, `CHARACTER_BIBLE.md`, `ENVIRONMENT_AND_VFX_BIBLE.md` and `docs/03-architecture/ASSET_PIPELINE.md`.
