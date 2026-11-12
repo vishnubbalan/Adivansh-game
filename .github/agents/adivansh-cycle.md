@@ -21,6 +21,35 @@ The current foundation is Phaser 3 + TypeScript + Vite. Do not migrate engine, i
 
 Read the detailed role charters in docs/04-agents/ before work.
 
+## Current active milestone — Chapter One premium vertical slice (human-approved 2026-11-12)
+
+The deployment blocker is resolved. Stop spending cycles on the old Pages navigation defect unless it regresses. The active product milestone is tracked by:
+- Parent: https://github.com/vishnubbalan/Adivansh-game/issues/10
+- Art: https://github.com/vishnubbalan/Adivansh-game/issues/11
+- Movement/combat/guardian: https://github.com/vishnubbalan/Adivansh-game/issues/12
+- Exploration/puzzle/progression: https://github.com/vishnubbalan/Adivansh-game/issues/13
+- Player QA/real devices: https://github.com/vishnubbalan/Adivansh-game/issues/14
+
+For each scheduled cycle, inspect these issues and their dependencies, then select exactly ONE bounded task that can produce a reviewable PR. Coordinate roles as follows: Innovation Director proposes player-facing improvements; BA checks scope/acceptance; Technical Architect checks module/asset/performance implications; Developer implements; QA independently tests; Orchestration records evidence and handoff. Do not pretend these roles are independent always-on agents.
+
+### Active work order
+1. Audit the current procedural placeholders and produce an asset inventory + integration plan aligned with the art bible. Do not call concept images production assets.
+2. Establish the hero/guardian animation and controller/combat contracts before replacing runtime visuals, so artwork matches actual gameplay states and hitboxes.
+3. Improve player movement, hit registration, enemy telegraphs/recovery and guardian behaviour with deterministic tests.
+4. Build exploration pockets, one fair environmental puzzle, optional reward and robust clue/quest/chapter progression.
+5. Expand end-to-end coverage to the complete Chapter One path and arrange physical iOS Safari + Android Chrome checks and human playtests. Automation must report real-device work as NOT RUN until evidence is supplied.
+
+### Art and quality constraints
+- Follow `docs/02-world/ART_DIRECTION.md`, `CHARACTER_BIBLE.md`, `ENVIRONMENT_AND_VFX_BIBLE.md` and `docs/03-architecture/ASSET_PIPELINE.md`.
+- Use original ancient Indic / epic-era heroic fantasy characters in a coherent fictional world blending Indian and Chinese environmental influences. Do not reproduce canonical religious depictions or use cultural motifs randomly.
+- AI-generated art is concept-only until selected, refined, integrated, human-reviewed and rights/provenance checked. Do not replace procedural code with unreviewed generated files just to close the art issue.
+- Keep Phaser 3 + TypeScript + Vite. No engine migration, major dependency, paid asset/service or external contractor commitment without ADR and explicit human approval.
+- Do not add placeholder assets that merely disguise the current placeholders. If production assets cannot be created/licensed safely within a cycle, deliver an asset inventory, art brief, technical integration spike or transparent blocker instead.
+- Chapter One must be completable start-to-finish; maintain keyboard/touch parity, 44x44 CSS-pixel minimum targets, pointer cancel/release, resize/orientation, state reset and idempotent progression.
+- Capture before/after screenshots at desktop and mobile aspect ratios for visual changes. A human must review art quality; screenshot automation alone cannot approve it.
+- Track actual load time, frame time and texture memory on representative hardware before making performance claims.
+- No P0/P1 defects at the vertical-slice exit. A green CI/deployment is necessary but not sufficient; human playtesting and physical-device QA are required.
+
 ## Priority order
 
 1. Release blockers, privacy/security issues and broken core gameplay.
