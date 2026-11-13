@@ -34,18 +34,18 @@ jobs:
       - name: Install dependencies and browser
         run: |
           npm install
-          npx playwright install chromium webkit
+          npx playwright install chromium
 
       - name: Run the Adivansh agent team
-        id: codex
-        uses: openai/codex-action@v1
+        id: claude
+        uses: anthropic/claude-code-action@v1
         with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          permission-profile: ":workspace"
-          safety-strategy: drop-sudo
-          effort: high
-          prompt-file: .github/agents/adivansh-cycle.md
-          output-file: adivansh-agent-report.md
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          model: claude-opus-4-5
+          prompt_file: .github/agents/adivansh-cycle.md
+          output_file: adivansh-agent-report.md
+          allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
+          timeout_minutes: "40"
 
       - name: Create or update development pull request
         id: cpr
@@ -59,7 +59,7 @@ jobs:
           body: |
             ## Autonomous development cycle
 
-            This pull request was prepared by the OpenAI Codex agent using the repository's agent operating rules.
+            This pull request was prepared by the Claude Code agent using the repository's agent operating rules.
 
             Please review the agent report and CI checks. This PR is eligible for automatic squash merge only when the configured required status checks pass.
 
@@ -71,14 +71,14 @@ jobs:
             agent-generated
 
       - name: Enable automatic merge after required checks pass
-        if: steps.cpr.outputs.pull-request-number != ''
+        if: steps.cpr.outputs.pull-request-number != '' && steps.claude.outcome == 'success'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.cpr.outputs.pull-request-url }}
         run: gh pr merge "$PR_URL" --auto --squash
 
       - name: Publish agent report when no code change was proposed
-        if: steps.cpr.outputs.pull-request-number == ''
+        if: steps.cpr.outputs.pull-request-number == '' && steps.claude.outcome == 'success'
         run: |
           if [ -f adivansh-agent-report.md ]; then
             cat adivansh-agent-report.md >> "$GITHUB_STEP_SUMMARY"
