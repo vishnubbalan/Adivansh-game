@@ -326,10 +326,47 @@ A drowned temple complex at the forest's heart. Half-submerged in roots and wate
 |---|---|
 | 5 | Base combat unlocked |
 | 7 | Rope/vine traversal unlocked |
-| 13 | Weapon upgrade (sharpening stone) |
-| 17 | Vahana joins + Scout ability |
-| 19 | Optional shrine blessing (health +1 or ability boost) |
-| 20 | Dungeon reward: health +1 |
+| 8 | **Blessing: Spirit Sight** (calm Root Spirit without violence) |
+| 13 | Weapon upgrade (sharpening stone) + **Blessing: Warrior's Read** (bring medicine) |
+| 17 | Vahana joins + Scout ability + Vahana food-marking unlocked |
+| 19 | Optional: **Shrine Blessing** (health +1 or spirit energy +20) |
+| 20 | Dungeon reward: health +1 + **Blessing: Root Endurance** (free temple spirits) |
+| 22 | **Sacred Weapon: The Vanara Bow** (defeat Guardian without destroying shrines) |
 | 25 | Season end: major ability unlock (Season 2 preparation) |
 
 Health starts at 3. Can reach 5 by Season 1 end (3 base + 1 shrine + 1 dungeon reward).
+
+---
+
+## Season 1 Food and Energy Map
+
+Each chapter must contain ≥120 total energy in food. Sources below are the designed placements.
+
+| Chapter | Food sources | Total energy available |
+|---|---|---|
+| 1 | Festival food (story — full restore) | 100 |
+| 2–3 | None (story chapters — energy drains minimally) | — |
+| 4 | 3× wild berries along trail | 30 |
+| 5 | 2× mangoes at forest gate + 1× mushroom | 55 |
+| 6 | 2× fallen fruit + 1× berry cluster | 32 |
+| 7 | River fishing spot (1× fish, patience required) + 2× mushrooms | 65 |
+| 8 | 3× wild berries + 1× coconut (tree near spirit) | 55 |
+| 9 | Cache in abandoned village: 2× herb bundles (NPC gift quality) | 80 |
+| 10 | Pre-blood-moon: 2× mangoes + 1× mushroom. Post-wave: 1× honey comb | 72 |
+| 11 | 2× fallen fruit + 1× mushroom near puzzle | 39 |
+| 12 | 2× berry clusters along ambush path | 20 |
+| 13 | **Old Soldier shares meal: herb bundle +40** + 2× mushrooms | 70 |
+| 14 | 2× coconuts knocked by storm fall + 1× berry cluster | 55 |
+| 15 | 1× honey comb (pre-boss) + 2× mushrooms | 40 |
+| 16 | (Vision chapter, low activity) 1× berry cluster | 10 |
+| 17 | 2× mangoes + 1× fish spot (river near Vahana) | 75 |
+| 18 | 1× mushroom + 1× berry cluster | 25 |
+| 19 | Hidden shrine: 1× honey comb + spirit herb (special +35) | 60 |
+| 20 | Temple: 3× fruit in offering chambers + 1× herb bundle | 90 |
+| 21 | Captured supply depot: 2× ration packs (+30 each) | 60 |
+| 22 | Pre-Guardian: 2× mangoes + 1× coconut | 70 |
+| 23 | Chase chapter: 2× fallen mangoes along path | 40 |
+| 24 | 3× fruit at forest edge viewpoint | 60 |
+| 25 | Pre-boss area: 2× honey combs + 1× herb bundle | 90 |
+
+**Vahana food-marking** activates at Chapter 17 — from that point, the nearest food source is always findable via Vahana's Scout ability when energy drops below 30.

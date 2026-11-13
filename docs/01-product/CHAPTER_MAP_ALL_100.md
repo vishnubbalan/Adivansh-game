@@ -140,6 +140,52 @@
 
 ---
 
+## Season 1 — Blessing and Food Overview
+
+| # | Blessing opportunity | Sacred weapon | Key food sources |
+|---|---|---|---|
+| 8 | Spirit Sight (calm Root Spirit) | — | Berries, coconut |
+| 9 | — | — | NPC cache: herb bundles |
+| 13 | Warrior's Read (bring medicine) | — | Old Soldier's meal (+40) |
+| 19 | Shrine Blessing (optional) | — | Shrine herb (+35) |
+| 20 | Root Endurance (free spirits) | — | Offering chambers fruit |
+| 22 | — | The Vanara Bow (don't destroy shrines) | Pre-boss: mangoes, coconut |
+| 25 | — | — | Pre-boss: honey combs, herbs |
+
+---
+
+## Season 2 — Blessing and Food Overview
+
+| # | Blessing opportunity | Sacred weapon | Key food sources |
+|---|---|---|---|
+| 29 | Stone Memory (bring lore fragment) | — | Pine nuts, dried berries |
+| 34 | — | The Shila Strike (full alliance arc) | Stoneclan stew (+60) |
+| 38 | Prophet's Ear (bring Oracle item) | — | Hermit tea (+25 slow) |
+| 44 | Summit Will (60s patience sit) | — | Eagle eggs (+30, risky) |
+
+---
+
+## Season 3 — Blessing and Food Overview
+
+| # | Blessing opportunity | Sacred weapon | Key food sources |
+|---|---|---|---|
+| 52 | River Memory (listen to fisherwoman) | — | Fisherman's catch (+40) |
+| 61 | Sea Lungs (Ocean Spirit covenant) | The Varuna Lance | Spirit kelp (+60 + spirit energy) |
+| 65 | Depths Calm (don't kill tentacles) | — | Coral fruit (+50, underwater) |
+
+---
+
+## Season 4 — Blessing and Food Overview
+
+| # | Blessing opportunity | Sacred weapon | Key food sources |
+|---|---|---|---|
+| 77 | Brahmastra Fragment (stealth-free freed sage) | — | Freed captives' sharing (+35) |
+| 83 | Queen's Guidance (read all inscriptions with Spirit Sight) | — | Garden vegetables (+25) |
+| 90 | — | The Jyoti Blade (3+ weapons + Spirit Sight) | Sacred fire fruit (+45) |
+| 97 | — | — | Meera's sharing: full restore (+100) |
+
+---
+
 ## Chapter Design Rules
 
 Every implemented chapter must specify:
