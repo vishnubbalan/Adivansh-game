@@ -8,11 +8,11 @@ export const ART_ROOT = './assets/art-proof/';
 export interface SvgAsset { key: string; file: string; width: number; height: number }
 
 export const SVG_ASSETS: readonly SvgAsset[] = [
-  { key: 'forest-bg', file: 'whispering-forest.svg', width: 1280, height: 720 },
-  { key: 'hero-idle', file: 'seeker-idle.svg', width: 280, height: 300 },
-  { key: 'hero-run', file: 'seeker-run.svg', width: 280, height: 300 },
-  { key: 'hero-attack', file: 'seeker-attack.svg', width: 280, height: 300 },
-  { key: 'guardian-idle', file: 'guardian-idle.svg', width: 340, height: 360 },
-  { key: 'guardian-telegraph', file: 'guardian-telegraph.svg', width: 340, height: 360 },
-  { key: 'guardian-attack', file: 'guardian-attack.svg', width: 340, height: 360 }
+  { key: 'forest-bg', file: 'whispering-forest.png', width: 1280, height: 720 },
+  { key: 'hero-idle', file: 'seeker-idle.png', width: 280, height: 300 },
+  { key: 'hero-run', file: 'seeker-run.png', width: 280, height: 300 },
+  { key: 'hero-attack', file: 'seeker-attack.png', width: 280, height: 300 },
+  { key: 'guardian-idle', file: 'guardian-idle.png', width: 340, height: 360 },
+  { key: 'guardian-telegraph', file: 'guardian-telegraph.png', width: 340, height: 360 },
+  { key: 'guardian-attack', file: 'guardian-attack.png', width: 340, height: 360 }
 ];

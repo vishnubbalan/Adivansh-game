@@ -33,7 +33,7 @@ export class ForestScene extends Phaser.Scene {
 
   preload() {
     for (const asset of SVG_ASSETS) {
-      this.load.svg(asset.key, ART_ROOT + asset.file, { width: asset.width, height: asset.height });
+      this.load.image(asset.key, ART_ROOT + asset.file);
     }
   }
 
