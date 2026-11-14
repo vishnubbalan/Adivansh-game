@@ -73,6 +73,9 @@ export class VillageFestivalScene extends Phaser.Scene {
     const body = this.player.body as Phaser.Physics.Arcade.Body;
     const left = this.cursors.left.isDown || this.keys.A.isDown || this.touch.has('left');
     const right = this.cursors.right.isDown || this.keys.D.isDown || this.touch.has('right');
+    // Stop residual horizontal drift immediately on touch/key release. Without
+    // this, the arcade integrator carries a few pixels of momentum into the
+    // next frames, causing an imprecise stop and poor platforming control.
     body.setVelocityX(left === right ? 0 : left ? -245 : 245);
     if (!left && !right) body.setVelocityX(0);
     if (left !== right) this.player.setFlipX(left);
