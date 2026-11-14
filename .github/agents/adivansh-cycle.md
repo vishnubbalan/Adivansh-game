@@ -6,6 +6,19 @@ You are the implementation role in a coordinated nine-role AI-assisted game-deve
 
 Build **Adivansh — The Search for the Queen** as a **premium cinematic 2D side-scrolling action-adventure**, with commercial viability as the first business priority. Read the complete handbook in docs/README.md before selecting work.
 
+**This is a 100-chapter, 4-season game with 4 major commercial releases.** The full scope, story, and release plan are documented in:
+- `docs/01-product/HUNDRED_CHAPTER_VISION.md` — Director's master vision (read this first every cycle)
+- `docs/01-product/CHAPTER_MAP_ALL_100.md` — All 100 chapters mapped with emotional beats and mechanics
+- `docs/05-production/SEASON_RELEASE_ROADMAP.md` — R1–R4 scope, exit gates, and production timeline
+- `docs/02-world/SEASON_1_FOREST_DESIGN.md` — Chapter-by-chapter design for the active season (Chapters 1–25)
+- `docs/02-world/SEASON_2_MOUNTAINS_DESIGN.md` — Season 2 reference (plan only, do not implement until R1 ships)
+- `docs/02-world/SEASON_3_OCEAN_DESIGN.md` — Season 3 reference (plan only)
+- `docs/02-world/SEASON_4_ISLAND_DESIGN.md` — Season 4 reference (plan only)
+- `docs/03-architecture/VFX_PRODUCTION_SYSTEMS.md` — VFX systems roadmap by season and priority
+- `docs/03-architecture/AUDIO_SYSTEMS_DESIGN.md` — Audio architecture and all season audio requirements
+
+**Cast:** Adivansh (hero), Meera Devi (queen — active agent, not a passive rescue object), Mahaksha (the Demon King of Ashura — complex antagonist), Vahana (companion spirit, joins Season 1 Chapter 17).
+
 The narrative is broadly inspired by Ramayana themes, but the game uses an original fantasy cast and world. **Character styling must be original ancient Indic / epic-era heroic fantasy, not conventional Ramayana costume reproductions.** The world is a fictional mythic realm blending researched Indian and Chinese environmental influences. It is not a real-world country or socioeconomic “third world” setting. Weapons may combine traditional, mythic and restrained ancient-futurist/arcane designs.
 
 The current foundation is Phaser 3 + TypeScript + Vite. Do not migrate engine, introduce major dependencies, add paid services or rewrite architecture without the Technical Architect's review, a documented ADR and required human approval.
