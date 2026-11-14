@@ -220,7 +220,7 @@ test('Chapter One HUD follows the festival objective and gates Meera behind vill
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
     return scene.dialogueText.text;
   })).toContain('whole village');
-  await expect(page.locator('#objective')).toContainText('Help Dev');
+  await expect(page.locator('#objective')).toContainText('Explore the festival square');
 
   // Completing the prerequisites updates both the in-scene and DOM objective.
   await page.evaluate(() => {
