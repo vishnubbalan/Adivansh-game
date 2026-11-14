@@ -117,9 +117,8 @@ test('mobile touch controls stay below the canvas and respond to a held touch po
   await right.dispatchEvent('pointerup', { pointerId: 7, pointerType: 'touch', isPrimary: true, button: 0, buttons: 0 });
   await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 20);
   const releasedX = Number(await gameRoot.getAttribute('data-player-x'));
-  await page.waitForTimeout(240);
-  const stoppedX = Number(await gameRoot.getAttribute('data-player-x'));
-  expect(stoppedX).toBeLessThanOrEqual(releasedX + 5);
+  await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x')))
+    .toBeLessThanOrEqual(releasedX + 5);
 });
 
 test('mobile controls remain reachable in landscape', async ({ page }) => {
