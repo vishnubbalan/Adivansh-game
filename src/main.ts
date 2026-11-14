@@ -51,6 +51,9 @@ startButton.addEventListener('click', () => {
   intro.classList.add('is-hidden');
   hud.hidden = false;
   touchControls.hidden = false;
+  document.querySelector('#health')?.parentElement?.toggleAttribute('hidden', !params.has('forest'));
+  document.querySelector('.clue-pill')?.toggleAttribute('hidden', !params.has('forest'));
+  document.querySelector<HTMLButtonElement>('[data-key="attack"]')?.toggleAttribute('hidden', !params.has('forest'));
   game.events.emit(EVENTS.journeyStart);
 });
 
