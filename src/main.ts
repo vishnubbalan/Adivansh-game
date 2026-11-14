@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { ForestScene } from './scenes/ForestScene';
+import { VillageFestivalScene } from './scenes/VillageFestivalScene';
 import { CharacterArtProofScene } from './scenes/CharacterArtProofScene';
 import { EVENTS } from './core/events';
 import './style.css';
@@ -29,7 +30,7 @@ const game = new Phaser.Game({
   },
   scene: params.has('artProof')
     ? [CharacterArtProofScene]
-    : [ForestScene]
+    : params.has('forest') ? [ForestScene] : [VillageFestivalScene]
 });
 
 // Test seam for browser QA: `?debug` exposes the game instance. Not enabled in normal play.
@@ -41,6 +42,8 @@ const intro = document.querySelector<HTMLElement>('#intro')!;
 const hud = document.querySelector<HTMLElement>('#hud')!;
 const touchControls = document.querySelector<HTMLElement>('#touch-controls')!;
 const startButton = document.querySelector<HTMLButtonElement>('#start-button')!;
+
+document.querySelector<HTMLButtonElement>('[data-key="attack"]')?.toggleAttribute('hidden', !params.has('forest'));
 
 startButton.addEventListener('click', () => {
   intro.classList.add('is-hidden');
