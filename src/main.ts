@@ -44,6 +44,8 @@ const touchControls = document.querySelector<HTMLElement>('#touch-controls')!;
 const startButton = document.querySelector<HTMLButtonElement>('#start-button')!;
 
 document.querySelector<HTMLButtonElement>('[data-key="attack"]')?.toggleAttribute('hidden', !params.has('forest'));
+document.querySelector('#health')?.parentElement?.toggleAttribute('hidden', !params.has('forest'));
+document.querySelector('.clue-pill')?.toggleAttribute('hidden', !params.has('forest'));
 
 startButton.addEventListener('click', () => {
   intro.classList.add('is-hidden');
