@@ -52,6 +52,8 @@ export class VillageFestivalScene extends Phaser.Scene {
       this.game.events.off(EVENTS.touchKey, this.onTouch);
       this.game.events.off(EVENTS.journeyStart, this.onJourneyStart);
       this.touch.clear();
+      this.started = false;
+      this.interactionQueued = false;
     });
     this.physics.pause();
   }
