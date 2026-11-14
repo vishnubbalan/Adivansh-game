@@ -13,6 +13,7 @@ export class VillageFestivalScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private touch = new Set<string>();
+  private interactionQueued = false;
   private flags = new Set<FestivalFlag>();
   private hurdles = 0;
   private prompt!: Phaser.GameObjects.Text;
@@ -64,6 +65,10 @@ export class VillageFestivalScene extends Phaser.Scene {
     if (left !== right) this.player.setFlipX(left);
     if (body.blocked.down) this.player.setTexture(Math.abs(body.velocity.x) > 10 ? 'festival-hero-run' : 'festival-hero');
     else this.player.setTexture('festival-hero-jump');
+    if (this.interactionQueued) {
+      this.interactionQueued = false;
+      this.processInteraction();
+    }
     this.updateRibbonProgress();
     this.updatePrompt();
     if (time - this.lastPositionReport > 100) {
@@ -202,11 +207,15 @@ export class VillageFestivalScene extends Phaser.Scene {
 
   private onInteract = () => {
     if (!this.started) return;
+    this.interactionQueued = true;
+  };
+
+  private processInteraction() {
     if (this.dialogue.visible) { this.advanceDialogue(); return; }
     const target = this.findTarget();
     if (!target) { this.game.events.emit(EVENTS.toast, 'Move closer to a villager or the ribbon lane.'); return; }
     this.handleTarget(target);
-  };
+  }
 
   private onTouch = (key: string, pressed: boolean) => {
     if (pressed) {
@@ -224,7 +233,7 @@ export class VillageFestivalScene extends Phaser.Scene {
       { id: 'meera', x: 1960, y: this.floorY - 52, label: 'Meera Devi' },
       { id: 'messenger', x: 2240, y: this.floorY - 52, label: 'Messenger' }
     ];
-    return candidates.find(item => Math.abs(this.player.x - item.x) < 105) ?? null;
+    return candidates.find(item => Math.abs(this.player.x - item.x) < 125 && Math.abs(this.player.y - item.y) < 125) ?? null;
   }
 
   private updatePrompt() {
