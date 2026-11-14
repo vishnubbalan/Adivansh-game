@@ -21,7 +21,7 @@ test('game controls are visible, accessible and large enough for touch', async (
   await expect(page.locator('[data-key="attack"]')).toBeHidden();
   await expect(page.locator('#touch-controls')).toBeVisible();
 
-  // Read all five controls in one browser round-trip. Repeated per-locator
+  // Read all active controls in one browser round-trip. Repeated per-locator
   // visibility and boundingBox calls were timing out intermittently in the
   // Chromium CI runner while Phaser was rendering the scene.
   const measurements = await controls.evaluateAll(buttons =>
@@ -129,7 +129,7 @@ test('mobile controls remain reachable in landscape', async ({ page }) => {
   const bounds = await page.evaluate(() => {
     const canvas = document.querySelector('#game canvas')!.getBoundingClientRect();
     const controls = document.querySelector('#touch-controls')!.getBoundingClientRect();
-    const buttons = [...document.querySelectorAll<HTMLButtonElement>('#touch-controls button')];
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('#touch-controls button:not([hidden])')];
     return {
       canvasBottom: canvas.bottom,
       controlsTop: controls.top,
@@ -175,6 +175,7 @@ test('starts the festival chapter and supports nearby villager interaction', asy
   });
   expect(state.active).toBeTruthy();
   expect(state.sceneKey).toBe('VillageFestivalScene');
+  await page.keyboard.press('e'); // dismiss the opening thought bubble
   await page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
     scene.player.setPosition(420, 550);
