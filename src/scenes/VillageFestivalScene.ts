@@ -78,7 +78,7 @@ export class VillageFestivalScene extends Phaser.Scene {
     }
     this.updateRibbonProgress();
     this.updatePrompt();
-    if (time - this.lastPositionReport > 100) {
+    if (time - this.lastPositionReport > 16) {
       this.lastPositionReport = time;
       this.game.events.emit(EVENTS.playerPosition, { x: Math.round(this.player.x), y: Math.round(this.player.y) });
     }
