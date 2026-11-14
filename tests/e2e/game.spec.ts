@@ -228,12 +228,12 @@ test('Chapter One HUD follows the festival objective and gates Meera behind vill
     scene.flags.add('dev');
     scene.flags.add('ribbon');
     scene.flags.add('ila');
+    scene.dialogue.setVisible(false);
     scene.updateObjective();
   });
   await expect(page.locator('#objective')).toContainText('Speak with Meera');
   await page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
-    scene.dialogue.setVisible(false);
     scene.player.setPosition(1960, 568);
   });
   await page.keyboard.press('e');
