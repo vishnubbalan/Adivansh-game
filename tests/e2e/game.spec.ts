@@ -16,8 +16,9 @@ test('game controls are visible, accessible and large enough for touch', async (
   await page.goto('./?quality=low');
   await page.getByRole('button', { name: /begin the journey/i }).click();
 
-  const controls = page.locator('#touch-controls button');
-  await expect(controls).toHaveCount(5);
+  const controls = page.locator('#touch-controls button:not([hidden])');
+  await expect(controls).toHaveCount(4);
+  await expect(page.locator('[data-key="attack"]')).toBeHidden();
   await expect(page.locator('#touch-controls')).toBeVisible();
 
   // Read all five controls in one browser round-trip. Repeated per-locator
@@ -39,7 +40,7 @@ test('game controls are visible, accessible and large enough for touch', async (
     })
   );
 
-  expect(measurements).toHaveLength(5);
+  expect(measurements).toHaveLength(4);
   for (const control of measurements) {
     expect(control.visible, `${control.label} should be visible`).toBeTruthy();
     expect(control.width, `${control.label} width`).toBeGreaterThanOrEqual(44);
@@ -87,7 +88,7 @@ test('mobile touch controls stay below the canvas and respond to a held touch po
   const layout = await page.evaluate(() => {
     const canvasRect = document.querySelector('#game canvas')!.getBoundingClientRect();
     const controlsRect = document.querySelector('#touch-controls')!.getBoundingClientRect();
-    const buttons = [...document.querySelectorAll<HTMLButtonElement>('#touch-controls button')];
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('#touch-controls button:not([hidden])')];
     return {
       canvasBottom: canvasRect.bottom,
       controlsTop: controlsRect.top,
