@@ -160,3 +160,33 @@ test('keyboard movement changes the player world position', async ({ page }) => 
   // Assert real movement without assuming identical frame rates across engines.
   await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 5);
 });
+
+
+test('starts the festival chapter and supports nearby villager interaction', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto('./?quality=low&debug');
+  await page.getByRole('button', { name: /begin the journey/i }).click();
+  await expect(page.locator('#hud')).toBeVisible();
+  await expect.poll(async () => Number(await page.locator('#game').getAttribute('data-player-x'))).toBeGreaterThan(0);
+  const state = await page.evaluate(() => {
+    const game = (window as any).__ADIVANSH__;
+    const scene = game.scene.getScene('VillageFestivalScene');
+    return { active: game.scene.isActive('VillageFestivalScene'), sceneKey: scene.scene.key };
+  });
+  expect(state.active).toBeTruthy();
+  expect(state.sceneKey).toBe('VillageFestivalScene');
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.player.setPosition(420, 550);
+  });
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogue.visible;
+  })).toBeTruthy();
+  const dialogue = await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogueText.text;
+  });
+  expect(dialogue).toContain('A steady hand');
+});
