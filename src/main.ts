@@ -43,9 +43,7 @@ const hud = document.querySelector<HTMLElement>('#hud')!;
 const touchControls = document.querySelector<HTMLElement>('#touch-controls')!;
 const startButton = document.querySelector<HTMLButtonElement>('#start-button')!;
 
-document.querySelector<HTMLButtonElement>('[data-key="attack"]')?.toggleAttribute('hidden', !params.has('forest'));
-document.querySelector('#health')?.parentElement?.toggleAttribute('hidden', !params.has('forest'));
-document.querySelector('.clue-pill')?.toggleAttribute('hidden', !params.has('forest'));
+// Chapter-specific HUD visibility is applied after the intro starts.
 
 startButton.addEventListener('click', () => {
   intro.classList.add('is-hidden');
