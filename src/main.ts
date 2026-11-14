@@ -112,7 +112,9 @@ document.querySelectorAll<HTMLButtonElement>('[data-key]').forEach(button => {
   };
   button.addEventListener('pointerup', release);
   button.addEventListener('pointercancel', release);
-  button.addEventListener('lostpointercapture', () => set(false));
+  button.addEventListener('pointerleave', release);
+  button.addEventListener('lostpointercapture', release);
+  window.addEventListener('blur', () => set(false));
   button.addEventListener('click', event => {
     event.preventDefault();
     event.stopPropagation();
