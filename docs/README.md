@@ -3,7 +3,7 @@
 This folder is the source of truth for Adivansh product vision, narrative, world design, architecture, agent roles, production and commercial policy.
 
 ## Document map
-- [Game vision](01-product/GAME_VISION.md) — objective, genre, audience and player promise.\n- [Gameplay specification](01-product/GAMEPLAY_SPECIFICATION.md) — player controller, combat loop, quest state, interaction and UX rules.\n- [Chapter One level design](01-product/CHAPTER_ONE_LEVEL_DESIGN.md) — encounter sequence, spatial rules and completion criteria.
+- [Game vision](01-product/GAME_VISION.md) — objective, genre, audience and player promise.\n- [Gameplay specification](01-product/GAMEPLAY_SPECIFICATION.md) — player controller, combat loop, quest state, interaction and UX rules.\n- [Chapter One story](01-product/CHAPTER_ONE_STORY.md) — complete narrative, dialogue, character beats and playable festival sequence.\n- [Chapter One level design](01-product/CHAPTER_ONE_LEVEL_DESIGN.md) — encounter sequence, spatial rules and completion criteria.
 - [Story bible](01-product/STORY_BIBLE.md) — premise, themes, cast and chapter arc.
 - [World and art direction](02-world/ART_DIRECTION.md) — ancient Indic heroic character styling and Indian-Chinese fantasy environments.\n- [Character bible](02-world/CHARACTER_BIBLE.md) — cast roles, motivations and approval dossiers.\n- [Environment and VFX bible](02-world/ENVIRONMENT_AND_VFX_BIBLE.md) — layers, lighting, regional look and effect budgets.
 - [Weapons and combat](02-world/WEAPONS_AND_COMBAT.md) — traditional, mythic and arcane-technology weapon families.
