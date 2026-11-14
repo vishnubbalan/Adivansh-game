@@ -40,10 +40,15 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, 2400, 720).startFollow(this.player, true, 0.08, 0.08);
     this.cursors = this.input.keyboard!.createCursorKeys();
     this.keys = this.input.keyboard!.addKeys('A,D,W,SPACE,E') as Record<string, Phaser.Input.Keyboard.Key>;
+    // Keyboard events are registered by Phaser's keyboard plugin only while
+    // the browser canvas owns focus. Also accept the DOM key event at window
+    // level so a first key press immediately after dismissing the intro cannot
+    // be lost while Phaser transfers focus to the canvas.
     this.input.keyboard!.on('keydown-E', this.onInteract);
     this.input.keyboard!.on('keydown-SPACE', this.onJump);
     this.input.keyboard!.on('keydown-W', this.onJump);
     this.input.keyboard!.on('keydown-UP', this.onJump);
+    window.addEventListener('keydown', this.onWindowKeyDown, true);
     this.game.events.on(EVENTS.touchKey, this.onTouch);
     this.game.events.on(EVENTS.journeyStart, this.onJourneyStart);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -51,6 +56,7 @@ export class VillageFestivalScene extends Phaser.Scene {
       this.input.keyboard?.off('keydown-SPACE', this.onJump);
       this.input.keyboard?.off('keydown-W', this.onJump);
       this.input.keyboard?.off('keydown-UP', this.onJump);
+      window.removeEventListener('keydown', this.onWindowKeyDown, true);
       this.game.events.off(EVENTS.touchKey, this.onTouch);
       this.game.events.off(EVENTS.journeyStart, this.onJourneyStart);
       this.touch.clear();
@@ -204,6 +210,18 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.physics.resume();
     this.objective.setText('Explore the festival square and greet the villagers');
     this.say('ADIVANSH', 'The rains were kind this year. Let the people have one day without worry.');
+  };
+
+  private onWindowKeyDown = (event: KeyboardEvent) => {
+    if (!this.started || event.repeat || event.defaultPrevented) return;
+    const key = event.key.toLowerCase();
+    if (key === 'e') {
+      event.preventDefault();
+      this.onInteract();
+    } else if (key === ' ' || key === 'w' || key === 'arrowup') {
+      event.preventDefault();
+      this.onJump(event);
+    }
   };
 
   private onJump = (event: KeyboardEvent) => {
