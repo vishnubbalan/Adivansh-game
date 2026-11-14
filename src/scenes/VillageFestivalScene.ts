@@ -19,6 +19,8 @@ export class VillageFestivalScene extends Phaser.Scene {
   private dialogue!: Phaser.GameObjects.Container;
   private dialogueText!: Phaser.GameObjects.Text;
   private objective!: Phaser.GameObjects.Text;
+  private messengerActor!: Phaser.GameObjects.Container;
+  private messengerLabel!: Phaser.GameObjects.Text;
   private interactTarget: { id: string; x: number; y: number; label: string } | null = null;
   private lastPositionReport = 0;
   private readonly floorY = 620;
@@ -151,14 +153,21 @@ export class VillageFestivalScene extends Phaser.Scene {
   }
 
   private addNpc(id: string, x: number, label: string, colour: number, prompt: string) {
-    const group = this.add.container(x, this.floorY - 52).setDepth(6);
+    const actorX = id === 'messenger' ? 2440 : x;
+    const group = this.add.container(actorX, this.floorY - 52).setDepth(6);
     const art = this.add.graphics();
     art.fillStyle(colour, 1); art.fillRoundedRect(-20, -24, 40, 48, 12);
     art.fillStyle(0xd7ad7b, 1); art.fillCircle(0, -38, 15);
     art.fillStyle(0x302622, 1); art.fillEllipse(0, -52, 23, 10);
     art.fillStyle(0xe6c17e, 1); art.fillCircle(0, -38, 3);
     group.add(art);
-    this.add.text(x, this.floorY - 116, label, { fontFamily: 'Georgia', fontSize: '12px', color: '#fff0cf', stroke: '#27352f', strokeThickness: 3 }).setOrigin(0.5).setDepth(7);
+    const nameTag = this.add.text(actorX, this.floorY - 116, label, { fontFamily: 'Georgia', fontSize: '12px', color: '#fff0cf', stroke: '#27352f', strokeThickness: 3 }).setOrigin(0.5).setDepth(7);
+    if (id === 'messenger') {
+      group.setVisible(false);
+      nameTag.setVisible(false);
+      this.messengerActor = group;
+      this.messengerLabel = nameTag;
+    }
     group.setData('prompt', prompt);
     group.setData('id', id);
   }
@@ -265,8 +274,11 @@ export class VillageFestivalScene extends Phaser.Scene {
 
   private arriveMessenger() {
     if (this.flags.has('complete')) return;
-    this.say('MESSENGER', 'My Queen. A report from the southern watch.', 'MEERA', 'You rode through the rain. Speak.', 'MESSENGER', 'Three unfamiliar companies were seen beyond the old boundary stones. They did not take the road. They moved along the forest edge.', 'ADIVANSH', 'Do we know who they are?', 'MEERA', 'Not yet. And we will not frighten the village with guesses.', 'MEERA', 'At first light, I want the old border records. Something about this report does not fit.', 'ADIVANSH', 'I will come with you.', 'MEERA', 'I expected you would.');
-    this.time.delayedCall(9000, () => {
+    this.messengerActor.setVisible(true).setX(2440);
+    this.messengerLabel.setVisible(true).setX(2440);
+    this.tweens.add({ targets: [this.messengerActor, this.messengerLabel], x: 2240, duration: 850, ease: 'Sine.out' });
+    this.time.delayedCall(950, () => this.say('MESSENGER', 'My Queen. A report from the southern watch.', 'MEERA', 'You rode through the rain. Speak.', 'MESSENGER', 'Three unfamiliar companies were seen beyond the old boundary stones. They did not take the road. They moved along the forest edge.', 'ADIVANSH', 'Do we know who they are?', 'MEERA', 'Not yet. And we will not frighten the village with guesses.', 'MEERA', 'At first light, I want the old border records. Something about this report does not fit.', 'ADIVANSH', 'I will come with you.', 'MEERA', 'I expected you would.'));
+    this.time.delayedCall(10500, () => {
       this.flags.add('complete');
       this.objective.setText('Chapter complete — Shadows in the Court await');
       this.game.events.emit(EVENTS.storyComplete, {
