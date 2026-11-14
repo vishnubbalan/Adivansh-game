@@ -176,6 +176,12 @@ test('starts the festival chapter and supports nearby villager interaction', asy
   expect(state.active).toBeTruthy();
   expect(state.sceneKey).toBe('VillageFestivalScene');
   await page.keyboard.press('e'); // dismiss the opening thought bubble
+  // Wait for the scene update loop to consume the queued interaction before
+  // moving the player; otherwise this test can race the first input frame.
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogue.visible;
+  })).toBeFalsy();
   await page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
     scene.player.setPosition(420, 568);
