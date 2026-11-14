@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import { EVENTS } from '../core/events';
-
-type FestivalFlag = 'dev' | 'ribbon' | 'ila' | 'meera' | 'complete';
+import { canSpeakToMeera, nextFestivalObjective, RIBBON_HURDLES, type FestivalFlag } from '../story/chapterOneFestival';
 
 /**
  * Chapter One's festival slice. Kept separate from ForestScene so the existing
@@ -39,12 +38,14 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.input.keyboard!.on('keydown-E', this.onInteract);
     this.input.keyboard!.on('keydown-SPACE', this.onJump);
     this.input.keyboard!.on('keydown-W', this.onJump);
+    this.input.keyboard!.on('keydown-UP', this.onJump);
     this.game.events.on(EVENTS.touchKey, this.onTouch);
     this.game.events.on(EVENTS.journeyStart, this.onJourneyStart);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.input.keyboard?.off('keydown-E', this.onInteract);
       this.input.keyboard?.off('keydown-SPACE', this.onJump);
       this.input.keyboard?.off('keydown-W', this.onJump);
+      this.input.keyboard?.off('keydown-UP', this.onJump);
       this.game.events.off(EVENTS.touchKey, this.onTouch);
       this.game.events.off(EVENTS.journeyStart, this.onJourneyStart);
       this.touch.clear();
@@ -61,6 +62,7 @@ export class VillageFestivalScene extends Phaser.Scene {
     if (left !== right) this.player.setFlipX(left);
     if (body.blocked.down) this.player.setTexture(Math.abs(body.velocity.x) > 10 ? 'festival-hero-run' : 'festival-hero');
     else this.player.setTexture('festival-hero-jump');
+    this.updateRibbonProgress();
     this.updatePrompt();
     if (time - this.lastPositionReport > 100) {
       this.lastPositionReport = time;
@@ -232,7 +234,7 @@ export class VillageFestivalScene extends Phaser.Scene {
       return;
     }
     if (target.id === 'children' && !this.flags.has('ribbon')) {
-      if (this.hurdles < 3) {
+      if (this.hurdles < RIBBON_HURDLES.length) {
         this.say('TARA & KAVI', 'Can you leap all three ribbons without touching them? Use the jump button, then come back to us.');
         return;
       }
@@ -248,14 +250,14 @@ export class VillageFestivalScene extends Phaser.Scene {
       return;
     }
     if (target.id === 'meera' && !this.flags.has('meera')) {
-      if (!this.flags.has('dev') || !this.flags.has('ribbon') || !this.flags.has('ila')) {
+      if (!canSpeakToMeera(this.flags)) {
         this.say('MEERA', 'The whole village is part of this celebration. Take a moment to share it with them.');
         return;
       }
       this.flags.add('meera');
       this.say('MEERA', 'You came without the royal escort.', 'ADIVANSH', 'I was invited by the village. I thought I should arrive as a villager.', 'MEERA', 'Then you have already done better than half the court.', 'MEERA', 'At first light, I want the old border records. The forest road has become difficult.');
       this.updateObjective();
-      this.time.delayedCall(800, () => this.arriveMessenger());
+      this.time.delayedCall(3200, () => this.arriveMessenger());
       return;
     }
     if (target.id === 'messenger' && this.flags.has('meera') && !this.flags.has('complete')) this.arriveMessenger();
@@ -263,9 +265,9 @@ export class VillageFestivalScene extends Phaser.Scene {
 
   private arriveMessenger() {
     if (this.flags.has('complete')) return;
-    this.flags.add('complete');
     this.say('MESSENGER', 'My Queen. A report from the southern watch.', 'MEERA', 'You rode through the rain. Speak.', 'MESSENGER', 'Three unfamiliar companies were seen beyond the old boundary stones. They did not take the road. They moved along the forest edge.', 'ADIVANSH', 'Do we know who they are?', 'MEERA', 'Not yet. And we will not frighten the village with guesses.', 'MEERA', 'At first light, I want the old border records. Something about this report does not fit.', 'ADIVANSH', 'I will come with you.', 'MEERA', 'I expected you would.');
     this.time.delayedCall(9000, () => {
+      this.flags.add('complete');
       this.objective.setText('Chapter complete — Shadows in the Court await');
       this.game.events.emit(EVENTS.storyComplete, {
         objective: 'Chapter complete — Chapter II: Shadows in the Court',
@@ -287,10 +289,17 @@ export class VillageFestivalScene extends Phaser.Scene {
   }
 
   private updateObjective() {
-    const done = this.flags.size;
-    this.objective.setText(done === 1 ? 'Take part in the ribbon-leap challenge' :
-      done === 2 ? 'Hear the harvest keeper’s news' :
-      done === 3 ? 'Speak with Meera at the festival dais' :
-      'Enjoy the last light of the festival');
+    this.objective.setText(nextFestivalObjective(this.flags));
+  }
+
+  private updateRibbonProgress() {
+    if (this.flags.has('ribbon') || this.hurdles >= RIBBON_HURDLES.length) return;
+    const next = RIBBON_HURDLES[this.hurdles];
+    if (this.player.x >= next && this.player.y < this.floorY - 72) {
+      this.hurdles++;
+      this.game.events.emit(EVENTS.toast, this.hurdles === RIBBON_HURDLES.length
+        ? 'All three ribbons cleared! Return to Tara and Kavi.'
+        : `Ribbon ${this.hurdles} of ${RIBBON_HURDLES.length} cleared.`);
+    }
   }
 }
