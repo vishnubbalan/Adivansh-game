@@ -196,3 +196,49 @@ test('starts the festival chapter and supports nearby villager interaction', asy
   });
   expect(dialogue).toContain('A steady hand');
 });
+
+
+test('Chapter One HUD follows the festival objective and gates Meera behind village activities', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto('./?quality=low&debug');
+  await page.getByRole('button', { name: /begin the journey/i }).click();
+  await expect(page.locator('#objective')).toContainText('Explore the festival square');
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogue.visible;
+  })).toBeFalsy();
+
+  // Meera is deliberately not available until Dev, the ribbon challenge and Ila
+  // have all been completed. Assert the gate through the real interaction path.
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.player.setPosition(1960, 568);
+  });
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogueText.text;
+  })).toContain('whole village');
+  await expect(page.locator('#objective')).toContainText('Help Dev');
+
+  // Completing the prerequisites updates both the in-scene and DOM objective.
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.flags.add('dev');
+    scene.flags.add('ribbon');
+    scene.flags.add('ila');
+    scene.updateObjective();
+  });
+  await expect(page.locator('#objective')).toContainText('Speak with Meera');
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.dialogue.setVisible(false);
+    scene.player.setPosition(1960, 568);
+  });
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogueText.text;
+  })).toContain('royal escort');
+});
