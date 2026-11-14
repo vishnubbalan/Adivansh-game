@@ -212,6 +212,7 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.started = true;
     this.physics.resume();
     this.objective.setText('Explore the festival square and greet the villagers');
+    this.game.events.emit(EVENTS.objectiveChanged, 'Explore the festival square and greet the villagers');
     this.say('ADIVANSH', 'The rains were kind this year. Let the people have one day without worry.');
   };
 
@@ -339,7 +340,9 @@ export class VillageFestivalScene extends Phaser.Scene {
   }
 
   private updateObjective() {
-    this.objective.setText(nextFestivalObjective(this.flags));
+    const objective = nextFestivalObjective(this.flags);
+    this.objective.setText(objective);
+    this.game.events.emit(EVENTS.objectiveChanged, objective);
   }
 
   private updateRibbonProgress() {
