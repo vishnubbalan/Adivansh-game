@@ -204,3 +204,10 @@ AI-generated images may be used for ideation. They are not automatically exclusi
 - [ ] Create asset register and source/export folder policy.
 - [ ] Produce one small integration proof (hero idle/run/attack + one forest background slice), not the entire art pack.
 - [ ] Compare in-game screenshots at desktop and 390px mobile width; record performance and visual-review findings.
+
+
+## 11. Optional 3D character reference track
+
+A separate pre-production 3D character modeling package is available under `art-source/characters/3d-modeling/`. It defines anatomy, topology, UVs, PBR materials, costume construction, rigs, animation requirements, LOD guidance, Blender workflow and glTF export checks for Adivansh, Meera Devi and the Forest Guardian.
+
+This package does not replace the current 2D Phaser asset pipeline or authorize a runtime engine migration. High-resolution source meshes, if commissioned or created later, must remain outside the web runtime bundle. The 3D workflow is not considered complete until actual .blend source files, retopology, textures, rigs, validated exports and provenance records exist.
