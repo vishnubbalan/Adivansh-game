@@ -204,6 +204,7 @@ export class VillageFestivalScene extends Phaser.Scene {
   private onJump = (event: KeyboardEvent) => {
     if (!this.started || event.repeat || this.dialogue.visible) return;
     const body = this.player.body as Phaser.Physics.Arcade.Body;
+    if (this.dialogue.visible) { this.onInteract(); return; }
     if (body.blocked.down) body.setVelocityY(-500);
   };
 
