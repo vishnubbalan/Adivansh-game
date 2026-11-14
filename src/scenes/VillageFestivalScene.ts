@@ -22,6 +22,8 @@ export class VillageFestivalScene extends Phaser.Scene {
   private objective!: Phaser.GameObjects.Text;
   private messengerActor!: Phaser.GameObjects.Container;
   private messengerLabel!: Phaser.GameObjects.Text;
+  private messengerArrivalCall?: Phaser.Time.TimerEvent;
+  private chapterCompleteCall?: Phaser.Time.TimerEvent;
   private interactTarget: { id: string; x: number; y: number; label: string } | null = null;
   private lastPositionReport = 0;
   private readonly floorY = 620;
@@ -52,6 +54,8 @@ export class VillageFestivalScene extends Phaser.Scene {
       this.game.events.off(EVENTS.touchKey, this.onTouch);
       this.game.events.off(EVENTS.journeyStart, this.onJourneyStart);
       this.touch.clear();
+      this.messengerArrivalCall?.remove(false);
+      this.chapterCompleteCall?.remove(false);
       this.started = false;
       this.interactionQueued = false;
     });
@@ -278,7 +282,7 @@ export class VillageFestivalScene extends Phaser.Scene {
       this.flags.add('meera');
       this.say('MEERA', 'You came without the royal escort.', 'ADIVANSH', 'I was invited by the village. I thought I should arrive as a villager.', 'MEERA', 'Then you have already done better than half the court.', 'MEERA', 'At first light, I want the old border records. The forest road has become difficult.');
       this.updateObjective();
-      this.time.delayedCall(3200, () => this.arriveMessenger());
+      this.messengerArrivalCall = this.time.delayedCall(3200, () => this.arriveMessenger());
       return;
     }
     if (target.id === 'messenger' && this.flags.has('meera') && !this.flags.has('complete')) this.arriveMessenger();
@@ -289,8 +293,8 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.messengerActor.setVisible(true).setX(2440);
     this.messengerLabel.setVisible(true).setX(2440);
     this.tweens.add({ targets: [this.messengerActor, this.messengerLabel], x: 2240, duration: 850, ease: 'Sine.out' });
-    this.time.delayedCall(950, () => this.say('MESSENGER', 'My Queen. A report from the southern watch.', 'MEERA', 'You rode through the rain. Speak.', 'MESSENGER', 'Three unfamiliar companies were seen beyond the old boundary stones. They did not take the road. They moved along the forest edge.', 'ADIVANSH', 'Do we know who they are?', 'MEERA', 'Not yet. And we will not frighten the village with guesses.', 'MEERA', 'At first light, I want the old border records. Something about this report does not fit.', 'ADIVANSH', 'I will come with you.', 'MEERA', 'I expected you would.'));
-    this.time.delayedCall(10500, () => {
+    this.messengerArrivalCall = this.time.delayedCall(950, () => this.say('MESSENGER', 'My Queen. A report from the southern watch.', 'MEERA', 'You rode through the rain. Speak.', 'MESSENGER', 'Three unfamiliar companies were seen beyond the old boundary stones. They did not take the road. They moved along the forest edge.', 'ADIVANSH', 'Do we know who they are?', 'MEERA', 'Not yet. And we will not frighten the village with guesses.', 'MEERA', 'At first light, I want the old border records. Something about this report does not fit.', 'ADIVANSH', 'I will come with you.', 'MEERA', 'I expected you would.'));
+    this.chapterCompleteCall = this.time.delayedCall(10500, () => {
       this.flags.add('complete');
       this.objective.setText('Chapter complete — Shadows in the Court await');
       this.game.events.emit(EVENTS.storyComplete, {
