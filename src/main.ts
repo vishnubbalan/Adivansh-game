@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { ForestScene } from './scenes/ForestScene';
+import { VillageFestivalScene } from './scenes/VillageFestivalScene';
 import { CharacterArtProofScene } from './scenes/CharacterArtProofScene';
 import { EVENTS } from './core/events';
 import './style.css';
@@ -29,7 +30,7 @@ const game = new Phaser.Game({
   },
   scene: params.has('artProof')
     ? [CharacterArtProofScene]
-    : [ForestScene]
+    : params.has('forest') ? [ForestScene] : [VillageFestivalScene]
 });
 
 // Test seam for browser QA: `?debug` exposes the game instance. Not enabled in normal play.
@@ -42,10 +43,15 @@ const hud = document.querySelector<HTMLElement>('#hud')!;
 const touchControls = document.querySelector<HTMLElement>('#touch-controls')!;
 const startButton = document.querySelector<HTMLButtonElement>('#start-button')!;
 
+// Chapter-specific HUD visibility is applied after the intro starts.
+
 startButton.addEventListener('click', () => {
   intro.classList.add('is-hidden');
   hud.hidden = false;
   touchControls.hidden = false;
+  document.querySelector('#health')?.parentElement?.toggleAttribute('hidden', !params.has('forest'));
+  document.querySelector('.clue-pill')?.toggleAttribute('hidden', !params.has('forest'));
+  document.querySelector<HTMLButtonElement>('[data-key="attack"]')?.toggleAttribute('hidden', !params.has('forest'));
   game.events.emit(EVENTS.journeyStart);
 });
 
@@ -106,7 +112,9 @@ document.querySelectorAll<HTMLButtonElement>('[data-key]').forEach(button => {
   };
   button.addEventListener('pointerup', release);
   button.addEventListener('pointercancel', release);
-  button.addEventListener('lostpointercapture', () => set(false));
+  button.addEventListener('pointerleave', release);
+  button.addEventListener('lostpointercapture', release);
+  window.addEventListener('blur', () => set(false));
   button.addEventListener('click', event => {
     event.preventDefault();
     event.stopPropagation();

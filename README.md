@@ -17,7 +17,16 @@ npm install
 npm run dev
 ```
 
-## Controls
+## Chapter One controls
+
+- Move: `A` / `D` or `←` / `→`
+- Jump: `W`, `Space`, or `↑`
+- Interact: `E`
+- Mobile: on-screen movement, jump and interact controls
+
+The earlier forest pursuit prototype remains available during development at `?forest`.
+
+## Forest prototype controls
 
 - Move: `A` / `D` or `←` / `→`
 - Jump: `W`, `Space`, or `↑`

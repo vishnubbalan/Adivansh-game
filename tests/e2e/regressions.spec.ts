@@ -4,7 +4,7 @@ import { test, expect, type Page } from '@playwright/test';
 type DebugWindow = { __ADIVANSH__: { scene: { getScene(key: string): any } } };
 
 async function startGame(page: Page) {
-  await page.goto('./?quality=low&debug');
+  await page.goto('./?quality=low&debug&forest');
   await page.getByRole('button', { name: /begin the journey/i }).click();
   await expect(page.locator('#hud')).toBeVisible();
 }
