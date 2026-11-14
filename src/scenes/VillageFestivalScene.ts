@@ -68,6 +68,7 @@ export class VillageFestivalScene extends Phaser.Scene {
     const left = this.cursors.left.isDown || this.keys.A.isDown || this.touch.has('left');
     const right = this.cursors.right.isDown || this.keys.D.isDown || this.touch.has('right');
     body.setVelocityX(left === right ? 0 : left ? -245 : 245);
+    if (!left && !right) body.setVelocityX(0);
     if (left !== right) this.player.setFlipX(left);
     if (body.blocked.down) this.player.setTexture(Math.abs(body.velocity.x) > 10 ? 'festival-hero-run' : 'festival-hero');
     else this.player.setTexture('festival-hero-jump');
