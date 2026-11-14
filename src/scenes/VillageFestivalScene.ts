@@ -348,12 +348,16 @@ export class VillageFestivalScene extends Phaser.Scene {
   private updateRibbonProgress() {
     if (this.flags.has('ribbon') || this.hurdles >= RIBBON_HURDLES.length) return;
     const next = RIBBON_HURDLES[this.hurdles];
-    const airborne = !(this.player.body as Phaser.Physics.Arcade.Body).blocked.down;
-    if (this.player.x >= next && airborne && this.player.y < this.floorY - 72) {
+    const body = this.player.body as Phaser.Physics.Arcade.Body;
+    const airborne = !body.blocked.down && this.player.y < this.floorY - 72;
+    const hurdleHalfWidth = 34;
+    const clearedHorizontally = this.player.x >= next + hurdleHalfWidth;
+    if (clearedHorizontally && airborne) {
       this.hurdles++;
-      this.game.events.emit(EVENTS.toast, this.hurdles === RIBBON_HURDLES.length
+      const message = this.hurdles === RIBBON_HURDLES.length
         ? 'All three ribbons cleared! Return to Tara and Kavi.'
-        : `Ribbon ${this.hurdles} of ${RIBBON_HURDLES.length} cleared.`);
+        : `Ribbon ${this.hurdles} of ${RIBBON_HURDLES.length} cleared.`;
+      this.game.events.emit(EVENTS.toast, message);
     }
   }
 }
