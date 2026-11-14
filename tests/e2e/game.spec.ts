@@ -176,6 +176,7 @@ test('starts the festival chapter and supports nearby villager interaction', asy
   expect(state.active).toBeTruthy();
   expect(state.sceneKey).toBe('VillageFestivalScene');
   await page.keyboard.press('e'); // dismiss the opening thought bubble
+  await page.keyboard.press('e'); // the ribbon tutorial also explains the nearby challenge
   await page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
     scene.player.setPosition(420, 550);
@@ -183,7 +184,7 @@ test('starts the festival chapter and supports nearby villager interaction', asy
   await page.keyboard.press('e');
   await expect.poll(async () => page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
-    return scene.dialogue.visible;
+    return scene.dialogueText.text.includes('A steady hand');
   })).toBeTruthy();
   const dialogue = await page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
