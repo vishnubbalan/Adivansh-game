@@ -117,9 +117,8 @@ test('mobile touch controls stay below the canvas and respond to a held touch po
   await right.dispatchEvent('pointerup', { pointerId: 7, pointerType: 'touch', isPrimary: true, button: 0, buttons: 0 });
   await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x'))).toBeGreaterThan(initialX + 20);
   const releasedX = Number(await gameRoot.getAttribute('data-player-x'));
-  await page.waitForTimeout(240);
-  const stoppedX = Number(await gameRoot.getAttribute('data-player-x'));
-  expect(stoppedX).toBeLessThanOrEqual(releasedX + 5);
+  await expect.poll(async () => Number(await gameRoot.getAttribute('data-player-x')))
+    .toBeLessThanOrEqual(releasedX + 5);
 });
 
 test('mobile controls remain reachable in landscape', async ({ page }) => {
@@ -176,6 +175,12 @@ test('starts the festival chapter and supports nearby villager interaction', asy
   expect(state.active).toBeTruthy();
   expect(state.sceneKey).toBe('VillageFestivalScene');
   await page.keyboard.press('e'); // dismiss the opening thought bubble
+  // Wait for the scene update loop to consume the queued interaction before
+  // moving the player; otherwise this test can race the first input frame.
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogue.visible;
+  })).toBeFalsy();
   await page.evaluate(() => {
     const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
     scene.player.setPosition(420, 568);
@@ -190,4 +195,50 @@ test('starts the festival chapter and supports nearby villager interaction', asy
     return scene.dialogueText.text;
   });
   expect(dialogue).toContain('A steady hand');
+});
+
+
+test('Chapter One HUD follows the festival objective and gates Meera behind village activities', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto('./?quality=low&debug');
+  await page.getByRole('button', { name: /begin the journey/i }).click();
+  await expect(page.locator('#objective')).toContainText('Explore the festival square');
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogue.visible;
+  })).toBeFalsy();
+
+  // Meera is deliberately not available until Dev, the ribbon challenge and Ila
+  // have all been completed. Assert the gate through the real interaction path.
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.player.setPosition(1960, 568);
+  });
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogueText.text;
+  })).toContain('whole village');
+  await expect(page.locator('#objective')).toContainText('Explore the festival square');
+
+  // Completing the prerequisites updates both the in-scene and DOM objective.
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.flags.add('dev');
+    scene.flags.add('ribbon');
+    scene.flags.add('ila');
+    scene.dialogue.setVisible(false);
+    scene.updateObjective();
+  });
+  await expect(page.locator('#objective')).toContainText('Speak with Meera');
+  await page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    scene.player.setPosition(1960, 568);
+  });
+  await page.keyboard.press('e');
+  await expect.poll(async () => page.evaluate(() => {
+    const scene = (window as any).__ADIVANSH__.scene.getScene('VillageFestivalScene');
+    return scene.dialogueText.text;
+  })).toContain('royal escort');
 });

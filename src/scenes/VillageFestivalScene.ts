@@ -40,10 +40,15 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, 2400, 720).startFollow(this.player, true, 0.08, 0.08);
     this.cursors = this.input.keyboard!.createCursorKeys();
     this.keys = this.input.keyboard!.addKeys('A,D,W,SPACE,E') as Record<string, Phaser.Input.Keyboard.Key>;
+    // Keyboard events are registered by Phaser's keyboard plugin only while
+    // the browser canvas owns focus. Also accept the DOM key event at window
+    // level so a first key press immediately after dismissing the intro cannot
+    // be lost while Phaser transfers focus to the canvas.
     this.input.keyboard!.on('keydown-E', this.onInteract);
     this.input.keyboard!.on('keydown-SPACE', this.onJump);
     this.input.keyboard!.on('keydown-W', this.onJump);
     this.input.keyboard!.on('keydown-UP', this.onJump);
+    window.addEventListener('keydown', this.onWindowKeyDown, true);
     this.game.events.on(EVENTS.touchKey, this.onTouch);
     this.game.events.on(EVENTS.journeyStart, this.onJourneyStart);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -51,6 +56,7 @@ export class VillageFestivalScene extends Phaser.Scene {
       this.input.keyboard?.off('keydown-SPACE', this.onJump);
       this.input.keyboard?.off('keydown-W', this.onJump);
       this.input.keyboard?.off('keydown-UP', this.onJump);
+      window.removeEventListener('keydown', this.onWindowKeyDown, true);
       this.game.events.off(EVENTS.touchKey, this.onTouch);
       this.game.events.off(EVENTS.journeyStart, this.onJourneyStart);
       this.touch.clear();
@@ -67,6 +73,9 @@ export class VillageFestivalScene extends Phaser.Scene {
     const body = this.player.body as Phaser.Physics.Arcade.Body;
     const left = this.cursors.left.isDown || this.keys.A.isDown || this.touch.has('left');
     const right = this.cursors.right.isDown || this.keys.D.isDown || this.touch.has('right');
+    // Stop residual horizontal drift immediately on touch/key release. Without
+    // this, the arcade integrator carries a few pixels of momentum into the
+    // next frames, causing an imprecise stop and poor platforming control.
     body.setVelocityX(left === right ? 0 : left ? -245 : 245);
     if (!left && !right) body.setVelocityX(0);
     if (left !== right) this.player.setFlipX(left);
@@ -203,7 +212,20 @@ export class VillageFestivalScene extends Phaser.Scene {
     this.started = true;
     this.physics.resume();
     this.objective.setText('Explore the festival square and greet the villagers');
+    this.game.events.emit(EVENTS.objectiveChanged, 'Explore the festival square and greet the villagers');
     this.say('ADIVANSH', 'The rains were kind this year. Let the people have one day without worry.');
+  };
+
+  private onWindowKeyDown = (event: KeyboardEvent) => {
+    if (!this.started || event.repeat || event.defaultPrevented) return;
+    const key = event.key.toLowerCase();
+    if (key === 'e') {
+      event.preventDefault();
+      this.onInteract();
+    } else if (key === ' ' || key === 'w' || key === 'arrowup') {
+      event.preventDefault();
+      this.onJump(event);
+    }
   };
 
   private onJump = (event: KeyboardEvent) => {
@@ -318,18 +340,24 @@ export class VillageFestivalScene extends Phaser.Scene {
   }
 
   private updateObjective() {
-    this.objective.setText(nextFestivalObjective(this.flags));
+    const objective = nextFestivalObjective(this.flags);
+    this.objective.setText(objective);
+    this.game.events.emit(EVENTS.objectiveChanged, objective);
   }
 
   private updateRibbonProgress() {
     if (this.flags.has('ribbon') || this.hurdles >= RIBBON_HURDLES.length) return;
     const next = RIBBON_HURDLES[this.hurdles];
-    const airborne = !(this.player.body as Phaser.Physics.Arcade.Body).blocked.down;
-    if (this.player.x >= next && airborne && this.player.y < this.floorY - 72) {
+    const body = this.player.body as Phaser.Physics.Arcade.Body;
+    const airborne = !body.blocked.down && this.player.y < this.floorY - 72;
+    const hurdleHalfWidth = 34;
+    const clearedHorizontally = this.player.x >= next + hurdleHalfWidth;
+    if (clearedHorizontally && airborne) {
       this.hurdles++;
-      this.game.events.emit(EVENTS.toast, this.hurdles === RIBBON_HURDLES.length
+      const message = this.hurdles === RIBBON_HURDLES.length
         ? 'All three ribbons cleared! Return to Tara and Kavi.'
-        : `Ribbon ${this.hurdles} of ${RIBBON_HURDLES.length} cleared.`);
+        : `Ribbon ${this.hurdles} of ${RIBBON_HURDLES.length} cleared.`;
+      this.game.events.emit(EVENTS.toast, message);
     }
   }
 }

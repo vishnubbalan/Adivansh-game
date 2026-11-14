@@ -8,6 +8,7 @@ export const EVENTS = {
   playerHealth: 'player:health',
   playerPosition: 'player:position',
   storyMilestone: 'story:milestone',
+  objectiveChanged: 'objective:changed',
   storyComplete: 'story:complete',
   clueCollected: 'clue:collected',
   toast: 'game:toast'
