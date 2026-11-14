@@ -63,6 +63,9 @@ game.events.on(EVENTS.playerPosition, (position: { x: number; y: number }) => {
 game.events.on(EVENTS.playerHealth, (health: number) => {
   document.querySelector('#health')!.textContent = String(health);
 });
+game.events.on(EVENTS.objectiveChanged, (objective: string) => {
+  document.querySelector('#objective')!.textContent = objective;
+});
 game.events.on(EVENTS.storyMilestone, (milestone: { objective: string; narration: string }) => {
   document.querySelector('#objective')!.textContent = milestone.objective;
   const toast = document.querySelector<HTMLElement>('#toast')!;
