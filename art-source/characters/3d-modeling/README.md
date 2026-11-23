@@ -46,3 +46,11 @@ Do not label a character “3D modeled”, “rigged” or “game-ready” unti
 
 ## Workflow rule
 Create models as offline source assets first. Review sculpt, topology, costume, silhouette, facial consistency and rights provenance before runtime export. Never place high-resolution source meshes or unoptimised textures in the browser runtime bundle.
+
+
+## Chapter One character production sheets
+
+- [Adivansh — Chapter One production sheet](../adivansh/CHARACTER_PRODUCTION_SHEET.md): identity, provisional proportions, orthographic turnaround contract, anatomy, layered costume, PBR materials, expressions, rigging and delivery gates.
+- [Meera Devi — Chapter One production sheet](../meera-devi/CHARACTER_PRODUCTION_SHEET.md): identity, provisional proportions, orthographic turnaround contract, anatomy, sari construction, PBR materials, expressions, rigging and delivery gates.
+
+These sheets are modelling handoffs, not completed Blender source files or approved final sculpts. The concept images are separate visual exploration outputs; use them as references only after the human owner selects/approves the face and costume details. Follow the shared Blender workflow and provenance rules in this folder.
