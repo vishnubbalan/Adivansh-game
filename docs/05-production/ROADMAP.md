@@ -3,16 +3,16 @@
 ## Guiding rule
 Ship a complete, polished and playtested Chapter One before expanding to all five chapters. Commercial viability is the first priority.
 
-## Milestone 0 — Baseline
-Audit code, workflows, dependencies and defects. Confirm browsers/devices, performance budgets, art bible, asset-rights register and Chapter One acceptance criteria. Architect reviews module boundaries.
-**Exit:** baseline report, approved architecture and measurable QA plan.
+## Milestone 0 — Story lock and technical baseline (current; 2026-11-23 reset)
+The 2D prototype was deleted. Finalise the Chapter 1 story as runnable ink + beat data, the canon database and the character bible; approve the 3D architecture ([TECHNICAL_ARCHITECTURE.md](../03-architecture/TECHNICAL_ARCHITECTURE.md)); run spikes S1–S8; scaffold the monorepo, CI and perf harness.
+**Exit:** owner-approved Chapter 1 script, spike results recorded, S1/S3/S6 passed (or an ADR for the alternative), measurable QA plan. See Phases 0–1 in [TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md](../TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md).
 
 ## Milestone 1 — Premium Chapter One
-Integrate original ancient Indic / epic-era heroic character designs and Indian-Chinese-inspired forest/temple art. Complete controls, combat, boss, clue, objective flow and ending. Add animation, VFX, audio, pause/settings, checkpoints and responsive HUD.
+Produce original 3D ancient Indic / epic-era heroic characters and Indian-Chinese-inspired forest/temple environments. Complete controls, combat, boss, clue, objective flow and ending. Add animation, VFX, audio, pause/settings, checkpoints and HUD.
 **Exit:** playable start-to-finish chapter, reviewed assets and no P0/P1 defects.
 
 ## Milestone 2 — Closed player validation
-Run moderated playtests. Observe onboarding, combat readability, difficulty and completion. Test representative devices. Fix highest-impact friction and performance issues; collect only necessary transparent feedback.
+Run moderated playtests. Observe onboarding, combat readability, difficulty and completion. Test minimum and recommended hardware tiers. Fix highest-impact friction and performance issues; collect only necessary transparent feedback.
 **Exit:** findings, fixes, measured performance and proceed/rework decision.
 
 ## Milestone 3 — Launch readiness

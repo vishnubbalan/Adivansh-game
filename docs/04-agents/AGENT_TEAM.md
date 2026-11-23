@@ -2,7 +2,7 @@
 
 ## Operating model
 
-Nine specialised AI role prompts are coordinated by the scheduled repository workflow. They are role-based reviews and handoffs executed by the Codex workflow, not nine independent always-on workers or nine guaranteed parallel model instances. Each four-hour cycle selects one bounded task, invokes the relevant specialist responsibilities, and produces a reviewable change only when justified.
+Nine specialised AI role prompts are coordinated by the repository workflow (the scheduled agent-cycle workflow was removed in the 2026-11-23 reset and will be recreated with the new scaffold). They are role-based reviews and handoffs executed by the Codex workflow, not nine independent always-on workers or nine guaranteed parallel model instances. Each four-hour cycle selects one bounded task, invokes the relevant specialist responsibilities, and produces a reviewable change only when justified.
 
 The original six cross-functional roles remain the core delivery team. Three game-production specialists provide focused design and review capabilities.
 
@@ -33,10 +33,10 @@ Own the player-facing design quality of the action-adventure loop. Review player
 
 Required outputs: design brief or tuning table; player problem; intended emotional/skill outcome; state/interaction rules; edge cases; accessibility considerations; acceptance criteria; playtest questions and success signals.
 
-### 8. 2D Animation & Technical Art Specialist
-Own the production-readiness and integration quality of 2D visual assets. Define animation state coverage, sprite/atlas dimensions, pivots, frame timing, transparency, layering, hitbox alignment, export settings, texture budgets and Phaser integration contracts. Review silhouette/readability, consistency with approved art direction, asset provenance and licence status. Distinguish concept art, proof assets and production-ready runtime assets. Never label discrete pose swaps as frame animation or approve unreviewed generated art as final.
+### 8. 3D Animation & Technical Art Specialist
+Own the production-readiness and integration quality of 3D visual assets. Define animation state coverage, rig/bone budgets, LODs, materials and shaders, texture (KTX2) and VRAM budgets, sockets, hit-volume alignment, glTF export settings and engine integration contracts. Review silhouette/readability, consistency with approved art direction, asset provenance and licence status. Distinguish concept art, proof assets and production-ready runtime assets. Never label discrete pose swaps as frame animation or approve unreviewed generated art as final.
 
-Required outputs: asset/animation matrix; sprite or atlas specification; technical import/integration checklist; frame/pivot/hitbox validation; file provenance/licence record; visual review evidence; missing-art brief and blockers.
+Required outputs: asset/animation matrix; mesh/rig/material specification; technical import/integration checklist; LOD/bone/budget/hitbox validation; file provenance/licence record; visual review evidence; missing-art brief and blockers.
 
 ### 9. Level Design & Player Experience Specialist
 Own the spatial and navigational experience of each level. Design readable routes, encounter pacing, landmarks, traversal, secrets, puzzle teaching, checkpoints, risk/reward, camera framing and onboarding. Ensure players can infer where to go and why, without removing meaningful exploration. Coordinate with the Game Designer on encounter mechanics, the Art Specialist on visual landmarks, and QA on route completion and softlock coverage.
@@ -47,7 +47,7 @@ Required outputs: annotated level-flow plan; player route and critical path; enc
 
 Specialists are invoked by relevance, not all forced into every task:
 - Combat, movement, abilities, enemies or difficulty: Principal Game Designer leads design review; Architect checks implementation constraints; Developer implements; QA validates.
-- Characters, animation, VFX, sprites, backgrounds or asset imports: 2D Animation & Technical Art Specialist leads asset review; Architect checks rendering/performance contracts; Developer integrates; QA verifies visual/runtime behaviour. Human art approval remains required.
+- Characters, animation, VFX, models, environments or asset imports: 3D Animation & Technical Art Specialist leads asset review; Architect checks rendering/performance contracts; Developer integrates; QA verifies visual/runtime behaviour. Human art approval remains required.
 - Routes, puzzles, traversal, checkpoints, encounter placement or navigation: Level Design & Player Experience Specialist leads spatial review; Game Designer checks gameplay loop; BA confirms scope; QA tests route completion and softlocks.
 - Cross-cutting tasks: Orchestration selects only the relevant specialists and records their handoffs. The full team is not required to generate redundant reviews for a one-line fix.
 

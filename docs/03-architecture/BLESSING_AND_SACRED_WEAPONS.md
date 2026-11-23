@@ -1,5 +1,7 @@
 # Blessing and Sacred Weapons System
 
+> **Implementation note (2026-11-23):** references to Phaser, `ForestScene`, sprites, 2D layers or `src/` paths in this document describe the deleted 2D prototype. The *design intent* stands; the implementation will be re-expressed on the 3D architecture ([TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md), [MODULE_MAP.md](MODULE_MAP.md)).
+
 > Design document. The hero earns sacred powers and weapons by helping people, saving innocents,
 > and earning the trust of saints and spirits along the journey. This is the Ramayana gift system —
 > Rama received divine weapons from sages who tested his worth first. The same principle applies here.

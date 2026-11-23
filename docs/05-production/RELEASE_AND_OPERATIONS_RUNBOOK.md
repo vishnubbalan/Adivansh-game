@@ -1,15 +1,15 @@
 # Release and Operations Runbook
 
 ## Environments
-- Local: developer machine and local Vite server.
+- Local: developer machine and local Vite dev server (and the Tauri dev command for the desktop shell).
 - Pull request: CI validation and review; never assume preview is production.
-- Production: GitHub Pages URL configured in repository settings.
+- Production: browser demo host (GitHub Pages or itch.io, TBD) and signed desktop installers (storefront TBD). Workflows are recreated with the Phase 1 scaffold.
 
 Record environment URLs, deployment source, branch, workflow and owner. Do not commit secrets or environment-specific credentials.
 
 ## Pull request gate
 1. Confirm scope is one bounded task and docs match approved direction.
-2. Run `npm test`, `npm run build` and `npm run test:e2e` as applicable.
+2. Run the workspace test, build and smoke commands (`pnpm test`, `pnpm build`, `pnpm test:e2e`) as applicable.
 3. Inspect screenshots/traces and attach evidence for visual/input changes.
 4. Confirm no unrelated files or generated artifacts.
 5. Review dependencies and asset rights.

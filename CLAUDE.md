@@ -2,89 +2,44 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
+## Current state (read first)
 
-```bash
-npm install          # install dependencies
-npm test             # unit tests (vitest)
-npm run test:e2e     # Playwright E2E (starts vite dev server automatically)
-npm run build        # TypeScript check + production build to dist/
-npm run dev          # local dev server at http://localhost:5173
-```
+**The repository contains documentation only.** On 2026-11-23 the 2D Phaser prototype (all `src/`, tests, scripts, assets, npm/Vite/Playwright config and CI workflows) was deleted at the owner's request so the game can be rebuilt as a **3D, story-first desktop game**. The old code is in git history (commit `f90dc33` and earlier). There are no build, test or run commands yet; they are added here when the Phase 1 scaffold lands.
 
-Run a single unit test file:
-```bash
-npx vitest run tests/unit/combat.test.ts
-```
+Do not recreate the old Phaser/2D code or add SVG/sprite character art. The owner requires real 3D, movie-like visuals with very human characters.
 
-Run a single E2E test:
-```bash
-npx playwright test tests/e2e/game.spec.ts --project=chromium
-```
+## Where the plan lives
 
-Convert SVG art assets to PNG (run once after adding new SVG sources):
-```bash
-node scripts/svg-to-png.mjs
-```
+- `docs/README.md` — hub and document map; start here.
+- `docs/03-architecture/TECHNICAL_ARCHITECTURE.md` — chosen stack, rendering, tiers, game loop, risks and spikes S1–S8.
+- `docs/03-architecture/DECISIONS.md` — ADR-006…011 define the 3D reset; ADR-001/002 are superseded/amended.
+- `docs/03-architecture/NARRATIVE_SYSTEM.md` — story as data (ink + JSON), tooling, contracts.
+- `docs/03-architecture/MODULE_MAP.md` — *planned* monorepo layout and dependency rules.
+- `docs/TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md` — phases 0–5 (we are in Phase 0: story lock).
 
-Create a PR (gh CLI is authenticated):
-```bash
-gh pr create --title "..." --body "..." --base main --head <branch>
-```
+## Planned stack (not yet implemented)
 
-## URL query parameters (dev/test)
+TypeScript + Vite + pnpm workspaces; Three.js `WebGPURenderer` + TSL with WebGL2 fallback; Rapier3D; glTF 2.0/KTX2/meshopt; inkjs; Preact HUD; Web Audio; Tauri 2 desktop shell; Vitest + Playwright. Pin versions at scaffold time (re-check npm; three.js minors can break).
 
-- `?quality=low|medium|high` — override VFX tier; `low` forces Canvas renderer (required for headless CI)
-- `?debug` — exposes `window.__ADIVANSH__` (Phaser game instance) for browser QA assertions
-- `?artProof` — loads `CharacterArtProofScene` instead of `ForestScene`
+## Key rules (apply once code exists)
 
-## Architecture
+- `game-core` and `narrative` packages never import rendering, DOM, WASM physics or audio — pure, deterministic, replay-testable.
+- Presentation observes state/events and never decides gameplay or quest outcomes.
+- Tunable numbers → `content/tuning`. Story/quests/dialogue → `content/` data with schemas. New events → `packages/shared`.
+- Gameplay requests effects by name from the VFX service; it never creates GPU resources or particles directly.
+- Target hardware: minimum Intel HD 620 / 8 GB at 720p 30 fps (`low` tier); all budgets are targets until measured. Never claim a performance number without a measurement.
+- Desktop-first (keyboard/mouse + gamepad). Mobile is out of scope.
 
-**Stack:** Phaser 3.90 + TypeScript + Vite. Single scene (`ForestScene`) orchestrates all gameplay. No engine migration without a measured spike and ADR.
+## Documentation conventions
 
-**`ForestScene` is a thin orchestrator** — it creates systems and entities, wires them together, and ticks them each frame. Gameplay logic lives elsewhere:
-
-| Path | What goes here |
-|---|---|
-| `src/game/tuning.ts` | All gameplay numbers (speeds, reach, cooldowns, HP) — edit here first |
-| `src/game/combat.ts` | Pure combat rules — no Phaser, fully unit-tested |
-| `src/entities/` | `Player`, `Guardian` — movement, state, sprite poses |
-| `src/systems/` | `InputSystem`, `CombatSystem`, `StorySystem` |
-| `src/world/forestLayout.ts` | Platform/clue/shrine coordinates (data only) |
-| `src/world/ForestLevel.ts` | Builds static level from layout data |
-| `src/world/artManifest.ts` | Runtime asset list with explicit PNG sizes |
-| `src/vfx/` | `VfxManager`, `Atmosphere`, `quality.ts`, `textures.ts` |
-| `src/story/chapterOne.ts` | Milestone text and quest flags |
-| `src/core/events.ts` | Typed event name constants shared between canvas and DOM |
-| `src/main.ts` | Phaser boot + DOM HUD bridge (health, toast, touch buttons) |
-
-**Key rules:**
-- Gameplay never creates particles directly — always call `VfxManager`.
-- Tunable numbers → `tuning.ts`. Layout coordinates → `forestLayout.ts`. New events → `core/events.ts`.
-- Logic that is free of Phaser imports (rules, layout, quality) can be covered by Vitest.
-- `src/vfx/quality.ts` auto-detects device capability; `?quality=low` forces Canvas renderer for headless CI.
-
-**Assets:** SVGs are pre-converted to PNGs via `scripts/svg-to-png.mjs` and committed. `artManifest.ts` lists the PNGs. `ForestScene.preload()` uses `load.image()` (not `load.svg()`) to avoid WebGL `texImage2D` failures on remote servers. PNG IHDR dimensions must match declared sizes in `artManifest.ts` — the unit test verifies this.
-
-## CI / CD
-
-- **`ci.yml`** — PR quality gate: unit tests → Playwright E2E (chromium only) → build. Must pass before merge.
-- **`deploy.yml`** — On merge to main: same gates + GitHub Pages deploy + post-deployment browser QA.
-- Both workflows run on **`ubuntu-24.04`** (not `ubuntu-latest`, which migrated to Ubuntu 26 in Oct 2026 and broke Playwright's `--with-deps` install).
-- Playwright projects: `chromium` (desktop) and `mobile-chromium` (390×844, touch). WebKit was removed — it was never verified on Linux headless.
-- **Never push directly to main.** All changes go through a PR.
-
-## Agent team
-
-`.github/workflows/agent-cycle.yml` runs every 4 hours using `anthropic/claude-code-action@v1`. It reads `.github/agents/adivansh-cycle.md` and the full docs to select one bounded task, then opens a PR on `automation/adivansh-agent-cycle`.
-
-Requires `ANTHROPIC_API_KEY` secret set in GitHub → Settings → Secrets → Actions.
-
-Active Chapter One milestone issues: **#10** (parent), **#12** (gameplay), **#13** (exploration), **#14** (QA).
+- Mark capabilities as implemented, tested, reviewed, planned or proposed. A document describing a target is not proof of implementation.
+- Record consequential technical decisions as new ADRs (append; do not rewrite history).
+- Some older docs (VFX production, hunger/energy, blessing weapons, Chapter 1 asset inventory) still name Phaser/2D classes; they carry a note saying the design intent stands but the implementation is superseded.
 
 ## Workflow rules
 
-- Never push directly to `main`. Open a PR; CI must pass before merge.
-- Do not change `agent-cycle.yml`, branch protection, or deployment config without documenting the reason.
-- Do not auto-merge changes to workflows, secrets, engine/architecture, or major art direction.
-- A green CI run is not a commercial release — human playtesting and real-device QA are separate requirements.
+- Never push directly to `main`. Open a PR (`gh pr create --title "..." --body "..." --base main --head <branch>`; `gh` is authenticated).
+- CI and the scheduled `agent-cycle` workflow were removed in the reset (ADR-010). Recreate workflows only with the new scaffold, on `ubuntu-24.04` (not `ubuntu-latest`) plus `windows-latest` for desktop builds; document the reason for any workflow, branch-protection or deployment change.
+- Do not auto-merge changes to workflows, secrets, engine/architecture or major art direction.
+- A green CI run is not a commercial release — human playtesting and real-hardware QA are separate requirements.
+- Claude cannot author final 3D character art or audio; route those through the asset pipeline (`docs/03-architecture/ASSET_PIPELINE.md`) with provenance recorded per `docs/06-commercial/ASSET_POLICY.md`.

@@ -1,100 +1,45 @@
 # Adivansh — The Search for the Queen
 
-A cinematic, premium 2D side-scrolling action-adventure inspired by the Ramayana. The current browser prototype uses Phaser 3, TypeScript and Vite. The product direction is a polished commercial-quality 2D experience, beginning with one complete Chapter One vertical slice.
+A cinematic, premium **3D** action-adventure for desktop computers, inspired by the emotional themes of the Ramayana: separation, loyalty, courage, duty and the search for a loved one. 100 chapters across four seasons, told with very human characters and a movie-like look.
 
-## Product direction and technology roadmap
+> **Status (2026-11-23): design phase — there is no runnable game yet.** The earlier 2D Phaser prototype was deleted so the game can be rebuilt from scratch in 3D, story first. The old code is recoverable from git history (commit `f90dc33` and earlier). Everything in `docs/` is the plan; nothing described there is implemented until a spike or milestone says so.
 
-The approved direction is **Premium Cinematic 2D**, with **commercial viability as the first priority**. The game should compete through original illustrated art, responsive combat, memorable exploration, reliable mobile performance and a polished player journey—not by accumulating technologies.
+## Where we are
 
-See [Technology & Commercial Roadmap](docs/TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md) for the target architecture, phased delivery plan, commercial validation, agent responsibilities and release gates.
+| Phase | Goal | State |
+|---|---|---|
+| 0 — Story lock | Chapter 1 story as runnable ink + beat data; canon; character bible | **Current** |
+| 1 — Spikes + scaffold | Prove WebGPU renderer, human characters, physics, streaming, desktop shell on the minimum PC | Planned |
+| 2 — Vertical slice | One complete, polished, playtested Chapter 1 | Planned |
+| 3+ — Validate, launch, expand by season | See [roadmap](docs/TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md) | Planned |
 
-## Run locally
+## Technology (decided in [ADR-006](docs/03-architecture/DECISIONS.md), gated by spikes)
 
-Requires Node.js 22 LTS and npm.
+- **TypeScript + Vite + pnpm** monorepo with an engine-free `game-core` (deterministic, replay-testable)
+- **Three.js WebGPURenderer + TSL** shaders, automatic **WebGL2** fallback; PBR, cascaded shadows, baked GI, GTAO, bloom, volumetric-style fog, GPU-compute particles
+- **Rapier3D** (WASM) physics; **glTF 2.0 + KTX2 + meshopt** assets from Blender
+- **ink (inkjs)** narrative + schema-validated JSON beats + timeline cinematics
+- **Tauri 2** desktop shell (browser demo build too); Windows first, keyboard/mouse + gamepad
+- Quality tiers from Intel HD 620 (30 fps, 720p) up to high-end GPUs
 
-```bash
-npm install
-npm run dev
-```
+Full design: [Technical Architecture](docs/03-architecture/TECHNICAL_ARCHITECTURE.md) · [Narrative System](docs/03-architecture/NARRATIVE_SYSTEM.md) · [Module Map](docs/03-architecture/MODULE_MAP.md) · [Asset Pipeline](docs/03-architecture/ASSET_PIPELINE.md) · [VFX](docs/03-architecture/VFX_SYSTEM.md).
 
-## Chapter One controls
+## Documentation
 
-- Move: `A` / `D` or `←` / `→`
-- Jump: `W`, `Space`, or `↑`
-- Interact: `E`
-- Mobile: on-screen movement, jump and interact controls
+The structured handbook is in [docs/README.md](docs/README.md): vision, story bible, Chapter 1 story, all-100-chapter map, characters, world and season designs, combat, systems, agents, production plans and commercial policy.
 
-The earlier forest pursuit prototype remains available during development at `?forest`.
+**Approved art direction:** original ancient Indic / epic-era heroic fantasy styling in a fictional mythic world blending Indian and Chinese environmental influences; broad Ramayana themes without conventional Ramayana character depictions.
 
-## Forest prototype controls
+## Working in this repository
 
-- Move: `A` / `D` or `←` / `→`
-- Jump: `W`, `Space`, or `↑`
-- Attack: `J`
-- Interact: `E`
-- Mobile: on-screen touch controls
+There is nothing to install or run yet. Work today is documentation, story and design:
 
-## Visual quality and debug options
+1. Branch from `main`; never push directly to `main`; open a PR.
+2. Record material technical decisions as ADRs in `docs/03-architecture/DECISIONS.md`.
+3. Mark capabilities accurately as implemented, tested, reviewed, planned or proposed.
 
-VFX quality is chosen automatically for the device. Override it with `?quality=low`, `?quality=medium` or `?quality=high` in the URL. Reduced-motion system settings disable shake, hit-stop and flashes. Add `?debug` to expose `window.__ADIVANSH__` for browser tests. See [VFX System](docs/03-architecture/VFX_SYSTEM.md).
-
-## Quality checks
-
-```bash
-npm test
-npx playwright install --with-deps chromium webkit
-npm run test:e2e
-npm run build
-```
-
-## Publish with GitHub Pages
-
-1. Open **Settings → Pages** in this repository.
-2. Set the build and deployment source to **GitHub Actions**.
-3. Open **Actions** and monitor the **Build, test and deploy** workflow.
-4. After a successful deployment, the game is available at:
-
-   https://vishnubbalan.github.io/Adivansh-game/
-
-The deployment workflow runs on pushes to `main` and can be started manually. The autonomous development cycle is separately scheduled every eight hours (UTC), corresponding to 05:30, 13:30 and 21:30 India Standard Time. These are scheduled cycle starts, not guaranteed releases; a cycle may produce no change, be blocked, or leave a pull request awaiting checks/review.
-
-## Autonomous AI development pipeline
-
-The repository includes an OpenAI Codex-powered development cycle in `.github/workflows/agent-cycle.yml`.
-
-- Six role prompts coordinate innovation, product analysis, technical architecture, implementation, QA and orchestration.
-- Each cycle selects one bounded, independently testable improvement aligned with the approved product roadmap.
-- Changes are proposed through a pull request, not pushed directly to `main`.
-- Pull requests run the configured unit, browser E2E and build checks.
-- GitHub auto-merge is requested only where repository settings permit it and required checks pass.
-- A merge to `main` triggers Pages deployment and deployed-site smoke tests.
-
-### One-time GitHub setup
-
-1. Add repository secret `OPENAI_API_KEY` under **Settings → Secrets and variables → Actions**. API billing is separate from a ChatGPT subscription.
-2. Under **Settings → General → Pull Requests**, enable **Allow auto-merge** if unattended merging is desired.
-3. Protect `main` and require the configured CI status check before merging.
-4. Ensure Actions are enabled and Pages source is **GitHub Actions**.
-5. Confirm workflow token permissions allow the required PR operations.
-6. Run **Actions → Adivansh autonomous agent cycle → Run workflow** once to validate the setup.
-
-Do not enable unattended merging until the first complete cycle, pull request, required checks and deployment have been verified. Keep human approval for significant art direction, commercial decisions and releases until the process is demonstrably reliable.
-
-## Current prototype limitations
-
-- Character and environment art are procedural placeholders, not final production artwork.
-- Combat, quest progression and the first chapter remain early-stage.
-- Save progress, a journal, audio and further chapters are planned, not completed.
-- Browser automation is not a substitute for human gameplay or real iPhone/iPad Safari validation.
-- A successful build or CI run does not establish commercial readiness.
+Build/run/test instructions are added here when the Phase 1 scaffold lands.
 
 ## Delivery principle
 
-Prioritise a complete, polished and playtested Chapter One vertical slice before expanding to five chapters, multiplayer or expensive online services. Review the technology roadmap for measurable performance, quality, licensing, privacy and commercial gates.
-
-
-## Full project documentation
-
-The structured handbook is in [docs/README.md](docs/README.md). It includes product and gameplay specifications, chapter level design, story and character bibles, environment/VFX direction, combat, runtime architecture, asset pipeline, agent contracts, test plans, operations runbooks, market validation and asset rights.
-
-**Approved art direction:** original ancient Indic / epic-era heroic fantasy character styling in a fictional mythic world blending Indian and Chinese environmental influences. The story draws on broad Ramayana themes without reproducing conventional Ramayana character depictions.
+A complete, polished, playtested Chapter 1 vertical slice comes before expansion. A green CI run is not a commercial release; human playtesting and real-hardware QA are separate requirements.

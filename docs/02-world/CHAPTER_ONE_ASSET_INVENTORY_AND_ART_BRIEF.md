@@ -1,5 +1,7 @@
 # Chapter One — Asset Inventory and Production Art Brief
 
+> **Superseded in part (2026-11-23):** the audit describes the deleted Phaser prototype. The asset *needs* (characters, environments, props, VFX, UI) still apply but are produced as 3D assets via [ASSET_PIPELINE.md](../03-architecture/ASSET_PIPELINE.md); sprite, atlas and tileset items are obsolete.
+
 **Status:** Production-planning baseline; no new artwork is claimed as commissioned, approved or integrated by this document.  
 **Audit basis:** `src/scenes/ForestScene.ts` on the current main branch, plus the approved art direction, character bible, environment/VFX bible, asset pipeline and asset-rights policy.  
 **Target:** The Whispering Forest vertical slice.

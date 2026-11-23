@@ -21,7 +21,7 @@ This structure serves commercial viability: R1 ships when it is ready, generates
 **Replayability:** chapter select after completion, challenge modes, optional secrets
 
 ### Gameplay systems required at R1 ship
-- Core 2D movement: run, jump, double-jump, wall-slide
+- Core 3D movement: run, jump, double-jump, wall-slide (camera model per Phase 0 decision)
 - Combat: attack combo (3 hits), dodge roll, block/parry, special ability (1)
 - Enemy AI: 5–6 enemy types (forest predators, spirit creatures, Mahaksha's vanguard)
 - Boss system: health bar, phase change, telegraph patterns, defeat animation
@@ -52,7 +52,7 @@ This structure serves commercial viability: R1 ships when it is ready, generates
 - Opening scene music: emotional orchestral piece
 
 ### Art required at R1 ship
-- Hero sprite: idle, run, jump, fall, attack (3 poses), dodge, hurt, death
+- Hero animation set: idle, run, jump, fall, attack (3 combos), dodge, hurt, death
 - Companion Vahana: idle, follow, 2 ability animations
 - Forest Guardian (boss): idle, telegraph, attack, hurt, defeat
 - 5–6 enemy types: full animation sets

@@ -172,7 +172,7 @@ The climactic audio moment of the entire game. As the corruption retreats:
 | Ambient loops | OGG | 128kbps | 1.5MB |
 | Cinematic music | OGG | 192kbps | 4MB |
 
-**Phaser AudioManager usage:** All audio through Phaser's `this.sound` manager. Web Audio API available on WebGL renderer. Fallback to HTML5 audio if Web Audio unavailable.
+**Audio engine usage:** All audio through the engine's Web Audio mixer (`packages/engine/audio`), never ad-hoc `AudioContext` use. Web Audio API available on WebGL renderer. Fallback to HTML5 audio if Web Audio unavailable.
 
 **Preloading:** Only current chapter's audio loads. Boss audio preloads during the final platform section before the boss room (not at scene load).
 

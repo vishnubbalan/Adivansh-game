@@ -1,6 +1,6 @@
 # Gameplay System Design
 
-> Logical design target; verify actual code paths before treating a module as implemented.
+> Logical design target; nothing is implemented (2026-11-23 reset). "Scene" below means the engine's chapter/cell runtime; simulation lives in the engine-free `game-core` package ([TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md)). Physics uses Rapier3D shape casts, sensors and collision groups instead of 2D bounds.
 
 ## Runtime ownership
 - Scene owns lifecycle and composition, not business rules.

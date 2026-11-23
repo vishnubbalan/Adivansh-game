@@ -3,7 +3,7 @@
 ## Approved visual identity
 **Characters:** original ancient Indic / epic-era heroic fantasy styling, with a broad Vedic-era and classical Indian visual vocabulary.  
 **World:** fictional mythic realm blending Indian and Chinese environmental influences.  
-**Presentation:** premium cinematic 2D side-scrolling art.
+**Presentation:** premium cinematic real-time 3D (PBR, baked lighting, very human characters).
 
 The story remains inspired by broad Ramayana themes, but this is an original fantasy world. Do not reproduce familiar Ramayana character costumes or copy specific religious depictions. The user's phrase “Indian Aryan-like figures” is interpreted here as an ancient Indic cultural and epic-era visual direction—not a biological or racial appearance specification. Avoid racial essentialism and represent people with varied, believable features.
 
@@ -37,7 +37,7 @@ Shared fantasy vocabulary may include cliff temples, floating ruins, ancient obs
 Deep teal shadows, forest green, jade, mineral blue, sandstone, aged bronze, copper and muted gold; ember red sparingly for danger. Use a 16:9 reference composition with responsive mobile crop rules. Preserve readable gameplay silhouettes and do not let VFX obscure hazards or objectives.
 
 ## Asset pipeline
-Brief and references → concept sheets → cultural/originality/licence review → final layered art → sprite/atlas export → Phaser integration → desktop/mobile gameplay review → provenance register.
+Brief and references → concept sheets → cultural/originality/licence review → final 3D assets (Blender) → glTF/KTX2 optimise → engine integration (see ASSET_PIPELINE.md) integration → desktop/mobile gameplay review → provenance register.
 
 AI images are concept references until cleaned, reviewed, integrated and rights-checked. Never present concept art as an in-game screenshot.
 
