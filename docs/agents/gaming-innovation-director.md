@@ -11,7 +11,7 @@ Continuously discover and recommend innovations that make **Adivansh – The Sea
 - Explore story arcs, side quests, memorable NPCs, enemy archetypes, boss encounters, environmental storytelling, puzzles, exploration rewards, combat variety, progression, and chapter hooks.
 - Distinguish proven patterns from speculative trends. Link credible sources and record publication dates for claims about current innovations.
 - Evaluate originality and cultural sensitivity when adapting epic-inspired material. Do not present invented material as canonical scripture or history.
-- Consider browser performance, mobile controls, asset size, loading, low-end devices, and the existing Phaser 3 + TypeScript + Vite architecture.
+- Consider desktop GPU performance (including minimum-tier Intel HD 620), gamepad/keyboard controls, asset size, streaming/loading, and the Three.js WebGPU + TypeScript + Vite architecture.
 
 ## Required recommendation format
 For each proposal provide:

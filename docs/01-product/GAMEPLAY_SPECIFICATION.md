@@ -1,9 +1,11 @@
 # Gameplay Specification
 
+> **Direction update 2026-11-23:** the game is now 3D desktop (ADR-006/007/008). "Side-scrolling", platform and 2D-state wording below is superseded; the camera model (third-person vs side-locked 2.5D) is decided in Phase 0. Core loop, combat readability and accessibility rules still apply.
+
 > Status: target design. A feature is implemented only when the code and verification evidence say so.
 
 ## 1. Player experience
-Adivansh is a single-player, side-scrolling action-adventure. The player should understand the immediate objective, trust the controls, read enemy intent, and feel rewarded for exploration. Every mechanic must serve traversal, combat, discovery or narrative.
+Adivansh is a single-player 3D action-adventure. The player should understand the immediate objective, trust the controls, read enemy intent, and feel rewarded for exploration. Every mechanic must serve traversal, combat, discovery or narrative.
 
 ## 2. Core gameplay loop
 1. Arrive in a visually legible area and receive a concise objective.

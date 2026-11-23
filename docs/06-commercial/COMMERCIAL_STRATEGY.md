@@ -4,7 +4,7 @@
 Validate player value before investing in extensive infrastructure or choosing monetization. Frequent builds and green CI are not evidence of market demand.
 
 ## Audience
-Target players of premium 2D action-adventures, exploration platformers and story-led fantasy. Secondary audiences include fans of myth-inspired stories and cross-cultural fantasy art. Validate segments through playtests and market research.
+Target players of premium 3D action-adventures, exploration platformers and story-led fantasy. Secondary audiences include fans of myth-inspired stories and cross-cultural fantasy art. Validate segments through playtests and market research.
 
 ## Validation sequence
 1. Complete Chapter One as a polished vertical slice.

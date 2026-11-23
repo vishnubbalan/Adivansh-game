@@ -1,56 +1,34 @@
-# VFX System
+# VFX System (3D)
 
-Implements the layer model and VFX budget rules in [ENVIRONMENT_AND_VFX_BIBLE.md](../02-world/ENVIRONMENT_AND_VFX_BIBLE.md).
-Code: `src/vfx/`. Gameplay code asks for *what happened* (`vfx.hit`, `vfx.land`, `vfx.defeat`); `VfxManager` decides how it looks.
+> Status: design only (replaces the Phaser VFX system, deleted 2026-11-23). Content design: [ENVIRONMENT_AND_VFX_BIBLE.md](../02-world/ENVIRONMENT_AND_VFX_BIBLE.md) and [VFX_PRODUCTION_SYSTEMS.md](VFX_PRODUCTION_SYSTEMS.md). Where those documents name Phaser classes or 2D layers, treat them as *intent* to be re-expressed with the services below.
 
-## Quality tiers (`src/vfx/quality.ts`)
+## Service model
+Gameplay and story request effects **by name and data**: `vfx.play("hit.spark", {at, normal, intensity})`. The `VfxService` (in `packages/engine`) owns pooling, GPU resources, quality scaling and reduced-motion rules. Effect definitions live in `content/vfx/*.json` (emitters, ribbons, decals, light flashes, camera impulses, post pulses, audio cues).
 
-| Setting | low | medium | high |
-|---|---|---|---|
-| Burst particle multiplier | 0.35 | 0.7 | 1.0 |
-| Fog layers | 1 | 2 | 2 |
-| Light shafts | 0 | 3 | 6 |
-| Fireflies / falling leaves | off / off | on / off | on / on |
-| Foreground ferns | off | on | on |
-| Bloom (WebGL post-FX) | off | off | on |
+## Building blocks
+| Block | Implementation |
+|---|---|
+| Particles | WebGPU compute simulation (storage buffers, indirect draw); WebGL2 instanced CPU fallback with lower caps |
+| Trails/ribbons | Camera-facing ribbon meshes sampled from weapon sockets per frame |
+| Decals | Projected decals (scorch, footprints, wet marks), pooled |
+| Dynamic lights | Capped pool (8 high / 4 medium / 2 low) with fast fade; emissive fakes beyond the cap |
+| Distortion/heat | Screen-space refraction pass for fire, teleport, shockwave |
+| Post pulses | Bloom boost, chromatic aberration, vignette pulse, LUT blend for blessings/boss phases |
+| Camera impulses | Rig-level shake/FOV kick (disabled by reduced-motion) |
+| Volumetrics | Fog density volumes and god-ray intensity driven by gameplay/story state |
+| Shader FX | TSL node materials: dissolve, fresnel aura, arcane glyphs, water interaction ripples |
 
-Auto-selection: weak hardware (≤2 cores or ≤2 GB) → low; touch device, ≤4 cores or ≤4 GB → medium; otherwise high.
-Override with `?quality=low|medium|high`. The tier is stored in the Phaser registry as `vfxQuality`.
+## Tier scaling
+Counts and features scale with the render tier ([TECHNICAL_ARCHITECTURE.md §5.4](TECHNICAL_ARCHITECTURE.md)): particle caps 2k / 10k / 50k / 200k, no distortion on `low`, ribbon sample count halves per tier, dynamic lights capped. Each effect definition declares `minTier` and a `lowFallback` (for example an emissive sprite instead of a volumetric).
 
-**Reduced motion** (`prefers-reduced-motion`) is honoured on every tier: no screen shake, hit-stop, slow-motion, zoom punch, camera flash or damage flash; ambient drift is slowed to 25%.
+## Rules
+- **Readability first:** effects must never hide enemy telegraphs, hitboxes or interaction prompts; each definition declares `obscuresGameplay: none|brief|area`.
+- **Reduced motion/flash:** no shake, motion blur, hit-stop zoom or full-screen flash; ambient motion at 25%.
+- **No allocation per hit:** pools are created per chapter from the effect manifest; the registry reports leaks on scene exit.
+- **Budgeted:** every effect lists peak particles, overdraw estimate and GPU ms on the minimum tier; the perf harness runs a "VFX torture" scene each release.
 
-## Gameplay effects
-
-| Effect | Trigger | Duration | Particles (high) | Blend | Mobile fallback | Can obscure hitboxes/prompts? |
-|---|---|---|---|---|---|---|
-| Blade slash crescent | Player attack | 190 ms | 0 (pooled sprite) | ADD | same | Briefly, small area |
-| Hit impact (sparks, flash, ring) | Strike lands | 160–260 ms | 14 | ADD | count × tier scale | No |
-| Hit-stop + zoom punch + shake | Strike lands | 55 ms / 140 ms / 110 ms | – | – | off with reduced motion | No |
-| Player hurt (red sparks, vignette flash) | Contact damage | 200–420 ms | 12 | ADD / normal | vignette off with reduced motion | No (edge only) |
-| Guardian defeat (embers, rings, slow-mo) | Health 0 | 260–1600 ms | 40 + 20 | ADD | count × tier scale | No |
-| Guardian threat aura | Chasing the player | while chasing | ~7 live | ADD | same | No |
-| Clue reveal (motes, beam, ring) | Clue collected | 600–1300 ms | 60 | ADD | count × tier scale | No |
-| Clue beacon | Until collected | looping | ~10 live | ADD | frequency × tier scale | No |
-| Jump / land / run dust | Movement | 280–480 ms | 6 / 4–10 / 1 per 150 ms | normal | count × tier scale | No |
-| Hero light pool | Always | – | 0 (one sprite) | ADD | same | No |
-
-All bursts reuse pre-created emitters (`explode`) and pooled sprites (`ImagePool`); nothing is allocated per hit.
-
-## Atmosphere layers (`src/vfx/Atmosphere.ts`)
-
-| Depth | Layer | Scroll factor |
-|---|---|---|
-| -20 | Painted backdrop (SVG) | 1.0 |
-| -15 | Far fog band | 0.35 (+ slow drift) |
-| -10 | God-ray light shafts | 0.55 |
-| 2 | Near fog band | 0.8 (+ drift) |
-| 7 | Pollen, fireflies, falling leaves | world / camera-following spawn zone |
-| 8–10 | Hero light, guardian glow, characters | 1.0 |
-| 18 | Foreground ferns (bottom edge only, below ground line) | 1.2 |
-| 40 | Screen vignette | 0 (screen space) |
-
-Foreground layers sit below the walking surface so they never cover the hero, enemy or prompts.
+## Atmosphere
+Per-region atmosphere presets (sky, sun, fog, LUT, wind, ambient particles, god-ray strength) blend over story beats via the sequencer. Foliage wind is a shared uniform; water uses planar/screen-space reflections with foam and caustics (Season 3 critical, see [SEASON_3_OCEAN_DESIGN.md](../02-world/SEASON_3_OCEAN_DESIGN.md)).
 
 ## Measurement status
-
-Frame time, load time and texture memory have **not** been measured on representative hardware. Only a software-rendered (SwiftShader) headless Chromium was available, which is not a valid performance benchmark. The `high` tier uses bloom, a full-screen post effect; measure it on a mid-range phone before enabling it by default on mobile (it is currently only auto-selected on capable non-touch devices).
+Nothing has been measured. Spike S1 establishes GPU timings on the HD 620 baseline; until then every budget is a target.

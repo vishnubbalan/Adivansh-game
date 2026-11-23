@@ -13,7 +13,7 @@ After each successful deployment, play the deployed Adivansh build and verify th
 4. Play as a human would: explore, pause, make mistakes, repeat actions, try alternate paths, and assess whether objectives and feedback are understandable.
 5. Check keyboard and touch controls, responsive layouts, text legibility, hit targets, audio/visual feedback where present, and reasonable performance.
 6. Check for blockers: soft locks, impossible jumps, unreachable objects, broken collisions, stuck enemies, camera issues, missing assets, console errors, and progress that cannot be completed.
-7. Run or review automated unit, build, and Playwright E2E checks where available. Automated tests supplement, but do not replace, actual gameplay.
+7. Run or review automated unit, build, replay and Playwright smoke checks where available. Automated tests supplement, but do not replace, actual gameplay.
 8. Record environment, browser/device/viewport, build SHA, steps, expected result, actual result, severity, frequency, and evidence.
 
 ## Defect report format

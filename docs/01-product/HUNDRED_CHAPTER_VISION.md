@@ -1,5 +1,7 @@
 # Adivansh — 100-Chapter Director's Vision
 
+> **Direction update 2026-11-23:** the game is now premium cinematic **3D** for desktop (ADR-006/007/008). Any remaining 2D, side-scrolling, sprite, Phaser or mobile wording below is superseded and will be revised when this document is next reviewed; see [TECHNICAL_ARCHITECTURE.md](../03-architecture/TECHNICAL_ARCHITECTURE.md).
+
 > Game Director document. This is the governing production vision for Adivansh as a full commercial title.
 > All chapter work, VFX systems, audio design and release planning must align with this document.
 
@@ -8,9 +10,9 @@
 ## The Product
 
 **Title:** Adivansh — The Search for the Queen  
-**Genre:** Premium cinematic 2D action-adventure  
+**Genre:** Premium cinematic 3D action-adventure (desktop-first)  
 **Scope:** 100 chapters across 4 seasons, 4 major releases  
-**Platform:** Desktop and mobile browser, expanding to native on evidence  
+**Platform:** Windows desktop (Tauri) + browser demo; macOS/Linux best-effort  
 **Competitive bar:** Hollow Knight, Ori and the Blind Forest, Hades, Dead Cells — not in mechanics alone but in the feeling of a fully authored, visually spectacular world that respects the player's intelligence and time
 
 ---

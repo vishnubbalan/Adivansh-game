@@ -1,5 +1,7 @@
 # VFX Production Systems Roadmap
 
+> **Implementation note (2026-11-23):** references to Phaser, `ForestScene`, sprites, 2D layers or `src/` paths in this document describe the deleted 2D prototype. The *design intent* stands; the implementation will be re-expressed on the 3D architecture ([TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md), [MODULE_MAP.md](MODULE_MAP.md)).
+
 > Technical director document. Maps every VFX system required across all 4 seasons against implementation priority.
 > The existing VfxManager in `src/vfx/` is the foundation. Everything here extends it.
 

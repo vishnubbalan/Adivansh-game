@@ -1,8 +1,8 @@
 # Adivansh — Game Vision and Product Brief
 
 ## Product summary
-**Genre:** premium 2D side-scrolling action-adventure with exploration, puzzles and light RPG progression.  
-**Platforms:** desktop and mobile web browsers initially.  
+**Genre:** premium cinematic 3D action-adventure with exploration, puzzles and light RPG progression.  
+**Platforms:** Windows desktop first (keyboard/mouse + gamepad); browser demo build; macOS/Linux best-effort. Mobile is out of scope.  
 **Priority:** commercial viability.  
 **First milestone:** a complete, polished Chapter One vertical slice.
 
@@ -22,7 +22,7 @@ The queen must be written as a fully realised character with agency, knowledge a
 6. Reach a chapter climax and reveal the next story lead.
 
 ## Design pillars
-- **Cinematic premium 2D:** original art, strong silhouettes, expressive animation, parallax and purposeful camera work.
+- **Cinematic premium 3D:** original art, very human characters, strong silhouettes, expressive animation, authored cameras and movie-like lighting.
 - **Responsive action:** low-latency controls, readable attack telegraphs and satisfying hit feedback.
 - **Purposeful exploration:** secrets and environmental storytelling reward curiosity.
 - **Meaningful progression:** new abilities change tactics; avoid grind and number inflation.
@@ -30,7 +30,7 @@ The queen must be written as a fully realised character with agency, knowledge a
 - **Accessible reliability:** readable UI, audio settings, keyboard/touch parity and stable performance.
 
 ## Intended audience
-Primary: players who enjoy premium 2D action-adventures, platform games, exploration, combat and story-led fantasy; teen and adult players; desktop/mobile browser players who value easy access.
+Primary: players who enjoy premium 3D action-adventures, platform games, exploration, combat and story-led fantasy; teen and adult players; desktop players who value easy access.
 
 Secondary: fans of Indian epic-inspired themes, cross-cultural fantasy worlds, light RPG progression, puzzles and boss encounters.
 

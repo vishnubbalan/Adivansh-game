@@ -1,25 +1,34 @@
-# Module Map and Agent Ownership
+# Module Map and Agent Ownership (planned layout)
 
-`ForestScene` is a thin orchestrator. Each folder has one responsibility, so agents can work in parallel with minimal merge conflicts.
+> Status: **planned**. No code exists yet. This is the layout the scaffold will create in Phase 1. It replaces the Phaser-era map (`ForestScene`, `src/vfx`, …), which was deleted on 2026-11-23.
 
-| Path | Responsibility | Lead role |
-|---|---|---|
-| `src/game/tuning.ts` | All gameplay numbers (speeds, reach, cooldowns, health) | Principal Game Designer |
-| `src/game/combat.ts` | Pure combat rules, unit-tested, no Phaser | Game Designer + Developer |
-| `src/entities/` | `Player`, `Guardian` (movement, state, poses) | Developer |
-| `src/systems/` | `InputSystem`, `CombatSystem`, `StorySystem` | Developer |
-| `src/world/forestLayout.ts` | Platform, clue and shrine coordinates (data only) | Level Design |
-| `src/world/ForestLevel.ts` | Builds the static forest from layout data | Level Design + Technical Art |
-| `src/world/artManifest.ts` | Runtime art list with explicit raster sizes | Technical Art |
-| `src/vfx/` | `VfxManager`, `Atmosphere`, `textures`, `quality` | Technical Art + Architect |
-| `src/story/` | Milestones and narration text | Product Analyst |
-| `src/core/events.ts` | Event names shared by canvas and DOM HUD | Architect |
-| `src/main.ts` | Game boot and DOM HUD bridge | Developer |
+pnpm workspace monorepo. Dependency direction is strictly downward: `apps` → `packages/engine`/`packages/game-core` → `packages/shared`. `game-core` and `narrative` never import `engine`.
+
+| Path | Responsibility | Imports allowed | Lead role |
+|---|---|---|---|
+| `content/story/` | ink scripts, beat graphs, cinematics (`*.cine.json`) | — (data) | Narrative Designer / Product Analyst |
+| `content/quests/`, `content/characters/`, `content/canon/` | Quest, character and canon data | — | Product Analyst |
+| `content/tuning/` | All gameplay numbers (speeds, damage, cooldowns, hunger rates, quality budgets) | — | Principal Game Designer |
+| `content/chapters/` | Chapter manifests, cell lists, streaming data | — | Level Design |
+| `content/i18n/` | Locale string tables | — | Narrative Designer |
+| `content/schemas/` | JSON Schemas for all of the above | — | Technical Architect |
+| `packages/shared/` | Types, event definitions, math helpers, seeded RNG, schema validators | none | Technical Architect |
+| `packages/game-core/` | Pure simulation: player/enemy FSMs, combat, quests, blessing, hunger/energy, save model | shared | Developer + Game Designer |
+| `packages/narrative/` | inkjs wrapper, beat engine, story runner API | shared, game-core types | Narrative Designer + Developer |
+| `packages/engine/` | Three.js renderer wrapper, quality tiers, cameras, streaming, resource registry, audio mixer, input, VFX service, animation graph, sequencer | shared | Technical Architect + Technical Art |
+| `packages/physics/` | Rapier adapter (character controller, queries, sensors) | shared | Developer |
+| `packages/ui/` | Preact HUD, menus, subtitles, settings | shared | Developer |
+| `apps/game/` | Composition root: wires input → game-core → engine; boot, loading, debug overlay | all | Developer |
+| `apps/desktop/` | Tauri 2 shell, file-system save repository, updater, Steam hooks (later) | apps/game | Developer |
+| `tools/story-cli/` | `story-run`, `story-lint`, `story-graph`, `story-coverage` | narrative, shared | Narrative Designer + Developer |
+| `tools/asset-cli/` | glTF-Transform optimise, KTX2 encode, lightmap/LOD/collision bake, manifest generation | shared | Technical Art |
+| `tools/perf-harness/` | Scripted fly-through, frame-time/VRAM capture, tier benchmarks | — | QA + Architect |
+| `art-source/` (Git LFS or external storage) | `.blend`, `.psd/.kra`, source textures, concept art | — | Art (human or licensed) |
+| `tests/` | Vitest (unit/replay), Playwright (smoke/screenshots) | — | QA |
 
 ## Rules
-
-- Gameplay never creates particles directly; it calls `VfxManager`.
-- Tunable numbers go in `tuning.ts`; layout coordinates go in `forestLayout.ts`.
-- New event names go in `core/events.ts`.
-- Logic that can be pure (rules, layout, quality selection) stays free of Phaser imports so Vitest can cover it.
-- `?debug` exposes `window.__ADIVANSH__` (the Phaser game) for browser QA. `?quality=` overrides VFX tier.
+- Gameplay requests effects by name from the VFX service (`vfx.play("hit.spark", at)`); it never touches particles or GPU resources.
+- Tunable numbers → `content/tuning`. Layout/level data → `content/chapters`. New events → `packages/shared/events`.
+- Anything free of rendering/DOM/WASM stays in `game-core` or `narrative` so Vitest can cover it, including deterministic input-replay tests.
+- Debug overlay (`?debug`): backend (WebGPU/WebGL2), frame-time graph, draw calls, triangles, VRAM estimate, active quality tier, collision/hitbox view, story-flag inspector. `window.__ADIVANSH__` exposes engine + game-core handles for browser QA in dev builds only.
+- Large binaries never go in normal git history; runtime-ready assets are produced by `tools/asset-cli` into a build output (not committed) or tracked via LFS.

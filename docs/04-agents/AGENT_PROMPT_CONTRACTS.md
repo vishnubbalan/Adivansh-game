@@ -28,9 +28,9 @@ All nine roles must inspect current repository state and relevant docs before ac
 - Observable acceptance criteria
 - Playtest questions and success signals
 
-## 2D Animation & Technical Art Specialist output
+## 3D Animation & Technical Art Specialist output
 - Asset and animation-state inventory
-- Sprite/atlas dimensions, pivots, frame timing and export/import requirements
+- Mesh/rig/LOD budgets, material and texture (KTX2) specs, sockets, hit volumes and export/import requirements
 - Visual consistency/readability review
 - Hitbox/layering/texture-budget implications
 - Provenance/licence status

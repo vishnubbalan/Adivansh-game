@@ -2,13 +2,13 @@
 
 ## Approved product direction
 
-Adivansh targets **premium cinematic 2D** with **commercial viability as the first priority**. Build one complete, polished and playtested Chapter One vertical slice before expanding the chapter count. See [Technology & Commercial Roadmap](TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md) for the target stack, product validation, release gates and phased delivery plan.
+Adivansh targets **premium cinematic 3D** with **commercial viability as the first priority**. Build one complete, polished and playtested Chapter One vertical slice before expanding the chapter count. See [Technology & Commercial Roadmap](TECHNOLOGY_AND_COMMERCIAL_ROADMAP.md) for the target stack, product validation, release gates and phased delivery plan.
 
 ## Production roles
 
 - **Gaming Innovation Director:** propose evidence-backed game mechanics, visual/story innovations and player-experience improvements.
 - **Product Analyst / BA:** own narrative continuity, chapter objectives, player value, backlog, scope and testable acceptance criteria.
-- **Game Developer:** implement Phaser + TypeScript scenes, animation, camera, input, combat, progression, content loading and performance.
+- **Game Developer:** implement the TypeScript/Three.js engine, animation, cameras, input, combat, progression, content loading and performance.
 - **QA / Player Agent:** verify unit, browser, gameplay, responsive, accessibility and visual regression criteria; report evidence-backed defects.
 - **Orchestration Agent:** coordinate scheduled cycles, pull requests, quality gates, deployment and status reporting.
 
@@ -26,16 +26,16 @@ The queen has been abducted by a force moving through the southern kingdoms. The
 4. **The Demon Citadel** — infiltrate the fortress, defeat elite guards, discover the queen's location.
 5. **The Final Passage** — confront the antagonist, rescue the queen and resolve the kingdom's fate.
 
-## Premium 2D visual direction
+## Premium 3D visual direction
 
 - Use authored, cohesive 16:9 background plates with layered foreground, playable midground and distant painted environments.
 - Establish an art bible for character silhouettes, proportions, palette, materials, lighting, UI and VFX before producing large asset batches.
 - Use deep teal shadows, forest greens, warm gold highlights and ember red for danger, while maintaining readable contrast.
 - Use parallax, atmospheric fog, drifting leaves, fireflies, light shafts, water effects and restrained camera shake where they support the scene.
 - Characters need idle, run, jump, fall, attack, hit, defeat and ability states with consistent animation timing.
-- Prefer reviewed original sprite sheets and authored background plates. AI-generated concept art is reference material until it is cleaned, approved, integrated and checked for commercial-use rights.
+- Prefer reviewed original 3D models, authored environments and animation. AI-generated concept art is reference material until it is cleaned, approved, integrated and checked for commercial-use rights.
 - Optimise atlas size, image resolution, loading and memory for mobile devices. Do not sacrifice responsiveness for decorative effects.
-- Avoid representing Phaser primitive drawings as finished production art.
+- Avoid representing placeholder primitives or greybox meshes as finished production art.
 
 ## Chapter One acceptance criteria
 

@@ -1,5 +1,7 @@
 # Hunger and Energy System
 
+> **Implementation note (2026-11-23):** references to Phaser, `ForestScene`, sprites, 2D layers or `src/` paths in this document describe the deleted 2D prototype. The *design intent* stands; the implementation will be re-expressed on the 3D architecture ([TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md), [MODULE_MAP.md](MODULE_MAP.md)).
+
 > Design document. The hero is a person on a physical journey through real environments.
 > He gets hungry. The game tracks this. Finding and eating food is both a survival necessity
 > and a strategic resource that the player actively manages.

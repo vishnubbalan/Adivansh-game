@@ -1,7 +1,7 @@
 # Environment, Lighting and VFX Bible
 
 ## Visual target
-A richly illustrated 2D world with a strong playable midground, painted depth layers, purposeful light and atmospheric effects. Visual spectacle must not compromise combat or platform readability.
+A richly authored real-time 3D world (layered depth: foreground, midground, background, sky) with a strong playable midground, painted depth layers, purposeful light and atmospheric effects. Visual spectacle must not compromise combat or platform readability.
 
 ## Layer model
 1. Distant backdrop: sky, mountain silhouettes and broad atmospheric gradients.
