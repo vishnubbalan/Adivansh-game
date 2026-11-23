@@ -54,3 +54,5 @@ Create models as offline source assets first. Review sculpt, topology, costume, 
 - [Meera Devi — Chapter One production sheet](../meera-devi/CHARACTER_PRODUCTION_SHEET.md): identity, provisional proportions, orthographic turnaround contract, anatomy, sari construction, PBR materials, expressions, rigging and delivery gates.
 
 These sheets are modelling handoffs, not completed Blender source files or approved final sculpts. The concept images are separate visual exploration outputs; use them as references only after the human owner selects/approves the face and costume details. Follow the shared Blender workflow and provenance rules in this folder.
+
+- [Chapter One approved visual references](../references/CHAPTER_ONE_APPROVED_VISUAL_REFERENCES.md): owner approval record and image-ingestion target for Adivansh and Meera Devi.
