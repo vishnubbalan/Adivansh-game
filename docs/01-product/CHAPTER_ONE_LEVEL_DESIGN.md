@@ -1,47 +1,47 @@
-# Chapter One — The Whispering Forest: Level Design Brief
+# Chapter One — The Last Harvest Festival: Level Design
 
-> Status: design target. The live scene and this brief must be reconciled during implementation reviews.
+**Status:** First playable implementation in progress. Narrative source: [Chapter One Story](CHAPTER_ONE_STORY.md).  
+**Runtime scene:** `VillageFestivalScene`  
+**Target:** A warm, non-combat tutorial chapter in Veyra.
 
 ## Narrative purpose
-The hero enters a forest road following evidence that the queen was taken through the frontier. The forest guardian blocks the route. Defeating it reveals a golden thread connected to the queen and points toward the Forgotten Temple.
+
+Let the player experience the peace, community and mutual trust that Adivansh and Meera will later fight to restore. The chapter begins as a celebration and ends with a restrained warning from the southern watch. It must not depict the abduction or village attack; those belong to later chapters.
+
+## Critical path
+
+1. **Festival entrance:** safe movement lane, establish the village and objective.
+2. **Dev's lantern stand:** proximity interaction; a small helpful action introduces Interact.
+3. **Ribbon-leap lane:** three low, forgiving hurdles teach jumping and landing. No damage or failure penalty.
+4. **Ila's harvest store:** short conversation reinforces Meera's public leadership.
+5. **Meera's festival dais:** conversation is gated behind the three village activities.
+6. **Messenger arrival:** dusk warning, short dialogue sequence and chapter-end title beat.
+
+## Spatial design
+
+- Keep the main path horizontal and camera-readable.
+- Ensure every NPC can be approached from the ground.
+- Keep the three hurdles visually distinct and spaced for separate jumps.
+- The dais is the far-end landmark; Meera must remain visible as the player approaches.
+- Decorative stalls, streamers and lanterns must not obscure the player, NPC prompts or jump lane.
+- Use separate collision geometry; decorative props are not physics blockers.
 
 ## Player learning objectives
-Teach, in order: movement; jump and landing; basic melee attack; enemy telegraph and recovery; interaction range; objective/milestone feedback; chapter-end transition. Do not introduce several unfamiliar mechanics in one encounter.
 
-## Encounter sequence
-1. **Threshold / orientation:** establish mood and direction; show the first objective and safe movement space.
-2. **Traversal lesson:** introduce a low-risk gap or raised path; communicate jump affordance through composition.
-3. **First threat:** one low-pressure enemy or guardian preview teaches spacing and attack feedback.
-4. **Combat arena:** provide enough horizontal room to see the guardian and react to telegraphs. Avoid hazards that obscure the lesson.
-5. **Guardian climax:** clear entry cue, readable attack patterns, recoverable mistakes and unmistakable defeat feedback.
-6. **Discovery beat:** reveal the shrine and golden thread; guide the player with composition and a contextual prompt.
-7. **Chapter resolution:** collecting the clue updates the objective, confirms completion and introduces the Forgotten Temple.
+Teach movement, jumping, landing, proximity interaction and objective feedback. No attack, health loss, combat, enemy AI or inventory is required in Chapter One. Hide the attack touch control in this scene while preserving it for the forest prototype.
 
-## Spatial design rules
-- Maintain a readable critical path with optional exploration pockets.
-- Place platforms and collision boundaries consistently with visible art.
-- Avoid placing important prompts under touch controls or HUD.
-- Keep boss combat within a camera-safe arena.
-- Do not place an untelegraphed hazard immediately after a forced camera transition.
-- Ensure the player cannot soft-lock by jumping past an interactable or defeating the guardian in an unusual location.
+## Completion criteria
 
-## Narrative beats
-Opening: absence and urgency, not a long exposition dump.
-Midpoint: the guardian is protecting something or following a motive, not merely evil decoration.
-Discovery: the golden thread confirms the queen passed through and raises a question about why the guardian guarded it.
-Ending: the next chapter is clearly signposted without falsely implying later chapters are playable.
+- New player understands how to move, jump and interact.
+- Dev, Tara/Kavi and Ila interactions each register once.
+- Meera cannot be advanced to before the three activities are complete.
+- Each ribbon hurdle requires a visible jump and can be retried without penalty.
+- Messenger warning and chapter-complete event occur once only.
+- Keyboard and touch controls both work.
+- Prompts and dialogue remain readable at 390px viewport width.
+- Restart and resize do not strand the player.
+- Chapter Two is teased as planned content, not presented as playable.
 
-## Completion checklist
-- New player can identify movement and objective without verbal coaching.
-- All critical traversal is possible with keyboard and touch.
-- Guardian attacks are telegraphed and avoidable.
-- Guardian defeat is registered once.
-- Shrine prompt appears only in interaction range.
-- Golden thread collection is registered once and persists for the chapter session.
-- Chapter completion cannot occur before required milestones.
-- Restart and resize do not strand the player or corrupt state.
-- Full route is completable without developer tools.
-- Human playtest records confusion, deaths, time-to-complete and qualitative feedback.
+## Preserved prototype
 
-## Level telemetry for playtests
-Collect only with consent and minimal scope: start/finish, checkpoint/death counts, time in major sections and optional survey responses. Do not record personal identifiers by default.
+The earlier shrine / Guardian / Golden Thread forest segment is retained as a later forest-pursuit prototype and remains accessible through the development URL query `?forest`. It is not the canonical opening of Chapter One.

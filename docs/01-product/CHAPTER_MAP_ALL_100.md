@@ -36,8 +36,8 @@
 | 24 | Where the World Ends | Awe, threshold | The forest edge: panorama of the mountains ahead | World transition moment |
 | 25 | The Forest Sentinel | Epic confrontation | **SEASON 1 FINAL BOSS**: The Forest Sentinel | Full boss fight, S1 end |
 
-> **Chapter 1 is partially built** — the game currently implements the shrine/clue quest that maps to Chapter 4–5.
-> Chapters 1–3 require the full village pre-abduction sequence and the kidnapping scene.
+> **Chapter 1 — The Last Harvest Festival is in active implementation** as the opening playable scene. The existing shrine / Guardian / Golden Thread prototype is preserved as a later forest-pursuit segment and does not represent the canonical Chapter One opening.
+> Chapters 2–3 remain planned: court investigation and the midnight attack.
 
 ---
 

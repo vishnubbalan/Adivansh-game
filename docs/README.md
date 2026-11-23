@@ -10,7 +10,7 @@ This folder is the source of truth for Adivansh product vision, narrative, world
 - [Game vision](01-product/GAME_VISION.md) — objective, genre, audience and player promise.
 - [100-chapter vision](01-product/HUNDRED_CHAPTER_VISION.md) and [chapter map](01-product/CHAPTER_MAP_ALL_100.md) — full-game scope, 4 seasons.
 - [Story bible](01-product/STORY_BIBLE.md) — premise, themes, cast and arc.
-- [Chapter 1 story](01-product/CHAPTER_01_STORY.md) — scene-by-scene script source for the first ink conversion.
+- [Chapter 1 story](01-product/CHAPTER_01_STORY.md) — scene-by-scene script source for the first ink conversion; see also [Chapter One story (festival version)](01-product/CHAPTER_ONE_STORY.md) added on main — the two need reconciling in Phase 0.
 - [Gameplay specification](01-product/GAMEPLAY_SPECIFICATION.md) — controller, combat loop, quest state, interaction and UX rules.
 - [Chapter One level design](01-product/CHAPTER_ONE_LEVEL_DESIGN.md) — encounter sequence and completion criteria.
 
@@ -19,6 +19,9 @@ This folder is the source of truth for Adivansh product vision, narrative, world
 - [Environment and VFX bible](02-world/ENVIRONMENT_AND_VFX_BIBLE.md), [Chapter 1 asset inventory](02-world/CHAPTER_ONE_ASSET_INVENTORY_AND_ART_BRIEF.md).
 - Season designs: [1 Forest](02-world/SEASON_1_FOREST_DESIGN.md), [2 Mountains](02-world/SEASON_2_MOUNTAINS_DESIGN.md), [3 Ocean](02-world/SEASON_3_OCEAN_DESIGN.md), [4 Island](02-world/SEASON_4_ISLAND_DESIGN.md).
 - [Weapons and combat](02-world/WEAPONS_AND_COMBAT.md).
+
+### Art source (outside docs/)
+- [Chapter One visual production brief](../art-source/chapter-one/VISUAL_PRODUCTION_BRIEF.md), [3D character modelling spec](../art-source/characters/3d-modeling/CHARACTER_MODELING_SPEC.md), [Blender workflow](../art-source/characters/3d-modeling/BLENDER_PRODUCTION_WORKFLOW.md) and reference OBJ models in `art-source/characters/3d-models/`.
 
 ### 03 Architecture (3D)
 - **[Technical architecture](03-architecture/TECHNICAL_ARCHITECTURE.md)** — stack, rendering, tiers, loop, spikes. *Read first.*

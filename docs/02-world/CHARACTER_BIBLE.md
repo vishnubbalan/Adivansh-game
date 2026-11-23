@@ -34,3 +34,14 @@ Every major character needs a silhouette, motivation, contradiction, capability,
 
 ## Character approval dossier
 Before final asset production, create for each character: approved name and pronunciation; age range (if relevant); origin and affiliations; biography; goal; fear; contradiction; relationships; dialogue samples; gameplay role; silhouette sheet; front/side/back turnaround; palette/material callouts; animation list; expression sheet; cultural review; asset provenance and licence status.
+
+
+## 3D character reference track
+
+A detailed pre-production 3D modeling handoff is maintained separately at:
+
+- [3D modeling reference pack](../../art-source/characters/3d-modeling/README.md)
+- [Character modeling specification](../../art-source/characters/3d-modeling/CHARACTER_MODELING_SPEC.md)
+- [Blender production workflow](../../art-source/characters/3d-modeling/BLENDER_PRODUCTION_WORKFLOW.md)
+
+This is a reference and future asset-production track only. The governing product remains a premium 2D Phaser game; no Three.js migration or MetaHuman dependency is approved by adding these documents. The 3D pack records unresolved continuity decisions, including the distinction between the Chapter 22 Forest Guardian and Chapter 25 Forest Sentinel, and the need to reconcile the sample Adivansh costume with the previously approved Seeker concept before final sculpt approval.
